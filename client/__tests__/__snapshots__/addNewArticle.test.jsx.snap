@@ -1,0 +1,3 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`add article component shows articles form 1`] = `"<form><div id=\\"back_link\\"><a href=\\"/profile\\">Tilbake</a></div><h1>Add new article</h1><div class=\\"form-input\\"><label><strong>Title:</strong> <input value=\\"\\"></label></div><div class=\\"form-input\\"><label><strong>Year:</strong> <input value=\\"\\"></label></div><div class=\\"form-input\\"><label><strong>Author:</strong> <input value=\\"\\"></label></div><div class=\\"form-input\\"><label><strong>Topic:</strong> <input value=\\"\\"></label></div><br><div><div><strong>Article text:</strong> </div><div><textarea></textarea></div></div><br><p>Title, topic and article text must be filled out!</p><div><button disabled=\\"\\">Save</button></div></form>"`;

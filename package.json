@@ -1,5 +1,5 @@
 {
-  "name": "learning-avatar",
+  "name": "pg6301-exam-marcuskristoffersen",
   "version": "1.0.0",
   "description": "",
   "main": "index.js",
@@ -25,17 +25,19 @@
     "prepare": "husky install"
   },
   "repository": {
-    "type": "git"
+    "type": "git",
+    "url": "git+https://github.com//kristiania-pg6301-2022/pgr6301-exam-marcuskristoffersen.git"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
+  "bugs": {
+    "url": "https://github.com//kristiania-pg6301-2022/pgr6301-exam-marcuskristoffersen/issues"
+  },
+  "homepage": "https://github.com//kristiania-pg6301-2022/pgr6301-exam-marcuskristoffersen#readme",
   "devDependencies": {
     "concurrently": "^7.0.0",
     "husky": "^7.0.4",
     "prettier": "^2.6.2"
-  },
-  "dependencies": {
-    "react-helmet": "^6.1.0"
   }
 }
