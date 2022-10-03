@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
+import CopyPaste from "../../CopyPaste";
 import TestScene from "../TestScene/TestScene";
 import "./Home.css";
 
@@ -25,7 +26,8 @@ const Home = () => {
           </ul>
         </div>
         <div className="right-container">
-          <TestScene />
+          {/* <TestScene /> */}
+          <CopyPaste />
         </div>
       </div>
     </>
