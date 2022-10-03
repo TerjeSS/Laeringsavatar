@@ -1,5 +1,6 @@
 import React from "react";
 import Navbar from "../../components/Navbar/Navbar";
+import TestScene from "../TestScene/TestScene";
 import "./Home.css";
 
 const Home = () => {
@@ -23,7 +24,9 @@ const Home = () => {
             </ul>
           </ul>
         </div>
-        <div className="right-container"></div>
+        <div className="right-container">
+          <TestScene />
+        </div>
       </div>
     </>
   );
