@@ -1,5 +1,6 @@
 import React, { useEffect } from "react";
 import * as THREE from "three";
+import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 
 const TestScene = () => {
   useEffect(() => {
@@ -31,7 +32,7 @@ const TestScene = () => {
     const cube = new THREE.Mesh(geometry, material);
 
     scene.add(cube);
-
+    let mixer;
     //Ground
     const mesh = new THREE.Mesh(
       new THREE.PlaneGeometry(100, 100),
@@ -41,6 +42,28 @@ const TestScene = () => {
     mesh.receiveShadow = true;
     scene.add(mesh);
     camera.position.z = 5;
+
+    const loader = new GLTFLoader();
+    // loader.setDRACOLoader(dracoLoader);
+    console.log("test2");
+    loader.load(
+      "./testFile.glb",
+      function (gltf) {
+        const model = gltf.scene;
+        model.position.set(1, 1, 1);
+        model.scale.set(1, 1, 1);
+        scene.add(model);
+
+        mixer = new THREE.AnimationMixer(model);
+        mixer.clipAction(gltf.animations[0]).play();
+
+        animate();
+      },
+      undefined,
+      function (e) {
+        console.error(e);
+      }
+    );
 
     window.onresize = function () {
       camera.aspect = window.innerWidth / window.innerHeight;

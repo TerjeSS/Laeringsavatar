@@ -8,6 +8,7 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { GridHelper } from "three";
 
 const CopyPaste = () => {
   useEffect(() => {
@@ -21,46 +22,81 @@ const CopyPaste = () => {
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.setSize(container.clientWidth, container.clientWidth);
     renderer.outputEncoding = THREE.sRGBEncoding;
     container.appendChild(renderer.domElement);
 
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0xbfe3dd);
+    const gridHelper = new THREE.GridHelper(25, 25);
+    scene.add(gridHelper);
+
+    //Ground
+    const mesh = new THREE.Mesh(
+      new THREE.PlaneGeometry(100, 100),
+      new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false })
+    );
+    mesh.rotation.x = -Math.PI / 2;
+    mesh.receiveShadow = false;
+    scene.add(mesh);
+
+    scene.background = new THREE.Color(0xa0a0a0);
     scene.environment = pmremGenerator.fromScene(
       new RoomEnvironment(),
-      0.04
+      0.1
     ).texture;
 
     const camera = new THREE.PerspectiveCamera(
-      40,
+      75,
       window.innerWidth / window.innerHeight,
       1,
-      100
+      1000
     );
-    camera.position.set(5, 2, 8);
+    camera.position.set(0.8, 3.8, 8);
+    // camera.position.setZ(11);
 
+    //Light
+    const hemiLight = new THREE.HemisphereLight(0x0a0a0a, 0xffffff);
+    hemiLight.position.set(2, 88, 2);
+    const hemihelper = new THREE.HemisphereLightHelper(hemiLight);
+    scene.add(hemiLight);
+    scene.add(hemihelper);
+
+    // const dirLight = new THREE.DirectionalLight(0xffffff);
+    // dirLight.position.set(3, 10, 10);
+    // dirLight.castShadow = true;
+    // dirLight.shadow.camera.top = 2;
+    // dirLight.shadow.camera.bottom = -2;
+    // dirLight.shadow.camera.left = -2;
+    // dirLight.shadow.camera.right = 2;
+    // dirLight.shadow.camera.near = 0.1;
+    // dirLight.shadow.camera.far = 40;
+    // scene.add(dirLight);
+
+    //Controls
     const controls = new OrbitControls(camera, renderer.domElement);
     controls.target.set(0, 0.5, 0);
     controls.update();
     controls.enablePan = false;
     controls.enableDamping = true;
-    console.log("test1");
-    // const dracoLoader = new DRACOLoader();
-    // dracoLoader.setDecoderPath("js/libs/draco/gltf/");
 
+    //Loaders
+    const dracoLoader = new DRACOLoader();
+    dracoLoader.setDecoderPath("js/libs/draco/gltf/");
     const loader = new GLTFLoader();
-    // loader.setDRACOLoader(dracoLoader);
-    console.log("test2");
+    loader.setDRACOLoader(dracoLoader);
     loader.load(
       "./testFile.glb",
       function (gltf) {
         const model = gltf.scene;
-        model.position.set(1, 1, 0);
-        model.scale.set(1, 1, 1);
+        model.position.set(0, 0, 0);
+        model.scale.set(2.5, 2.5, 2.5);
         scene.add(model);
+        model.mesh = true;
+        model.traverse(function (object) {
+          if (object.isMesh) object.castShadow = true;
+        });
 
         mixer = new THREE.AnimationMixer(model);
         mixer.clipAction(gltf.animations[0]).play();
@@ -72,15 +108,16 @@ const CopyPaste = () => {
         console.error(e);
       }
     );
-    console.log("test3");
 
+    //Window resize function
     window.onresize = function () {
-      camera.aspect = window.innerWidth / window.innerHeight;
+      camera.aspect = container.clientWidth / container.clientHeight;
       camera.updateProjectionMatrix();
 
-      renderer.setSize(window.innerWidth, window.innerHeight);
+      renderer.setSize(container.clientWidth / container.clientHeight);
     };
-    console.log("test4");
+
+    //Recursive animate-function
     function animate() {
       requestAnimationFrame(animate);
 

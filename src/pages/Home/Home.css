@@ -7,6 +7,7 @@
     background-color: aliceblue;
 }
 .right-container{
+    max-height: 95vh;
     flex: 9;
 }
 ul{
@@ -18,4 +19,7 @@ ul{
 }
 ul li{
     text-decoration: underline;
+}
+canvas{
+    max-height: 95vh;
 }
