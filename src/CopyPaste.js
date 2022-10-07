@@ -41,6 +41,7 @@ const CopyPaste = () => {
     mesh.receiveShadow = false;
     scene.add(mesh);
 
+    //Background and environment
     scene.background = new THREE.Color(0xa0a0a0);
     scene.environment = pmremGenerator.fromScene(
       new RoomEnvironment(),
@@ -57,22 +58,25 @@ const CopyPaste = () => {
     // camera.position.setZ(11);
 
     //Light
-    const hemiLight = new THREE.HemisphereLight(0x0a0a0a, 0xffffff);
-    hemiLight.position.set(2, 88, 2);
-    const hemihelper = new THREE.HemisphereLightHelper(hemiLight);
-    scene.add(hemiLight);
-    scene.add(hemihelper);
+    // const hemiLight = new THREE.HemisphereLight(0x0a0a0a, 0xffffff);
+    // hemiLight.position.set(2, 10, 2);
+    // const hemihelper = new THREE.HemisphereLightHelper(hemiLight);
+    // scene.add(hemiLight);
+    // scene.add(hemihelper);
 
-    // const dirLight = new THREE.DirectionalLight(0xffffff);
-    // dirLight.position.set(3, 10, 10);
-    // dirLight.castShadow = true;
-    // dirLight.shadow.camera.top = 2;
-    // dirLight.shadow.camera.bottom = -2;
-    // dirLight.shadow.camera.left = -2;
-    // dirLight.shadow.camera.right = 2;
-    // dirLight.shadow.camera.near = 0.1;
-    // dirLight.shadow.camera.far = 40;
-    // scene.add(dirLight);
+    const dirLight = new THREE.DirectionalLight(0xffffff);
+    const dirLightHelper = new THREE.DirectionalLightHelper(dirLight);
+
+    scene.add(dirLightHelper);
+    dirLight.position.set(3, 10, 10);
+    dirLight.castShadow = true;
+    dirLight.shadow.camera.top = 2;
+    dirLight.shadow.camera.bottom = -2;
+    dirLight.shadow.camera.left = -2;
+    dirLight.shadow.camera.right = 2;
+    dirLight.shadow.camera.near = 0.1;
+    dirLight.shadow.camera.far = 40;
+    scene.add(dirLight);
 
     //Controls
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -99,6 +103,8 @@ const CopyPaste = () => {
         });
 
         mixer = new THREE.AnimationMixer(model);
+
+        //Starts the animation
         mixer.clipAction(gltf.animations[0]).play();
 
         animate();
