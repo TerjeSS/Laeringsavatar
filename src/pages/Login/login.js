@@ -39,11 +39,13 @@ const Login = () => {
 
   //Login function
   const loginWithEmail = async () => {
-    const res = await signInWithEmailAndPassword(auth, username, password);
-
-    console.log(res);
-    if (res.user.accessToken) {
+    try {
+      const res = await signInWithEmailAndPassword(auth, username, password);
+      console.log(res);
       navigate("/home");
+    } catch (error) {
+      console.log(error);
+      alert(error);
     }
   };
 

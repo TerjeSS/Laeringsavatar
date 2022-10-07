@@ -7,7 +7,7 @@ import "./Home.css";
 const Home = () => {
   return (
     <>
-      <Navbar />
+      {/* <Navbar /> */}
       <div className="home-container">
         <div className="left-menu-container">
           <ul className="list-container">
