@@ -9,6 +9,7 @@ import {
   connectAuthEmulator,
   createUserWithEmailAndPassword,
 } from "firebase/auth";
+import LogInForm from "../../components/Login/LogInForm";
 //Firebase
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -64,6 +65,16 @@ const Login = () => {
         </div>
       </div>
       <div className="login-right-container">
+        {/* <LogInForm
+          props={
+            (username,
+            setUsername,
+            password,
+            setPassword,
+            setCreateUser,
+            loginWithEmail)
+          }
+        /> */}
         {!createUser ? (
           <>
             <h2>Logg inn</h2>

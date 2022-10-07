@@ -32,29 +32,58 @@ const CopyPaste = () => {
     const gridHelper = new THREE.GridHelper(25, 25);
     scene.add(gridHelper);
 
+    //Walls
+    const geometry = new THREE.PlaneGeometry(35, 11);
+    const material = new THREE.MeshBasicMaterial({
+      color: 0xb8b4ab,
+      side: THREE.DoubleSide,
+    });
+    const plane = new THREE.Mesh(geometry, material);
+    scene.add(plane);
+    plane.position.set(1, 1, 10);
+
+    //Wwall nr 2
+    const geometry2 = new THREE.PlaneGeometry(30, 11);
+    const material2 = new THREE.MeshBasicMaterial({
+      color: 0xb8bffa,
+      side: THREE.DoubleSide,
+    });
+    const plane2 = new THREE.Mesh(geometry2, material2);
+    scene.add(plane2);
+    plane2.position.set(15, 1, 1);
+    plane2.rotateY(1.5707);
+
+    //Wall nr 3
+    const geometry3 = new THREE.PlaneGeometry(30, 11);
+    const plane3 = new THREE.Mesh(geometry3, material2);
+    scene.add(plane3);
+    plane3.position.set(-15, 1, 1);
+    plane3.rotateY(1.5707);
+
     //Ground
     const mesh = new THREE.Mesh(
-      new THREE.PlaneGeometry(100, 100),
-      new THREE.MeshPhongMaterial({ color: 0x999999, depthWrite: false })
+      new THREE.PlaneGeometry(30, 30),
+      new THREE.MeshPhongMaterial({ color: 0x7d7b7a, depthWrite: false })
     );
     mesh.rotation.x = -Math.PI / 2;
     mesh.receiveShadow = false;
     scene.add(mesh);
 
     //Background and environment
-    scene.background = new THREE.Color(0xa0a0a0);
+    scene.background = new THREE.Color(0x8ba3c9);
     scene.environment = pmremGenerator.fromScene(
       new RoomEnvironment(),
       0.1
     ).texture;
 
+    //Camera
     const camera = new THREE.PerspectiveCamera(
       75,
       window.innerWidth / window.innerHeight,
       1,
       1000
     );
-    camera.position.set(0.8, 3.8, 8);
+    camera.position.set(9.1, 24.5, -19);
     // camera.position.setZ(11);
 
     //Light
@@ -66,9 +95,9 @@ const CopyPaste = () => {
 
     const dirLight = new THREE.DirectionalLight(0xffffff);
     const dirLightHelper = new THREE.DirectionalLightHelper(dirLight);
-
     scene.add(dirLightHelper);
-    dirLight.position.set(3, 10, 10);
+
+    dirLight.position.set(3, 30, -10);
     dirLight.castShadow = true;
     dirLight.shadow.camera.top = 2;
     dirLight.shadow.camera.bottom = -2;
@@ -134,6 +163,7 @@ const CopyPaste = () => {
       controls.update();
 
       stats.update();
+      console.log(camera.position);
 
       renderer.render(scene, camera);
     }
