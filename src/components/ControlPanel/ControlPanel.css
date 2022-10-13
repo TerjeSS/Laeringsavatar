@@ -1,0 +1,13 @@
+.control-panel-container{
+    background-color: purple;
+    position: absolute;
+    left: 45%;
+    display: flex;
+    justify-content: space-around;
+    width: auto;
+}
+.control-panel-container button{
+    margin: 1rem;
+    height: 2rem;
+    width: 4rem;
+}

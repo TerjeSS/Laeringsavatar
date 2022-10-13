@@ -73,13 +73,12 @@
     align-items: center;
     justify-content: space-evenly;
 }
-.google-button img{
-
-}
 
 .register-link{
     text-decoration: underline;
     margin-top: 1rem;
     cursor: pointer;
 }   
-
+iframe{
+    
+}

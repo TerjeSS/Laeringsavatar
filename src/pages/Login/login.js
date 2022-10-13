@@ -10,6 +10,7 @@ import {
   createUserWithEmailAndPassword,
 } from "firebase/auth";
 import LogInForm from "../../components/Login/LogInForm";
+import Register from "../../components/Register/RegisterForm";
 //Firebase
 // Your web app's Firebase configuration
 const firebaseConfig = {
@@ -26,15 +27,19 @@ const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 // connectAuthEmulator(auth, "http://localhost:9099");
 
+function lert() {
+  alert();
+}
 const Login = () => {
   //States
 
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-  const [createUser, setCreateUser] = useState(false);
+  const [showCreateUser, setShowCreateUser] = useState(false);
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
+  const [error, setError] = useState("");
 
   const navigate = useNavigate();
 
@@ -45,15 +50,14 @@ const Login = () => {
       console.log(res);
       navigate("/home");
     } catch (error) {
-      console.log(error);
-      alert(error);
+      console.log({ error });
+      setError(error);
     }
   };
 
   const createUserWithEmail = () => {
     createUserWithEmailAndPassword(auth, email, password);
   };
-
   return (
     <div className="login-container">
       <div className="login-left-container">
@@ -65,132 +69,27 @@ const Login = () => {
         </div>
       </div>
       <div className="login-right-container">
-        {/* <LogInForm
-          props={
-            (username,
-            setUsername,
-            password,
-            setPassword,
-            setCreateUser,
-            loginWithEmail)
-          }
-        /> */}
-        {!createUser ? (
-          <>
-            <h2>Logg inn</h2>
-            <div className="input-container">
-              <label>Brukernavn</label>
-              <input
-                placeholder="ola@normann.no"
-                value={username}
-                type="text"
-                onChange={(e) => {
-                  setUsername(e.target.value);
-                  console.log(username);
-                }}
-              />
-            </div>
-            <div className="input-container">
-              <label>Passord</label>
-              <input
-                placeholder="Password"
-                type="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </div>
-            <div className="login-button-container">
-              <button onClick={loginWithEmail} className="login-button">
-                Logg inn
-              </button>
-            </div>
-            <div>
-              <b>eller</b>
-            </div>
-            <div className="google-button-container">
-              <div className="google-button">
-                <div>
-                  <img
-                    src="/img/googleIcon.png"
-                    alt="google icon"
-                    height="30 px"
-                  />
-                </div>
-                <div>Logg inn med Google</div>
-              </div>
-            </div>
-
-            <div
-              className="register-link"
-              onClick={() => {
-                setCreateUser(true);
-              }}
-            >
-              Har du ikke bruker? Registrer deg her
-            </div>
-          </>
+        {!showCreateUser ? (
+          <LogInForm
+            lert={lert}
+            userName={username}
+            setUsername={setUsername}
+            password={password}
+            setPassword={setPassword}
+            loginWithEmail={loginWithEmail}
+            setShowCreateUser={setShowCreateUser}
+            error={error}
+          ></LogInForm>
         ) : (
           <>
-            <h2>Opprett bruker</h2>
-            <div className="input-container">
-              <label>Fornavn</label>
-              <input
-                placeholder="Ola"
-                value={firstName}
-                type="text"
-                onChange={(e) => {
-                  setFirstName(e.target.value);
-                }}
-              />
-            </div>
-            <div className="input-container">
-              <label>Etternavn</label>
-              <input
-                placeholder="Normann"
-                type="text"
-                value={lastName}
-                onChange={(e) => {
-                  setLastName(e.target.value);
-                }}
-              />
-            </div>
-            <div className="input-container">
-              <label>E-post</label>
-              <input
-                placeholder="ola@normann.no"
-                type="text"
-                value={email}
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
-              />
-            </div>
-            <div className="input-container">
-              <label>Passord</label>
-              <input
-                placeholder="******"
-                type="password"
-                value={password}
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
-              />
-            </div>
-            <div className="login-button-container">
-              <button onClick={createUserWithEmail} className="login-button">
-                Opprett
-              </button>
-            </div>
-            <div
-              className="register-link"
-              onClick={() => {
-                setCreateUser(false);
-              }}
-            >
-              Har du allerede bruker? Logg inn her
-            </div>
+            <Register
+              setFirstName={setFirstName}
+              setLastName={setLastName}
+              setPassword={setPassword}
+              setEmail={setEmail}
+              createUserWithEmail={createUserWithEmail}
+              setShowCreateUser={setShowCreateUser}
+            />
           </>
         )}
       </div>

@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 
 const LogInForm = (props) => {
   const {
@@ -6,9 +6,12 @@ const LogInForm = (props) => {
     setUsername,
     password,
     setPassword,
-    setCreateUser,
+    setShowCreateUser,
     loginWithEmail,
+    lert,
+    error,
   } = props;
+
   return (
     <>
       <h2>Logg inn</h2>
@@ -35,6 +38,7 @@ const LogInForm = (props) => {
           }}
         />
       </div>
+      {error && <div>{error.toString()}</div>}
       <div className="login-button-container">
         <button onClick={loginWithEmail} className="login-button">
           Logg inn
@@ -43,7 +47,7 @@ const LogInForm = (props) => {
       <div>
         <b>eller</b>
       </div>
-      <div className="google-button-container">
+      <div className="google-button-container" onClick={() => lert()}>
         <div className="google-button">
           <div>
             <img src="/img/googleIcon.png" alt="google icon" height="30 px" />
@@ -55,7 +59,7 @@ const LogInForm = (props) => {
       <div
         className="register-link"
         onClick={() => {
-          setCreateUser(true);
+          setShowCreateUser(true);
         }}
       >
         Har du ikke bruker? Registrer deg her

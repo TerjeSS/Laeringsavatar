@@ -9,16 +9,24 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { GridHelper } from "three";
+import ControlPanel from "./components/ControlPanel/ControlPanel";
 
 const CopyPaste = () => {
+  let animationPaused = false;
+  const pauseAnimation = () => {
+    animationPaused = !animationPaused;
+  };
+  const resumeAnimation = () => {
+    // animate();
+  };
   useEffect(() => {
     let mixer;
 
     const clock = new THREE.Clock();
     const container = document.querySelector(".right-container");
 
-    const stats = new Stats();
-    container.appendChild(stats.dom);
+    // const stats = new Stats();
+    // container.appendChild(stats.dom);
 
     const renderer = new THREE.WebGLRenderer({ antialias: true });
     renderer.setPixelRatio(window.devicePixelRatio);
@@ -33,9 +41,10 @@ const CopyPaste = () => {
     scene.add(gridHelper);
 
     //Walls
-    const geometry = new THREE.PlaneGeometry(35, 11);
+
+    const geometry = new THREE.PlaneGeometry(35, 25);
     const material = new THREE.MeshBasicMaterial({
-      color: 0xb8b4ab,
+      color: 0xb8bff1,
       side: THREE.DoubleSide,
     });
     const plane = new THREE.Mesh(geometry, material);
@@ -43,9 +52,9 @@ const CopyPaste = () => {
     plane.position.set(1, 1, 10);
 
     //Wwall nr 2
-    const geometry2 = new THREE.PlaneGeometry(30, 11);
+    const geometry2 = new THREE.PlaneGeometry(30, 25);
     const material2 = new THREE.MeshBasicMaterial({
-      color: 0xb8bffa,
+      color: 0xb8b4ab,
       side: THREE.DoubleSide,
     });
     const plane2 = new THREE.Mesh(geometry2, material2);
@@ -54,7 +63,7 @@ const CopyPaste = () => {
     plane2.rotateY(1.5707);
 
     //Wall nr 3
-    const geometry3 = new THREE.PlaneGeometry(30, 11);
+    const geometry3 = new THREE.PlaneGeometry(30, 25);
     const plane3 = new THREE.Mesh(geometry3, material2);
     scene.add(plane3);
     plane3.position.set(-15, 1, 1);
@@ -66,11 +75,11 @@ const CopyPaste = () => {
       new THREE.MeshPhongMaterial({ color: 0x7d7b7a, depthWrite: false })
     );
     mesh.rotation.x = -Math.PI / 2;
-    mesh.receiveShadow = false;
+    mesh.receiveShadow = true;
     scene.add(mesh);
 
-    //Background and environment
-    scene.background = new THREE.Color(0x8ba3c9);
+    // Background and environment
+    scene.background = new THREE.Color(0x87ceeb);
     scene.environment = pmremGenerator.fromScene(
       new RoomEnvironment(),
       0.1
@@ -83,21 +92,22 @@ const CopyPaste = () => {
       1,
       1000
     );
-    camera.position.set(9.1, 24.5, -19);
+    camera.position.set(1, 1, -9);
     // camera.position.setZ(11);
 
     //Light
-    // const hemiLight = new THREE.HemisphereLight(0x0a0a0a, 0xffffff);
-    // hemiLight.position.set(2, 10, 2);
-    // const hemihelper = new THREE.HemisphereLightHelper(hemiLight);
-    // scene.add(hemiLight);
-    // scene.add(hemihelper);
+
+    const hemiLight = new THREE.HemisphereLight(0x0a0a0a, 0xffffff);
+    hemiLight.position.set(2, 10, 2);
+    const hemihelper = new THREE.HemisphereLightHelper(hemiLight);
+    scene.add(hemiLight);
+    scene.add(hemihelper);
 
     const dirLight = new THREE.DirectionalLight(0xffffff);
     const dirLightHelper = new THREE.DirectionalLightHelper(dirLight);
     scene.add(dirLightHelper);
 
-    dirLight.position.set(3, 30, -10);
+    dirLight.position.set(3, 4, -1);
     dirLight.castShadow = true;
     dirLight.shadow.camera.top = 2;
     dirLight.shadow.camera.bottom = -2;
@@ -120,13 +130,14 @@ const CopyPaste = () => {
     const loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
     loader.load(
-      "./testFile.glb",
+      "./P1_Roll_Down.glb",
       function (gltf) {
         const model = gltf.scene;
         model.position.set(0, 0, 0);
         model.scale.set(2.5, 2.5, 2.5);
         scene.add(model);
         model.mesh = true;
+        mesh.shadow = true;
         model.traverse(function (object) {
           if (object.isMesh) object.castShadow = true;
         });
@@ -154,6 +165,9 @@ const CopyPaste = () => {
 
     //Recursive animate-function
     function animate() {
+      if (animationPaused) {
+        return;
+      }
       requestAnimationFrame(animate);
 
       const delta = clock.getDelta();
@@ -162,13 +176,20 @@ const CopyPaste = () => {
 
       controls.update();
 
-      stats.update();
-      console.log(camera.position);
+      // stats.update();
+      // console.log(camera.position);
 
       renderer.render(scene, camera);
     }
   }, []);
-  return <></>;
+  return (
+    <>
+      <ControlPanel
+        pauseAnimation={pauseAnimation}
+        resumeAnimation={resumeAnimation}
+      />
+    </>
+  );
 };
 
 export default CopyPaste;

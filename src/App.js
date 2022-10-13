@@ -3,6 +3,7 @@ import Login from "./pages/Login/login";
 // import Navbar from "./components/Navbar/Navbar";
 import Home from "./pages/Home/Home";
 import Navbar from "./components/Navbar/Navbar";
+import Embedded from "./pages/Embedded";
 
 function LayoutComponent(props) {
   return (
@@ -19,6 +20,7 @@ function App() {
       {/* <Navbar /> */}
       <Routes>
         <Route path="/" element={<Login />} />
+        <Route path="/embedded" element={<Embedded />} />
         <Route
           path="/home"
           element={<LayoutComponent mainContent={<Home />} />}
