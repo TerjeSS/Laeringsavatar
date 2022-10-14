@@ -31,7 +31,8 @@ function LayoutComponent(props) {
             </ul>
           </ul>
         </div>
-        <div className="right-container">{props.mainContent}</div>
+        <div className="right-container"></div>
+        <canvas className="canvas">{props.mainContent}</canvas>
       </div>
     </>
   );
@@ -56,8 +57,8 @@ function App() {
   );
 }
 
-const helperContainer = ({ mainContent }) => {
-  return <div className="right-container">{mainContent}</div>;
+const HelperContainer = ({ mainContent }) => {
+  return <div className="canvas">{mainContent}</div>;
 };
 
 export default App;

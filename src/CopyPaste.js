@@ -23,7 +23,7 @@ const CopyPaste = () => {
   let mixer;
 
   const clock = new THREE.Clock();
-  const container = document.querySelector(".right-container");
+  const container = document.querySelector(".canvas");
   console.log("container er - " + container);
   if (container === undefined || container === null) {
     window.location.href = "./home";
@@ -32,13 +32,16 @@ const CopyPaste = () => {
   // const stats = new Stats();
   // container.appendChild(stats.dom);
 
-  const renderer = new THREE.WebGLRenderer({ antialias: true });
+  const renderer = new THREE.WebGLRenderer({
+    canvas: container,
+    antialias: true,
+  });
   renderer.setPixelRatio(window.devicePixelRatio);
   renderer.setSize(window.innerHeight, window.innerHeight);
   renderer.outputEncoding = THREE.sRGBEncoding;
 
   console.log("how many");
-  container.appendChild(renderer.domElement);
+  // container.appendChild(renderer.domElement);
   const pmremGenerator = new THREE.PMREMGenerator(renderer);
 
   const scene = new THREE.Scene();
