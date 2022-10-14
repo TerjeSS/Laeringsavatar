@@ -1,12 +1,4 @@
-import { React, useState } from "react";
-import { Link, NavLink } from "react-router-dom";
-import Navbar from "../../components/Navbar/Navbar";
-import CopyPaste from "../../CopyPaste";
-import Embedded from "../Embedded/Embedded";
-import "./Home.css";
-
-const Home = () => {
-  return (
+return (
     <>
       <div className="home-container">
         <div className="left-menu-container">
@@ -15,10 +7,10 @@ const Home = () => {
               <Link to={"/home"}>Home</Link>
             </li>
             <li>
-              <Link to={"/Embedded"}>Embedded test</Link>
+              <Link to={"/embedded"}>Lærerstudenter</Link>
             </li>
             <ul>
-              <li>Avatars</li>
+              <Link to={"/animation"}>Avatars</Link>
               <li>Motion Cap</li>
               <li>Add file</li>
             </ul>
@@ -26,14 +18,12 @@ const Home = () => {
             <ul>
               <li>Edit profile</li>
               <li>Log out</li>
-              <button>Show animation</button>
             </ul>
           </ul>
         </div>
-        <div className="right-container"></div>
+        <div className="right-container">
+          <canvas className="canvas">{mainContent}</canvas>
+        </div>
       </div>
     </>
   );
-};
-
-export default Home;
