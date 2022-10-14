@@ -11,7 +11,6 @@ function Wrapper(props) {
   return <canvas className="canvas">{props.content}</canvas>;
 }
 function LayoutComponent({ showCanvas, mainContent }) {
-  console.log(showCanvas);
   if (!showCanvas) {
     return (
       <>
@@ -21,21 +20,26 @@ function LayoutComponent({ showCanvas, mainContent }) {
               <li>
                 <Link to={"/home"}>Home</Link>
               </li>
+            </ul>
+            <ul>
               <li>
-                <Link to={"/embedded"}>Lærerstudenter</Link>
+                <Link to={"/embedded"}>Lærerstudenter demo</Link>
               </li>
-              <li>
-                <Link to={"/Embedded"}>Embedded test</Link>
-              </li>
+              <li>"Dansestudio"</li>
               <ul>
-                <Link to={"/animation"}>Avatars</Link>
-                <li>Motion Cap</li>
-                <li>Add file</li>
+                <li>
+                  <Link to={"/animation"}>"Gymsal"</Link>
+                </li>
+                <li>
+                  <Link to={"/animation"}>"Gymsal"</Link>
+                </li>
               </ul>
-              <li>Profile</li>
+              <li>Add file</li>
+
               <ul>
+                <li>Profile</li>
                 <li>Edit profile</li>
-                <li>Log outDETTE ER EN TEST</li>
+                <li>Log out</li>
               </ul>
             </ul>
           </div>
@@ -52,16 +56,24 @@ function LayoutComponent({ showCanvas, mainContent }) {
             <li>
               <Link to={"/home"}>Home</Link>
             </li>
+          </ul>
+          <ul>
             <li>
-              <Link to={"/embedded"}>Lærerstudenter</Link>
+              <Link to={"/embedded"}>Lærerstudenter demo</Link>
             </li>
+            <li>"Dansestudio"</li>
             <ul>
-              <Link to={"/animation"}>Avatars</Link>
-              <li>Motion Cap</li>
-              <li>Add file</li>
+              <li>
+                <Link to={"/animation"}>"Gymsal"</Link>
+              </li>
+              <li>
+                <Link to={"/animation"}>"Gymsal"</Link>
+              </li>
             </ul>
-            <li>Profile</li>
+            <li>Add file</li>
+
             <ul>
+              <li>Profile</li>
               <li>Edit profile</li>
               <li>Log out</li>
             </ul>
@@ -77,7 +89,6 @@ function LayoutComponent({ showCanvas, mainContent }) {
 
 function App() {
   const [showCanvas, setShowCanvas] = useState(true);
-  console.log("rett under app - " + showCanvas);
   return (
     <>
       <Routes>

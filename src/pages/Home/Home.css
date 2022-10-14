@@ -17,5 +17,10 @@ ul{
 }
 ul li{
     text-decoration: underline;
+    margin-bottom: 1rem;
+}
+.control-panel{
+    z-index: 1000;
+    color: #133b5f
 }
 
