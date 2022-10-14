@@ -1,4 +1,4 @@
-import React from "react";
+import { React, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import Navbar from "../../components/Navbar/Navbar";
 import CopyPaste from "../../CopyPaste";
@@ -8,7 +8,6 @@ import "./Home.css";
 const Home = () => {
   return (
     <>
-      {/* <Navbar /> */}
       <div className="home-container">
         <div className="left-menu-container">
           <ul className="list-container">
@@ -27,13 +26,11 @@ const Home = () => {
             <ul>
               <li>Edit profile</li>
               <li>Log out</li>
+              <button>Show animation</button>
             </ul>
           </ul>
         </div>
-        <div className="right-container">
-          {/* <TestScene /> */}
-          <CopyPaste />
-        </div>
+        <div className="right-container"></div>
       </div>
     </>
   );
