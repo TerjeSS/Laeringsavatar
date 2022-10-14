@@ -1,14 +1,13 @@
 .home-container{
-    height: 95vh;
     display: flex;
 }
 .left-menu-container{
-    width: 20vw;
+    max-width: 15vw;
+    min-width: 15vw;
     background-color: aliceblue;
 }
 .right-container{
-    width: 80vw;
-    height: 100vh;
+    min-width: 85vw;
 }
 ul{
     list-style: none;
