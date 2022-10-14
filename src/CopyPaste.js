@@ -39,7 +39,7 @@ const CopyPaste = () => {
       antialias: true,
     });
     renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerHeight, window.innerHeight);
+    renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.outputEncoding = THREE.sRGBEncoding;
 
     console.log("how many");
@@ -167,10 +167,10 @@ const CopyPaste = () => {
 
     // Window resize function
     window.onresize = function () {
-      camera.aspect = container.clientWidth / container.clientHeight;
+      camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
 
-      renderer.setSize(container.clientWidth / container.clientHeight);
+      renderer.setSize(window.innerWidth / window.innerHeight);
     };
 
     //Recursive animate-function
