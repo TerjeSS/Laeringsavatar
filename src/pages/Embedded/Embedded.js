@@ -16,7 +16,6 @@ const Embedded = () => {
             width="100%"
             allowFullScreen
             title="P1_Roll_Down0001_max.glb"
-            name="P1_Roll_Down0001_max.glb"
           ></iframe>
         </div>
         <div>
