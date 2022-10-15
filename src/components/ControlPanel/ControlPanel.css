@@ -5,6 +5,8 @@
     display: flex;
     justify-content: space-around;
     width: auto;
+    z-index: 500 !important;
+    top: -50;
 }
 .control-panel-container button{
     margin: 1rem;

@@ -5,6 +5,7 @@
     max-width: 15vw;
     min-width: 15vw;
     background-color: aliceblue;
+    min-height: 100vh;
 }
 .right-container{
     min-width: 85vw;
@@ -14,9 +15,9 @@ ul{
     font-size: 1.5rem;
     padding: 0.5rem;
     margin: 0.5rem;
+    margin-top: 3rem;
 }
 ul li{
-    text-decoration: underline;
     margin-bottom: 1rem;
 }
 .control-panel{
