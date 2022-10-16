@@ -19,10 +19,10 @@ const SideNavBar = () => {
           <li>"Dansestudio"</li>
           <ul className="studio-links">
             <li>
-              <Link to={"/animation"}>P1_Roll_Down</Link>
+              <Link to={"/animation1"}>P1_Roll_Down</Link>
             </li>
             <li>
-              <Link to={"/animation"}>P2_JorD</Link>
+              <Link to={"/animation2"}>P2_JorD</Link>
             </li>
           </ul>
         </ul>

@@ -6,6 +6,7 @@ import "./Home.css";
 import CopyPaste from "./CopyPaste";
 import { React, useState } from "react";
 import SideNavBar from "./components/Sidebar";
+import Animation2 from "./Animation2";
 
 const MainContent = (props) => {
   const { showCanvas } = props;
@@ -45,15 +46,28 @@ function App() {
           path="/home"
           element={
             <LayoutComponent
-              mainContent={<h2>Velkommen til 3D visualisering</h2>}
+              mainContent={
+                <div>
+                  <h1>Velkommen til 3D visualisering prototype</h1>
+                </div>
+              }
             />
           }
         />
         <Route
-          path="/animation"
+          path="/animation1"
           element={
             <LayoutComponent
               mainContent={<CopyPaste />}
+              showCanvas={showCanvas}
+            />
+          }
+        />
+        <Route
+          path="/animation2"
+          element={
+            <LayoutComponent
+              mainContent={<Animation2 />}
               showCanvas={showCanvas}
             />
           }

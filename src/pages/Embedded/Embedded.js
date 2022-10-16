@@ -6,7 +6,10 @@ const Embedded = () => {
     <>
       <div className="embedded-container">
         <h3>Visning av to testfiler for å vise embedded version </h3>
-        <h4>NB! KREVER LOGIN</h4>
+        <h4>
+          NB! KREVER LOGIN - OG KAN VÆRE DET BARE FUNKER FOR KRISTIANIA
+          STUDENTER
+        </h4>
         <div>
           <iframe
             src="https://egms-my.sharepoint.com/personal/heli011_egms_no/_layouts/15/embed.aspx?UniqueId=c47c0f8a-3308-47ce-8a5f-a313a684ebeb"
