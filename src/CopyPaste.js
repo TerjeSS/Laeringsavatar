@@ -14,6 +14,7 @@ import ControlPanel from "./components/ControlPanel/ControlPanel";
 const CopyPaste = () => {
   let animationPaused = false;
   let resumeAnimate = null;
+  let animate = null;
   let pauseAnimate = null;
 
   function createScene() {
@@ -172,41 +173,40 @@ const CopyPaste = () => {
       const delta = clock.getDelta();
       mixer.update(delta);
 
-      // mixer.update((delta *= 0.5));
-
       controls.update();
-
-      // console.log(camera.position);
 
       renderer.render(scene, camera);
     }
-    function pauseAnimate() {
-      alert("paused");
-    }
+    // function pauseAnimate() {
+    //   alert("paused");
+    // }
 
-    document.querySelector(".pause-button").addEventListener("click", () => {
-      mixer.paused();
-    });
-    document
-      .querySelector(".resume-button")
-      .addEventListener("click", () => {});
+    // document.querySelector(".pause-button").addEventListener("click", () => {
+    //   mixer.paused();
+    // });
+    // document
+    //   .querySelector(".resume-button")
+    //   .addEventListener("click", () => {});
 
-    return { animate, pauseAnimate };
+    return animate;
   }
   setTimeout(() => {
-    const { resumeAnimateReturn, pauseAnimateReturn = pauseAnimate } =
-      createScene();
-    resumeAnimate = resumeAnimateReturn;
-    pauseAnimate = pauseAnimateReturn;
+    const resumeAnimateReturn = createScene();
+    animate = resumeAnimateReturn;
+    // pauseAnimate = pauseAnimateReturn;
   }, 10);
+
   const pauseAnimation = () => {
-    // animationPaused = !animationPaused;
-    pauseAnimate();
+    animationPaused = !animationPaused;
+    // pauseAnimate();
   };
+
   const resumeAnimation = () => {
     animationPaused = false;
-    resumeAnimate();
+    // resumeAnimate();
+    animate();
   };
+
   return (
     <>
       <ControlPanel

@@ -1,4 +1,4 @@
-import { Routes, Route, Link, NavLink } from "react-router-dom";
+import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/login";
 // import Navbar from "./components/Navbar/Navbar";
 import Embedded from "./pages/Embedded/Embedded";
@@ -7,12 +7,8 @@ import CopyPaste from "./CopyPaste";
 import { React, useState } from "react";
 import SideNavBar from "./components/Sidebar";
 
-function Wrapper(props) {
-  return <div>{props.mainContent}</div>;
-}
-
 const MainContent = (props) => {
-  const { mainContent, showCanvas } = props;
+  const { showCanvas } = props;
   if (!showCanvas) {
     return <div className="right-container">{props.mainContent}</div>;
   }
