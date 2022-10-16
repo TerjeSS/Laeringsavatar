@@ -122,9 +122,7 @@ const CopyPaste = () => {
       1,
       1000
     );
-    camera.position.set(0, 1, -5);
-    camera.lookAt(15, 0, 0);
-    // camera.position.setZ(11);
+    camera.position.set(0, 2, -4);
 
     //Controls
     const controls = new OrbitControls(camera, renderer.domElement);
@@ -199,6 +197,7 @@ const CopyPaste = () => {
         pauseAnimation={pauseAnimation}
         resumeAnimation={resumeAnimation}
       />
+      <canvas className="canvas"></canvas>
     </>
   );
 };

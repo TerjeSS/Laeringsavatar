@@ -9,6 +9,10 @@
 }
 .right-container{
     min-width: 85vw;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
 }
 ul{
     list-style: none;
@@ -30,6 +34,8 @@ list-style-type: disc;
 margin-left: 1rem;
 }
 
-canvas{
-    max-width: 100%;
+.canvas{
+    width: 90% !important;
+    height: 90% !important;
+    border: 1px solid black;
 }

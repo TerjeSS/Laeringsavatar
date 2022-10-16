@@ -8,7 +8,7 @@ import { React, useState } from "react";
 import SideNavBar from "./components/Sidebar";
 
 function Wrapper(props) {
-  return <canvas className="canvas">{props.mainContent}</canvas>;
+  return <div>{props.mainContent}</div>;
 }
 
 const MainContent = (props) => {
@@ -17,9 +17,10 @@ const MainContent = (props) => {
     return <div className="right-container">{props.mainContent}</div>;
   }
   return (
-    <div className="right-container">
-      <Wrapper mainContent={mainContent} />
-    </div>
+    //   <div className="right-container">
+    //     <Wrapper mainContent={mainContent} />
+    //   </div>
+    <div className="right-container">{props.mainContent}</div>
   );
 };
 
