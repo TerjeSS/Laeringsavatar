@@ -3,9 +3,11 @@ import "./ControlPanel.css";
 const ControlPanel = ({ pauseAnimation, resumeAnimation }) => {
   return (
     <div className="control-panel-container">
-      <button onClick={pauseAnimation}>Pause</button>
-      <button onClick={resumeAnimation}>Play</button>
-      <button>Reset</button>
+      <button className="pause-button">Pause</button>
+      <button className="resume-button">Play</button>
+      <button className="reset-button" disabled>
+        Reset
+      </button>
     </div>
   );
 };

@@ -8,25 +8,19 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
-import { GridHelper } from "three";
+import { AnimationAction, AnimationMixer, GridHelper } from "three";
 import ControlPanel from "./components/ControlPanel/ControlPanel";
 
 const CopyPaste = () => {
   let animationPaused = false;
-  const pauseAnimation = () => {
-    animationPaused = !animationPaused;
-  };
-  const resumeAnimation = () => {
-    animationPaused = false;
-    // animate();
-  };
+  let resumeAnimate = null;
+  let pauseAnimate = null;
 
   function createScene() {
     let mixer;
 
     const clock = new THREE.Clock();
     const container = document.querySelector(".canvas");
-    console.log("container er - " + container);
     // if (container === undefined || container === null) {
     //   window.location.href = "./home";
     // }
@@ -176,7 +170,6 @@ const CopyPaste = () => {
       requestAnimationFrame(animate);
 
       const delta = clock.getDelta();
-
       mixer.update(delta);
 
       // mixer.update((delta *= 0.5));
@@ -187,10 +180,33 @@ const CopyPaste = () => {
 
       renderer.render(scene, camera);
     }
+    function pauseAnimate() {
+      alert("paused");
+    }
+
+    document.querySelector(".pause-button").addEventListener("click", () => {
+      mixer.paused();
+    });
+    document
+      .querySelector(".resume-button")
+      .addEventListener("click", () => {});
+
+    return { animate, pauseAnimate };
   }
   setTimeout(() => {
-    createScene();
+    const { resumeAnimateReturn, pauseAnimateReturn = pauseAnimate } =
+      createScene();
+    resumeAnimate = resumeAnimateReturn;
+    pauseAnimate = pauseAnimateReturn;
   }, 10);
+  const pauseAnimation = () => {
+    // animationPaused = !animationPaused;
+    pauseAnimate();
+  };
+  const resumeAnimation = () => {
+    animationPaused = false;
+    resumeAnimate();
+  };
   return (
     <>
       <ControlPanel
