@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import "./login.css";
-// Import the functions you need from the SDKs you need
-import { initializeApp, registerVersion } from "firebase/app";
+import { initializeApp } from "firebase/app";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -12,8 +11,7 @@ import {
 } from "firebase/auth";
 import LogInForm from "../../components/Login/LogInForm";
 import Register from "../../components/Register/RegisterForm";
-//Firebase
-// Your web app's Firebase configuration
+
 const firebaseConfig = {
   apiKey: "AIzaSyBEIBPJigWsBvPAviXEetsbs1-sWVkQyvM",
   authDomain: "laringsavatar.firebaseapp.com",
@@ -87,7 +85,9 @@ const Login = () => {
   const handleForgotPassword = async () => {
     try {
       const res = await sendPasswordResetEmail(auth, username);
-      alert("password reset email sent");
+      alert(
+        "En epost er sendt til deg med instruksjoner. NB: Kan havne i spam-mappen"
+      );
     } catch (error) {
       if (error.code === "auth/missing-email") {
         setError("Vennligst oppgi en epostadresse");
