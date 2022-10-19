@@ -86,7 +86,7 @@ const Login = () => {
 
   const handleForgotPassword = async () => {
     try {
-      const res = await sendPasswordResetEmail(auth, email);
+      const res = await sendPasswordResetEmail(auth, username);
       alert("password reset email sent");
     } catch (error) {
       if (error.code === "auth/missing-email") {
