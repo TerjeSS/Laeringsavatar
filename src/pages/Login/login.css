@@ -78,7 +78,9 @@
     text-decoration: underline;
     margin-top: 1rem;
     cursor: pointer;
-}   
-iframe{
-    
+}  
+.error-div{
+    padding: 1rem;
+    color: red;
+    font-weight: bolder;
 }

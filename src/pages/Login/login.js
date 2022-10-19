@@ -27,12 +27,7 @@ const firebaseApp = initializeApp(firebaseConfig);
 const auth = getAuth(firebaseApp);
 // connectAuthEmulator(auth, "http://localhost:9099");
 
-function lert() {
-  alert();
-}
 const Login = () => {
-  //States
-
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
   const [showCreateUser, setShowCreateUser] = useState(false);
@@ -43,20 +38,28 @@ const Login = () => {
 
   const navigate = useNavigate();
 
-  //Login function
   const loginWithEmail = async () => {
     try {
       const res = await signInWithEmailAndPassword(auth, username, password);
-      console.log(res);
+      setError("");
       navigate("/home");
     } catch (error) {
+      if (error.code === "auth/invalid-email")
+        setError("Vennligst bruk en gyldig epost");
       console.log({ error });
-      setError(error);
     }
   };
 
-  const createUserWithEmail = () => {
-    createUserWithEmailAndPassword(auth, email, password);
+  const createUserWithEmail = async () => {
+    try {
+      const user = await createUserWithEmailAndPassword(auth, email, password);
+      console.log(user);
+      setError("");
+      navigate("/home");
+    } catch (error) {
+      setError(error);
+      console.log({ error });
+    }
   };
   return (
     <div className="login-container">
@@ -71,7 +74,6 @@ const Login = () => {
       <div className="login-right-container">
         {!showCreateUser ? (
           <LogInForm
-            lert={lert}
             userName={username}
             setUsername={setUsername}
             password={password}
@@ -79,6 +81,7 @@ const Login = () => {
             loginWithEmail={loginWithEmail}
             setShowCreateUser={setShowCreateUser}
             error={error}
+            setError={setError}
           ></LogInForm>
         ) : (
           <>
@@ -89,6 +92,8 @@ const Login = () => {
               setEmail={setEmail}
               createUserWithEmail={createUserWithEmail}
               setShowCreateUser={setShowCreateUser}
+              error={error}
+              setError={setError}
             />
           </>
         )}

@@ -6,7 +6,7 @@ import "./Home.css";
 import CopyPaste from "./CopyPaste";
 import { React, useState } from "react";
 import SideNavBar from "./components/Sidebar";
-import Animation2 from "./Animation2";
+import Animation2 from "./pages/Animation2";
 
 const MainContent = (props) => {
   const { showCanvas } = props;

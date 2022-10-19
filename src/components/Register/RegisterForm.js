@@ -1,4 +1,5 @@
 import React, { useState } from "react";
+
 const Register = ({
   username,
   setUsername,
@@ -8,25 +9,13 @@ const Register = ({
   createUserWithEmail,
   firstName,
   setFirstName,
+  error,
+  setError,
   lastName,
   setLastName,
   email,
   setEmail,
 }) => {
-  // const {
-  //   username,
-  //   setUsername,
-  //   password,
-  //   setPassword,
-  //   setShowCreateUser,
-  //   createUserWithEmail,
-  //   firstName,
-  //   setFirstName,
-  //   lastName,
-  //   setLastName,
-  //   email,
-  //   setEmail,
-  // } = props;
   return (
     <>
       <h2>Opprett bruker</h2>
@@ -74,6 +63,7 @@ const Register = ({
           }}
         />
       </div>
+      {error && <div className={"error-div"}>{error.toString()}</div>}
       <div className="login-button-container">
         <button onClick={createUserWithEmail} className="login-button">
           Opprett
@@ -82,6 +72,9 @@ const Register = ({
       <div
         className="register-link"
         onClick={() => {
+          setEmail("");
+          setPassword("");
+          setError("");
           setShowCreateUser(false);
         }}
       >

@@ -6,9 +6,9 @@ const LogInForm = (props) => {
     setUsername,
     password,
     setPassword,
+    setError,
     setShowCreateUser,
     loginWithEmail,
-    lert,
     error,
   } = props;
 
@@ -38,7 +38,7 @@ const LogInForm = (props) => {
           }}
         />
       </div>
-      {error && <div>{error.toString()}</div>}
+      {error && <div className="error-div">{error.toString()}</div>}
       <div className="login-button-container">
         <button onClick={loginWithEmail} className="login-button">
           Logg inn
@@ -47,7 +47,7 @@ const LogInForm = (props) => {
       <div>
         <b>eller</b>
       </div>
-      <div className="google-button-container" onClick={() => lert()}>
+      <div className="google-button-container">
         <div className="google-button">
           <div>
             <img src="/img/googleIcon.png" alt="google icon" height="30 px" />
@@ -59,6 +59,9 @@ const LogInForm = (props) => {
       <div
         className="register-link"
         onClick={() => {
+          setUsername("");
+          setPassword("");
+          setError("");
           setShowCreateUser(true);
         }}
       >

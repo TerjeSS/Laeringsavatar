@@ -9,7 +9,7 @@ import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { AnimationAction, AnimationMixer, GridHelper } from "three";
-import ControlPanel from "./components/ControlPanel/ControlPanel";
+import ControlPanel from "../components/ControlPanel/ControlPanel";
 
 const Animation2 = () => {
   let animationPaused = false;
