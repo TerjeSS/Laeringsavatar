@@ -10,6 +10,7 @@ const LogInForm = (props) => {
     setShowCreateUser,
     loginWithEmail,
     error,
+    handleForgotPassword,
   } = props;
 
   return (
@@ -44,7 +45,7 @@ const LogInForm = (props) => {
           Logg inn
         </button>
       </div>
-      <div>
+      {/* <div>
         <b>eller</b>
       </div>
       <div className="google-button-container">
@@ -54,7 +55,7 @@ const LogInForm = (props) => {
           </div>
           <div>Logg inn med Google</div>
         </div>
-      </div>
+      </div> */}
 
       <div
         className="register-link"
@@ -66,6 +67,9 @@ const LogInForm = (props) => {
         }}
       >
         Har du ikke bruker? Registrer deg her
+      </div>
+      <div className="forgot-password-link" onClick={handleForgotPassword}>
+        Glemt passord? Klikk her for å resette
       </div>
     </>
   );

@@ -8,6 +8,7 @@ import {
   signInWithEmailAndPassword,
   connectAuthEmulator,
   createUserWithEmailAndPassword,
+  sendPasswordResetEmail,
 } from "firebase/auth";
 import LogInForm from "../../components/Login/LogInForm";
 import Register from "../../components/Register/RegisterForm";
@@ -44,8 +45,18 @@ const Login = () => {
       setError("");
       navigate("/home");
     } catch (error) {
-      if (error.code === "auth/invalid-email")
+      if (error.code === "auth/invalid-email") {
         setError("Vennligst bruk en gyldig epost");
+      }
+      if (error.code === "auth/internal-error") {
+        setError("Vennligst fyll ut epost og passord");
+      }
+      if (
+        error.code === "auth/wrong-password" ||
+        error.code === "auth/user-not-found"
+      ) {
+        setError("Brukernavn eller passord er feil");
+      }
       console.log({ error });
     }
   };
@@ -57,18 +68,39 @@ const Login = () => {
       setError("");
       navigate("/home");
     } catch (error) {
-      setError(error);
+      if (error.code === "auth/weak-password") {
+        setError("Passord må være minst 6 karakterer langt");
+      }
+      if (
+        error.code === "auth/missing-email" ||
+        error.code === "auth/invalid-email"
+      ) {
+        setError("Vennligst bruk en gyldig epost");
+      }
+      if (error.code === "auth/internal-error") {
+        setError("Vennligst fyll ut epost og passord");
+      }
       console.log({ error });
     }
   };
+
+  const handleForgotPassword = async () => {
+    try {
+      const res = await sendPasswordResetEmail(auth, email);
+      alert("password reset email sent");
+    } catch (error) {
+      if (error.code === "auth/missing-email") {
+        setError("Vennligst oppgi en epostadresse");
+      }
+      console.log({ error });
+    }
+  };
+
   return (
     <div className="login-container">
       <div className="login-left-container">
         <div className="left-image-container">
-          <img
-            src="https://khio.no/system/images/W1siZiIsIjIwMjAvMDUvMjYvN2NoZHc4MzEzdl9iaWxkZV8zLmpwZyJdLFsicCIsInRodW1iIiwiMTAyNHhcdTAwM2UiXSxbInAiLCJlbmNvZGUiLCJ3ZWJwIiwiLXF1YWxpdHkgODUiXV0/bilde%203.webp"
-            alt="dancing"
-          />
+          <img src="/img/mesh_models.png" alt="dancing" />
         </div>
       </div>
       <div className="login-right-container">
@@ -82,6 +114,7 @@ const Login = () => {
             setShowCreateUser={setShowCreateUser}
             error={error}
             setError={setError}
+            handleForgotPassword={handleForgotPassword}
           ></LogInForm>
         ) : (
           <>
