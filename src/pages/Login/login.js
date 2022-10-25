@@ -11,19 +11,8 @@ import {
 } from "firebase/auth";
 import LogInForm from "../../components/Login/LogInForm";
 import Register from "../../components/Register/RegisterForm";
+import { auth } from "../../resources/firebase.js";
 
-const firebaseConfig = {
-  apiKey: "AIzaSyBEIBPJigWsBvPAviXEetsbs1-sWVkQyvM",
-  authDomain: "laringsavatar.firebaseapp.com",
-  projectId: "laringsavatar",
-  storageBucket: "laringsavatar.appspot.com",
-  messagingSenderId: "1097221338853",
-  appId: "1:1097221338853:web:d130ef55309de10b2cc60c",
-};
-
-// Initialize Firebase
-const firebaseApp = initializeApp(firebaseConfig);
-export const auth = getAuth(firebaseApp);
 // connectAuthEmulator(auth, "http://localhost:9099");
 
 const Login = () => {
@@ -34,7 +23,6 @@ const Login = () => {
   const [lastName, setLastName] = useState("");
   const [email, setEmail] = useState("");
   const [error, setError] = useState("");
-
   const navigate = useNavigate();
 
   const loginWithEmail = async () => {
@@ -77,6 +65,9 @@ const Login = () => {
       }
       if (error.code === "auth/internal-error") {
         setError("Vennligst fyll ut epost og passord");
+      }
+      if (error.code === "auth/email-already-in-use") {
+        setError("E-post adressen er allerede i bruk");
       }
       console.log({ error });
     }

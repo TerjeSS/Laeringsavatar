@@ -1,7 +1,6 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { auth } from "../pages/Login/login";
-import { getCurrentUser } from "firebase/auth";
+import { auth } from "../resources/firebase";
 
 const SideNavBar = () => {
   return (
