@@ -1,5 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
+import { auth } from "../pages/Login/login";
+import { getCurrentUser } from "firebase/auth";
 
 const SideNavBar = () => {
   return (
@@ -33,6 +35,7 @@ const SideNavBar = () => {
           <li>Edit profile</li>
           <li>Log out</li>
         </ul>
+        {auth.currentUser && <div>Logged in as {auth.currentUser.email}</div>}
       </div>
     </div>
   );

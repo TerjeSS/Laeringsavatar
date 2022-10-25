@@ -2,7 +2,7 @@ import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/login";
 // import Navbar from "./components/Navbar/Navbar";
 import Embedded from "./pages/Embedded/Embedded";
-import "./Home.css";
+import "./pages/Home.css";
 import CopyPaste from "./CopyPaste";
 import { React, useState } from "react";
 import SideNavBar from "./components/Sidebar";
