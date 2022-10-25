@@ -9,22 +9,31 @@ const HomeScreen = () => {
 
   const animationRef = ref(storageRef, "animations");
 
+  const fileReferences = [];
   listAll(animationRef)
     .then((res) => {
       res.prefixes.forEach((folderRef) => {
         // All the prefixes under listRef.
         // You may call listAll() recursively on them.
       });
+      console.log(res.items);
       res.items.forEach((itemRef) => {
         // All the items under listRef.
-        console.log(itemRef);
+        fileReferences.push(res.items);
       });
     })
     .catch((error) => {
       // Uh-oh, an error occurred!
     });
 
-  return <div>Velkommen til 3D Visualisering</div>;
+  return (
+    <div>
+      <div>Velkommen til 3D Visualisering</div>
+      {fileReferences.map((element) => {
+        return <div>{element}</div>;
+      })}
+    </div>
+  );
 };
 
 export default HomeScreen;
