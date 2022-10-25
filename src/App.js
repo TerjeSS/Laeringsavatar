@@ -58,7 +58,7 @@ function App() {
           path="/animation2"
           element={
             <LayoutComponent
-              mainContent={<CopyPaste animationFilename={"P2_jorD.glb"} />}
+              mainContent={<CopyPaste animationFilename="P2_jorD.glb" />}
               showCanvas={showCanvas}
             />
           }
