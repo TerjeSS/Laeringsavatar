@@ -1,5 +1,6 @@
 // Import the functions you need from the SDKs you need
 import { initializeApp } from "firebase/app";
+import { getStorage } from "firebase/storage";
 import {
   getAuth,
   signInWithEmailAndPassword,
@@ -19,8 +20,21 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
+
 const firebaseApp = initializeApp(firebaseConfig);
 
-export const auth = getAuth(firebaseApp);
+//Auth
+export const auth = getAuth();
+
+//Storage
+export const storage = getStorage(firebaseApp);
+// export const storageRef = ref("animations");
+
+// listAll().then(function (result) {
+//   console.log("burde komme etter dette");
+//   result.items.forEach(function (animationRef) {
+//     console.log(animationRef);
+//   });
+// });
 
 // connectAuthEmulator(auth, "http://localhost:9099");

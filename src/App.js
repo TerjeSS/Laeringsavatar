@@ -5,6 +5,7 @@ import "./pages/Home.css";
 import CopyPaste from "./pages/AnimationScene";
 import { React } from "react";
 import SideNavBar from "./components/Sidebar";
+import HomeScreen from "./pages/HomeScreen";
 
 const MainContent = (props) => {
   const { showCanvas } = props;
@@ -42,15 +43,7 @@ function App() {
         />
         <Route
           path="/home"
-          element={
-            <LayoutComponent
-              mainContent={
-                <div>
-                  <h1>Velkommen til 3D visualisering prototype</h1>
-                </div>
-              }
-            />
-          }
+          element={<LayoutComponent mainContent={<HomeScreen />} />}
         />
         <Route
           path="/animation1"
