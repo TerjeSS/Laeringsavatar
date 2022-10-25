@@ -9,6 +9,7 @@ import { AnimationAction, AnimationMixer, GridHelper } from "three";
 import ControlPanel from "../components/ControlPanel/ControlPanel";
 
 const AnimationScene = ({ animationFilename }) => {
+  console.log(animationFilename);
   function createScene() {
     let mixer;
 
@@ -117,7 +118,7 @@ const AnimationScene = ({ animationFilename }) => {
     const loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
     loader.load(
-      animationFilename,
+      `${animationFilename}`,
       function (gltf) {
         const model = gltf.scene;
         model.position.set(1, 0, 1);
