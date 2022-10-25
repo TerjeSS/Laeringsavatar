@@ -12,10 +12,6 @@ const HomeScreen = () => {
   const fileReferences = [];
   listAll(animationRef)
     .then((res) => {
-      res.prefixes.forEach((folderRef) => {
-        // All the prefixes under listRef.
-        // You may call listAll() recursively on them.
-      });
       console.log(res.items);
       res.items.forEach((itemRef) => {
         // All the items under listRef.
