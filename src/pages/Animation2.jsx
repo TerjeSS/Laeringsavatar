@@ -12,22 +12,11 @@ import { AnimationAction, AnimationMixer, GridHelper } from "three";
 import ControlPanel from "../components/ControlPanel/ControlPanel";
 
 const Animation2 = () => {
-  let animationPaused = false;
-  let resumeAnimate = null;
-  let animate = null;
-  let pauseAnimate = null;
-
   function createScene() {
     let mixer;
 
     const clock = new THREE.Clock();
     const container = document.querySelector(".canvas");
-    // if (container === undefined || container === null) {
-    //   window.location.href = "./home";
-    // }
-
-    // const stats = new Stats();
-    // container.appendChild(stats.dom);
 
     const renderer = new THREE.WebGLRenderer({
       canvas: container,
@@ -37,7 +26,6 @@ const Animation2 = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.outputEncoding = THREE.sRGBEncoding;
 
-    console.log("how many");
     // container.appendChild(renderer.domElement);
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
 
@@ -132,7 +120,7 @@ const Animation2 = () => {
     const loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
     loader.load(
-      "./P2_JorD.glb",
+      "./P1_Roll_Down.glb",
       function (gltf) {
         const model = gltf.scene;
         model.position.set(1, 0, 1);
@@ -146,8 +134,31 @@ const Animation2 = () => {
 
         //Starts the animation
         mixer.clipAction(gltf.animations[0]).play();
-
+        const animationDuration = mixer.clipAction(gltf.animations[0])._clip
+          .duration;
         animate();
+
+        //Adding event listeners for the buttons
+        document
+          .querySelector(".pause-button")
+          .addEventListener("click", () => {
+            mixer.clipAction(gltf.animations[0]).paused = true;
+          });
+        document
+          .querySelector(".resume-button")
+          .addEventListener("click", () => {
+            mixer.clipAction(gltf.animations[0]).paused = false;
+          });
+        document
+          .querySelector(".reset-button")
+          .addEventListener("click", () => {
+            mixer.clipAction(gltf.animations[0]).reset();
+          });
+        document.getElementById("speed").addEventListener("change", (e) => {
+          mixer
+            .clipAction(gltf.animations[0])
+            .setDuration(animationDuration / e.target.value);
+        });
       },
       undefined,
       function (e) {
@@ -165,9 +176,6 @@ const Animation2 = () => {
 
     //Recursive animate-function
     function animate() {
-      if (animationPaused) {
-        return;
-      }
       requestAnimationFrame(animate);
 
       const delta = clock.getDelta();
@@ -177,42 +185,17 @@ const Animation2 = () => {
 
       renderer.render(scene, camera);
     }
-    // function pauseAnimate() {
-    //   alert("paused");
-    // }
 
-    // document.querySelector(".pause-button").addEventListener("click", () => {
-    //   mixer.paused();
-    // });
-    // document
-    //   .querySelector(".resume-button")
-    //   .addEventListener("click", () => {});
-
-    return animate;
+    return mixer;
   }
+
   setTimeout(() => {
-    const resumeAnimateReturn = createScene();
-    animate = resumeAnimateReturn;
-    // pauseAnimate = pauseAnimateReturn;
+    createScene();
   }, 10);
-
-  const pauseAnimation = () => {
-    animationPaused = !animationPaused;
-    // pauseAnimate();
-  };
-
-  const resumeAnimation = () => {
-    animationPaused = false;
-    // resumeAnimate();
-    animate();
-  };
 
   return (
     <>
-      <ControlPanel
-        pauseAnimation={pauseAnimation}
-        resumeAnimation={resumeAnimation}
-      />
+      <ControlPanel />
       <canvas className="canvas"></canvas>
     </>
   );

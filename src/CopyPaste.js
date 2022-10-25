@@ -1,7 +1,5 @@
-import React, { useEffect } from "react";
+import React from "react";
 import * as THREE from "three";
-
-import Stats from "three/addons/libs/stats.module.js";
 
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
@@ -12,23 +10,11 @@ import { AnimationAction, AnimationMixer, GridHelper } from "three";
 import ControlPanel from "./components/ControlPanel/ControlPanel";
 
 const CopyPaste = () => {
-  let animationPaused = false;
-  let resumeAnimate = null;
-  let animate = null;
-  let pauseAnimate = null;
-  let mixer;
-
   function createScene() {
     let mixer;
 
     const clock = new THREE.Clock();
     const container = document.querySelector(".canvas");
-    // if (container === undefined || container === null) {
-    //   window.location.href = "./home";
-    // }
-
-    // const stats = new Stats();
-    // container.appendChild(stats.dom);
 
     const renderer = new THREE.WebGLRenderer({
       canvas: container,
@@ -145,7 +131,7 @@ const CopyPaste = () => {
         mixer = new THREE.AnimationMixer(model);
 
         //Starts the animation
-        const animationClip = mixer.clipAction(gltf.animations[0]).play();
+        mixer.clipAction(gltf.animations[0]).play();
         const animationDuration = mixer.clipAction(gltf.animations[0])._clip
           .duration;
         animate();
@@ -171,19 +157,6 @@ const CopyPaste = () => {
             .clipAction(gltf.animations[0])
             .setDuration(animationDuration / e.target.value);
         });
-        // document
-        //   .querySelector(".speed-button")
-        //   .addEventListener("click", () => {
-        //     mixer
-        //       .clipAction(gltf.animations[0])
-        //       .setDuration(animationDuration * 1.5);
-        //   });
-
-        // document
-        //   .querySelector(".speed-selctor")
-        //   .addEventListener("change", () => {
-        //     alert();
-        //   });
       },
       undefined,
       function (e) {
@@ -201,9 +174,6 @@ const CopyPaste = () => {
 
     //Recursive animate-function
     function animate() {
-      if (animationPaused) {
-        return;
-      }
       requestAnimationFrame(animate);
 
       const delta = clock.getDelta();
@@ -216,12 +186,6 @@ const CopyPaste = () => {
 
     return mixer;
   }
-
-  // setTimeout(() => {
-  //   const resumeAnimateReturn = createScene();
-  //   animate = resumeAnimateReturn;
-  //   // pauseAnimate = pauseAnimateReturn;
-  // }, 10);
 
   setTimeout(() => {
     createScene();
