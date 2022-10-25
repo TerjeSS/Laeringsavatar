@@ -6,6 +6,7 @@ const ControlPanel = () => {
       <button className="pause-button">Pause</button>
       <button className="resume-button">Resume</button>
       <button className="reset-button">Reset</button>
+      <button className="speed-button">2x Speed</button>
     </div>
   );
 };

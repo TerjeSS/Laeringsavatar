@@ -145,9 +145,9 @@ const CopyPaste = () => {
         mixer = new THREE.AnimationMixer(model);
 
         //Starts the animation
-        mixer.clipAction(gltf.animations[0]).play();
-        console.log({ mixer });
-
+        const animationClip = mixer.clipAction(gltf.animations[0]).play();
+        const animationDuration = mixer.clipAction(gltf.animations[0])._clip
+          .duration;
         animate();
 
         //Adding event listeners for the buttons
@@ -165,6 +165,13 @@ const CopyPaste = () => {
           .querySelector(".reset-button")
           .addEventListener("click", () => {
             mixer.clipAction(gltf.animations[0]).reset();
+          });
+        document
+          .querySelector(".speed-button")
+          .addEventListener("click", () => {
+            mixer
+              .clipAction(gltf.animations[0])
+              .setDuration(animationDuration * 1.5);
           });
       },
       undefined,
