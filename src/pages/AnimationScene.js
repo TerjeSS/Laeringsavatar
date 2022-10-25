@@ -118,7 +118,7 @@ const AnimationScene = ({ animationFilename }) => {
     const loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
     loader.load(
-      `${animationFilename}`,
+      animationFilename,
       function (gltf) {
         const model = gltf.scene;
         model.position.set(1, 0, 1);
