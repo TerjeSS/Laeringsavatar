@@ -166,13 +166,24 @@ const CopyPaste = () => {
           .addEventListener("click", () => {
             mixer.clipAction(gltf.animations[0]).reset();
           });
-        document
-          .querySelector(".speed-button")
-          .addEventListener("click", () => {
-            mixer
-              .clipAction(gltf.animations[0])
-              .setDuration(animationDuration * 1.5);
-          });
+        document.getElementById("speed").addEventListener("change", (e) => {
+          mixer
+            .clipAction(gltf.animations[0])
+            .setDuration(animationDuration / e.target.value);
+        });
+        // document
+        //   .querySelector(".speed-button")
+        //   .addEventListener("click", () => {
+        //     mixer
+        //       .clipAction(gltf.animations[0])
+        //       .setDuration(animationDuration * 1.5);
+        //   });
+
+        // document
+        //   .querySelector(".speed-selctor")
+        //   .addEventListener("change", () => {
+        //     alert();
+        //   });
       },
       undefined,
       function (e) {
