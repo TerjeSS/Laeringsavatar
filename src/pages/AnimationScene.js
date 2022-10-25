@@ -1,15 +1,14 @@
 import React from "react";
 import * as THREE from "three";
-
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
 import { AnimationAction, AnimationMixer, GridHelper } from "three";
-import ControlPanel from "./components/ControlPanel/ControlPanel";
+import ControlPanel from "../components/ControlPanel/ControlPanel";
 
-const CopyPaste = () => {
+const AnimationScene = ({ animationFilename }) => {
   function createScene() {
     let mixer;
 
@@ -118,7 +117,7 @@ const CopyPaste = () => {
     const loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
     loader.load(
-      "./P1_Roll_Down.glb",
+      animationFilename,
       function (gltf) {
         const model = gltf.scene;
         model.position.set(1, 0, 1);
@@ -199,4 +198,4 @@ const CopyPaste = () => {
   );
 };
 
-export default CopyPaste;
+export default AnimationScene;

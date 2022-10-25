@@ -17,7 +17,7 @@ const SideNavBar = () => {
           </li>
         </ul>
         <ul>
-          <li>"Dansestudio"</li>
+          <li>Bevegelsesmateriale</li>
           <ul className="studio-links">
             <li>
               <Link to={"/animation1"}>P1_Roll_Down</Link>

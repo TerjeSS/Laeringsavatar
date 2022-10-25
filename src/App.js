@@ -1,12 +1,10 @@
 import { Routes, Route } from "react-router-dom";
 import Login from "./pages/Login/login";
-// import Navbar from "./components/Navbar/Navbar";
 import Embedded from "./pages/Embedded/Embedded";
 import "./pages/Home.css";
-import CopyPaste from "./CopyPaste";
-import { React, useState } from "react";
+import CopyPaste from "./pages/AnimationScene";
+import { React } from "react";
 import SideNavBar from "./components/Sidebar";
-import Animation2 from "./pages/Animation2";
 
 const MainContent = (props) => {
   const { showCanvas } = props;
@@ -33,7 +31,7 @@ function LayoutComponent({ showCanvas, mainContent }) {
 }
 
 function App() {
-  const [showCanvas, setShowCanvas] = useState(true);
+  const showCanvas = true;
   return (
     <>
       <Routes>
@@ -58,7 +56,7 @@ function App() {
           path="/animation1"
           element={
             <LayoutComponent
-              mainContent={<CopyPaste />}
+              mainContent={<CopyPaste animationFilename="P1_Roll_Down.glb" />}
               showCanvas={showCanvas}
             />
           }
@@ -67,7 +65,7 @@ function App() {
           path="/animation2"
           element={
             <LayoutComponent
-              mainContent={<Animation2 />}
+              mainContent={<CopyPaste animationFilename={"P2_jorD.glb"} />}
               showCanvas={showCanvas}
             />
           }

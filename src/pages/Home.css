@@ -1,3 +1,8 @@
+body{
+    margin: 0;
+    padding: 0;
+    background-color: rgb(235, 236, 237);
+  }
 .home-container{
     display: flex;
 }
@@ -5,7 +10,8 @@
     max-width: 15vw;
     min-width: 15vw;
     background-color: aliceblue;
-    min-height: 100vh;
+    height: 100vh;
+    min-height: 100%;
 }
 .right-container{
     min-width: 85vw;
@@ -42,3 +48,9 @@ margin-left: 1rem;
 .list-container{
     margin-top: 0;
 }
+
+
+/* 
+@tailwind base;
+@tailwind components;
+@tailwind utilities; */
