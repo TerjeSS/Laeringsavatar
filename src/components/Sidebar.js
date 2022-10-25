@@ -25,6 +25,9 @@ const SideNavBar = () => {
             <li>
               <Link to={"/animation2"}>P2_JorD</Link>
             </li>
+            <li>
+              <Link to={"/animation3"}>Bare for test</Link>
+            </li>
           </ul>
         </ul>
 

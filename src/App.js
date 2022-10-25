@@ -65,6 +65,24 @@ function App() {
             />
           }
         />
+        <Route
+          path="/animation3"
+          element={
+            <LayoutComponent
+              mainContent={<CopyPaste animationFilename="model.gltf" />}
+              showCanvas={showCanvas}
+            />
+          }
+        />
+        <Route
+          path="/animation4"
+          element={
+            <LayoutComponent
+              mainContent={<CopyPaste animationFilename="testFile.glb" />}
+              showCanvas={showCanvas}
+            />
+          }
+        />
       </Routes>
     </>
   );
