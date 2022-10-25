@@ -16,6 +16,7 @@ const CopyPaste = () => {
   let resumeAnimate = null;
   let animate = null;
   let pauseAnimate = null;
+  let mixer;
 
   function createScene() {
     let mixer;
@@ -37,7 +38,6 @@ const CopyPaste = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.outputEncoding = THREE.sRGBEncoding;
 
-    console.log("how many");
     // container.appendChild(renderer.domElement);
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
 
@@ -146,8 +146,16 @@ const CopyPaste = () => {
 
         //Starts the animation
         mixer.clipAction(gltf.animations[0]).play();
+        console.log({ mixer });
 
         animate();
+
+        document
+          .querySelector(".pause-button")
+          .addEventListener("click", () => {
+            console.log(mixer);
+            mixer.clipAction(gltf.animations[0]).paused = true;
+          });
       },
       undefined,
       function (e) {
@@ -188,18 +196,27 @@ const CopyPaste = () => {
     //   .querySelector(".resume-button")
     //   .addEventListener("click", () => {});
 
-    return animate;
+    return mixer;
   }
+
+  // setTimeout(() => {
+  //   const resumeAnimateReturn = createScene();
+  //   animate = resumeAnimateReturn;
+  //   // pauseAnimate = pauseAnimateReturn;
+  // }, 10);
+
   setTimeout(() => {
-    const resumeAnimateReturn = createScene();
-    animate = resumeAnimateReturn;
+    mixer = createScene();
+    console.log({ mixer });
     // pauseAnimate = pauseAnimateReturn;
   }, 10);
 
-  const pauseAnimation = () => {
-    animationPaused = !animationPaused;
-    // pauseAnimate();
-  };
+  // const pauseAnimation = () => {
+  //   animationPaused = !animationPaused;
+  //   // pauseAnimate();
+  // };
+
+  const pauseAnimation = () => {};
 
   const resumeAnimation = () => {
     animationPaused = false;
