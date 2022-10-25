@@ -150,11 +150,21 @@ const CopyPaste = () => {
 
         animate();
 
+        //Adding event listeners for the buttons
         document
           .querySelector(".pause-button")
           .addEventListener("click", () => {
-            console.log(mixer);
             mixer.clipAction(gltf.animations[0]).paused = true;
+          });
+        document
+          .querySelector(".resume-button")
+          .addEventListener("click", () => {
+            mixer.clipAction(gltf.animations[0]).paused = false;
+          });
+        document
+          .querySelector(".reset-button")
+          .addEventListener("click", () => {
+            mixer.clipAction(gltf.animations[0]).reset();
           });
       },
       undefined,
@@ -185,16 +195,6 @@ const CopyPaste = () => {
 
       renderer.render(scene, camera);
     }
-    // function pauseAnimate() {
-    //   alert("paused");
-    // }
-
-    // document.querySelector(".pause-button").addEventListener("click", () => {
-    //   mixer.paused();
-    // });
-    // document
-    //   .querySelector(".resume-button")
-    //   .addEventListener("click", () => {});
 
     return mixer;
   }
@@ -206,30 +206,12 @@ const CopyPaste = () => {
   // }, 10);
 
   setTimeout(() => {
-    mixer = createScene();
-    console.log({ mixer });
-    // pauseAnimate = pauseAnimateReturn;
+    createScene();
   }, 10);
-
-  // const pauseAnimation = () => {
-  //   animationPaused = !animationPaused;
-  //   // pauseAnimate();
-  // };
-
-  const pauseAnimation = () => {};
-
-  const resumeAnimation = () => {
-    animationPaused = false;
-    // resumeAnimate();
-    animate();
-  };
 
   return (
     <>
-      <ControlPanel
-        pauseAnimation={pauseAnimation}
-        resumeAnimation={resumeAnimation}
-      />
+      <ControlPanel />
       <canvas className="canvas"></canvas>
     </>
   );
