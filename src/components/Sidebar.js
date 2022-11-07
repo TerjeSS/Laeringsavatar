@@ -13,7 +13,7 @@ const SideNavBar = () => {
         </ul>
         <ul>
           <li>
-            <Link to={"/embedded"}>Lærerstudenter demo</Link>
+            <Link to={"/embedded"}>Embedded test</Link>
           </li>
         </ul>
         <ul>
