@@ -4,11 +4,11 @@
     display: flex;
     justify-content: space-around;
     width: 500px;
-    z-index: 500 !important;
-    top: 5%;
+    top: 0;
+    height: 5vh;
 }
-.control-panel-container button{
-    margin: 1rem;
-    height: 2rem;
-    width: 4rem;
+.control-panel-container label{
+    margin-top: auto;
+    margin-bottom: auto;
+color: white;
 }
