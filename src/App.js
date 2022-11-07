@@ -12,12 +12,7 @@ const MainContent = (props) => {
   if (!showCanvas) {
     return <div className="right-container">{props.mainContent}</div>;
   }
-  return (
-    //   <div className="right-container">
-    //     <Wrapper mainContent={mainContent} />
-    //   </div>
-    <div className="right-container">{props.mainContent}</div>
-  );
+  return <div className="right-container">{props.mainContent}</div>;
 };
 
 function LayoutComponent({ showCanvas, mainContent }) {
@@ -64,10 +59,30 @@ function App() {
           }
         />
         <Route
-          path="/animation4"
+          path="/animation3"
           element={
             <LayoutComponent
               mainContent={<CopyPaste animationFilename="testFile.glb" />}
+              showCanvas={showCanvas}
+            />
+          }
+        />
+        <Route
+          path="/animation4"
+          element={
+            <LayoutComponent
+              mainContent={
+                <CopyPaste animationFilename="P3_Floor_Pattern.glb" />
+              }
+              showCanvas={showCanvas}
+            />
+          }
+        />
+        <Route
+          path="/animation5"
+          element={
+            <LayoutComponent
+              mainContent={<CopyPaste animationFilename="P4_Roll_FandB.glb" />}
               showCanvas={showCanvas}
             />
           }
