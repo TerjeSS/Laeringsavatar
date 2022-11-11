@@ -88,6 +88,26 @@ const Login = () => {
   return (
     <div className="login-container">
       <div className="login-left-container">
+        <div className="left-text-container">
+          <h2>
+            Velkommen til VisBev3D - En prototype for en visualiseringsapp
+          </h2>
+          <h4>
+            Prototypen utvikles i forbindelse med prosjektet "Læringsavatar",
+            (2022-24)
+          </h4>
+          <div>
+            <p>Prosjekteier er Kunsthøgskolen i Oslo, avdeling PPU</p>
+            <p>
+              Samarbeidspartnere er Norges idrettshøgskole, Kristiania og HLM
+              Produksjoner
+            </p>
+            <p>
+              Prosjektet er støttet av Direktoratet for høyere utdanning og
+              kompetanse
+            </p>
+          </div>
+        </div>
         <div className="left-image-container">
           <img src="/img/mesh_models.png" alt="dancing" />
         </div>

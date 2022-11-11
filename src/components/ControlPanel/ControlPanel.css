@@ -1,14 +1,27 @@
 .control-panel-container{
-    background-color: purple;
     position: absolute;
     display: flex;
     justify-content: space-around;
-    width: 500px;
+    width: 600px;
     top: 0;
     height: 5vh;
+    border-radius: 0.5rem;
 }
 .control-panel-container label{
     margin-top: auto;
     margin-bottom: auto;
-color: white;
+}
+.control-panel-container select{
+    height: 50%;
+    margin-top: auto;
+    margin-bottom: auto;
+    cursor: progress;
+}
+.control-panel-container button{
+    margin-top: auto;
+    margin-bottom: auto;
+border-radius: 0.5rem;
+height: 80%;
+cursor: pointer;
+width: 5rem;
 }
