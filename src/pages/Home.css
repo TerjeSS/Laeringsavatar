@@ -49,11 +49,28 @@ margin-left: 1rem;
     margin-top: 0;
 }
 
-@media only screen and (max-width: 600px) {
-    .home-container {
-        flex-direction: column;
+@media only screen and (max-width: 900px) {
+    
+    .left-menu-container{
+        display: none;
     }
+    .right-container{
+        width: 100vw;
+        height: 100vh;
+    }
+    .control-panel-container{
+        max-width: 370px;
+        min-height: 10vh;
+        z-index: 5;
+    }
+    .control-panel-container button{
+        width: 1rem;
+
   }
+  .control-panel-container label{
+    display: none;
+  }
+}
 
 
 /* 

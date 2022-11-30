@@ -103,7 +103,7 @@ const AnimationScene = ({ animationFilename }) => {
       1,
       200
     );
-    camera.position.set(0, 2, -4);
+    camera.position.set(1, 3, -4);
 
     //Controls
     const controls = new OrbitControls(camera, renderer.domElement);
