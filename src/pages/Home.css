@@ -31,7 +31,6 @@ ul li{
     margin-bottom: 1rem;
 }
 .control-panel{
-    z-index: 1000;
     color: #133b5f
 }
 
@@ -44,10 +43,17 @@ margin-left: 1rem;
     width: 90% !important;
     height: 90% !important;
     border: 1px solid black;
+    z-index: 1;
 }
 .list-container{
     margin-top: 0;
 }
+
+@media only screen and (max-width: 600px) {
+    .home-container {
+        flex-direction: column;
+    }
+  }
 
 
 /* 
