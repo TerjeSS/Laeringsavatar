@@ -6,6 +6,7 @@ import CopyPaste from "./pages/AnimationScene";
 import { React } from "react";
 import SideNavBar from "./components/Sidebar";
 import HomeScreen from "./pages/HomeScreen";
+import { auth } from "./resources/firebase";
 
 const MainContent = (props) => {
   const { showCanvas } = props;
@@ -28,6 +29,7 @@ function LayoutComponent({ showCanvas, mainContent }) {
 
 function App() {
   const showCanvas = true;
+
   return (
     <>
       <Routes>
