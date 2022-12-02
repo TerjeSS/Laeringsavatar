@@ -3,6 +3,20 @@ import { Link } from "react-router-dom";
 import { auth } from "../resources/firebase";
 
 const SideNavBar = () => {
+  var currentUser;
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+      currentUser = user;
+    } else {
+      console.log("not logged in");
+    }
+  });
+
+  const handleLogout = () => {
+    auth.signOut();
+    alert("logged out");
+  };
+
   return (
     <div className="left-menu-container">
       <ul className="list-container">
@@ -40,9 +54,9 @@ const SideNavBar = () => {
         <li>Add file</li>
         <li>Profile</li>
         <li>Edit profile</li>
-        <li>Log out</li>
+        <li onClick={() => handleLogout()}>Log out</li>
       </ul>
-      {auth.currentUser && <div>Logged in as {auth.currentUser.email}</div>}
+      {currentUser && <div>Logged in as {currentUser.email}</div>}
     </div>
   );
 };

@@ -30,6 +30,13 @@ function LayoutComponent({ showCanvas, mainContent }) {
 function App() {
   const showCanvas = true;
 
+  auth.onAuthStateChanged((user) => {
+    if (user) {
+    } else {
+      console.log("not logged in");
+    }
+  });
+
   return (
     <>
       <Routes>
@@ -85,6 +92,17 @@ function App() {
           element={
             <LayoutComponent
               mainContent={<CopyPaste animationFilename="P4_Roll_FandB.glb" />}
+              showCanvas={showCanvas}
+            />
+          }
+        />
+        <Route
+          path="/animationRef"
+          element={
+            <LayoutComponent
+              mainContent={
+                <CopyPaste animationFilename="https://firebasestorage.googleapis.com/v0/b/laringsavatar.appspot.com/o/animations%2FP1_Roll_Down.glb?alt=media&token=05a8c16f-1662-4d24-bc41-ba72924a0eda" />
+              }
               showCanvas={showCanvas}
             />
           }
