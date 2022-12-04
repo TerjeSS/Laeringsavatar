@@ -1,15 +1,61 @@
-import React from "react";
+import React, { useEffect, useState } from "react";
 import * as THREE from "three";
 import { OrbitControls } from "three/addons/controls/OrbitControls.js";
 import { RoomEnvironment } from "three/addons/environments/RoomEnvironment.js";
 
 import { GLTFLoader } from "three/addons/loaders/GLTFLoader.js";
 import { DRACOLoader } from "three/addons/loaders/DRACOLoader.js";
+import { getDownloadURL, listAll, ref } from "firebase/storage";
+
 import { AnimationAction, AnimationMixer, GridHelper } from "three";
 import ControlPanel from "../components/ControlPanel/ControlPanel";
+import { storage } from "../resources/firebase";
+import { useParams } from "react-router-dom";
 
-const AnimationScene = ({ animationFilename }) => {
-  console.log(animationFilename);
+const AnimationScene = () => {
+  const [firebaseURL, setFirebaseURL] = useState("");
+  let fileReferences = [];
+  const storageRef = ref(storage);
+  const animationRef = ref(storageRef, "animations");
+  const { filename } = useParams();
+  let firebaseUrl = "";
+
+  const fetchRefereces = async () => {
+    listAll(animationRef)
+      .then((res) => {
+        fileReferences = [...res.items];
+        console.log(fileReferences);
+        const referenceName = fileReferences.filter((element) => {
+          return element.name === filename;
+        });
+        console.log(animationRef);
+        const url = getDownloadURL(ref(storage, referenceName)).then((res) => {
+          // firebaseUrl = res;
+          setFirebaseURL(res);
+        });
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
+
+  const getUrl = async () => {
+    console.log("når");
+    const referenceName = fileReferences.filter((element) => {
+      return element.name === filename;
+    });
+    const url = await getDownloadURL(ref(animationRef, referenceName));
+    console.log(url);
+  };
+
+  useEffect(() => {
+    fetchRefereces();
+    getUrl();
+  }, []);
+
+  console.log(fileReferences);
+  // getUrl();
+
   function createScene() {
     let mixer;
 
@@ -117,8 +163,9 @@ const AnimationScene = ({ animationFilename }) => {
     dracoLoader.setDecoderPath("js/libs/draco/gltf/");
     const loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
+    console.log("LOADER" + firebaseURL);
     loader.load(
-      animationFilename,
+      firebaseURL,
       function (gltf) {
         const model = gltf.scene;
         model.position.set(1, 0, 1);

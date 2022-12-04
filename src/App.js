@@ -7,6 +7,7 @@ import { React } from "react";
 import SideNavBar from "./components/Sidebar";
 import HomeScreen from "./pages/HomeScreen";
 import { auth } from "./resources/firebase";
+import AnimationScene from "./pages/AnimationScene";
 
 const MainContent = (props) => {
   const { showCanvas } = props;
@@ -40,6 +41,14 @@ function App() {
   return (
     <>
       <Routes>
+        <Route
+          path="/visualisering/:filename"
+          element={
+            <LayoutComponent
+              mainContent={<AnimationScene animationFilename="" />}
+            />
+          }
+        />
         <Route path="/" element={<Login />} />
         <Route
           path="/embedded"
