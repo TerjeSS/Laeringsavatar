@@ -1,12 +1,11 @@
 import React from "react";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import { auth } from "../resources/firebase";
 
 const SideNavBar = () => {
-  var currentUser;
+  const navigate = useNavigate();
   auth.onAuthStateChanged((user) => {
     if (user) {
-      currentUser = user;
     } else {
       console.log("not logged in");
     }
@@ -14,7 +13,7 @@ const SideNavBar = () => {
 
   const handleLogout = () => {
     auth.signOut();
-    alert("logged out");
+    navigate("/login");
   };
 
   return (
@@ -29,7 +28,7 @@ const SideNavBar = () => {
           <Link to={"/embedded"}>Embedded test</Link>
         </li>
       </ul>
-      <ul>
+      {/* <ul>
         <li>Bevegelsesmateriale</li>
         <ul className="studio-links">
           <li>
@@ -48,7 +47,7 @@ const SideNavBar = () => {
             <Link to={"/animation5"}>P4_Roll_FandB</Link>
           </li>
         </ul>
-      </ul>
+      </ul> */}
 
       <ul>
         <li>Add file</li>
@@ -56,7 +55,6 @@ const SideNavBar = () => {
         <li>Edit profile</li>
         <li onClick={() => handleLogout()}>Log out</li>
       </ul>
-      {currentUser && <div>Logged in as {currentUser.email}</div>}
     </div>
   );
 };

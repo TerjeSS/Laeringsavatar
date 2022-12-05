@@ -16,6 +16,7 @@ body{
 .right-container{
     min-width: 85vw;
     display: flex;
+    flex-direction: column;
     justify-content: center;
     align-items: center;
 
@@ -71,6 +72,12 @@ margin-left: 1rem;
     display: none;
   }
 }
+.dashboard-container{
+    height: 100%;
+    width: 100%;
+}
+
+
 
 
 /* 

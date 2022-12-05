@@ -30,14 +30,6 @@ function LayoutComponent({ showCanvas, mainContent }) {
 
 function App() {
   const showCanvas = true;
-
-  auth.onAuthStateChanged((user) => {
-    if (user) {
-    } else {
-      console.log("not logged in");
-    }
-  });
-
   return (
     <>
       <Routes>
@@ -49,13 +41,17 @@ function App() {
             />
           }
         />
-        <Route path="/" element={<Login />} />
+        <Route path="/login" element={<Login />} />
         <Route
           path="/embedded"
           element={<LayoutComponent mainContent={<Embedded />} />}
         />
         <Route
           path="/home"
+          element={<LayoutComponent mainContent={<HomeScreen />} />}
+        />
+        <Route
+          path="/"
           element={<LayoutComponent mainContent={<HomeScreen />} />}
         />
         <Route

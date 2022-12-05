@@ -24,7 +24,6 @@ const LogInForm = (props) => {
           type="text"
           onChange={(e) => {
             setUsername(e.target.value);
-            console.log(username);
           }}
         />
       </div>
@@ -45,17 +44,6 @@ const LogInForm = (props) => {
           Logg inn
         </button>
       </div>
-      {/* <div>
-        <b>eller</b>
-      </div>
-      <div className="google-button-container">
-        <div className="google-button">
-          <div>
-            <img src="/img/googleIcon.png" alt="google icon" height="30 px" />
-          </div>
-          <div>Logg inn med Google</div>
-        </div>
-      </div> */}
 
       <div
         className="register-link"

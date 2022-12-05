@@ -18,19 +18,15 @@ const AnimationScene = () => {
   const storageRef = ref(storage);
   const animationRef = ref(storageRef, "animations");
   const { filename } = useParams();
-  let firebaseUrl = "";
 
   const fetchRefereces = async () => {
     listAll(animationRef)
       .then((res) => {
         fileReferences = [...res.items];
-        console.log(fileReferences);
         const referenceName = fileReferences.filter((element) => {
           return element.name === filename;
         });
-        console.log(animationRef);
-        const url = getDownloadURL(ref(storage, referenceName)).then((res) => {
-          // firebaseUrl = res;
+        getDownloadURL(ref(storage, referenceName)).then((res) => {
           setFirebaseURL(res);
         });
       })
@@ -39,23 +35,11 @@ const AnimationScene = () => {
       });
   };
 
-  const getUrl = async () => {
-    console.log("når");
-    const referenceName = fileReferences.filter((element) => {
-      return element.name === filename;
-    });
-    const url = await getDownloadURL(ref(animationRef, referenceName));
-    console.log(url);
-  };
-
   useEffect(() => {
     fetchRefereces();
-    getUrl();
   }, []);
 
-  console.log(fileReferences);
-  // getUrl();
-
+  //THREE.JS SECTION ***************
   function createScene() {
     let mixer;
 
@@ -236,7 +220,7 @@ const AnimationScene = () => {
 
   setTimeout(() => {
     createScene();
-  }, 10);
+  }, 1);
 
   return (
     <>

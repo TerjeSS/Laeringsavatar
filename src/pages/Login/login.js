@@ -79,7 +79,7 @@ const Login = () => {
       );
     } catch (error) {
       if (error.code === "auth/missing-email") {
-        setError("Vennligst oppgi en epostadresse");
+        setError("Vennligst fyll inn epostadresse");
       }
       console.log({ error });
     }
