@@ -101,7 +101,7 @@ const AnimationScene = () => {
     scene.add(mesh);
 
     // Background and environment
-    scene.background = new THREE.Color(0x87ceeb);
+    scene.background = new THREE.Color(0xf0f0f0);
     scene.environment = pmremGenerator.fromScene(
       new RoomEnvironment(),
       0.1

@@ -1,20 +1,37 @@
 import { ref, uploadBytes } from 'firebase/storage';
 import React,{useState} from 'react'
 import DashboardLink from '../components/DashboardLink/DashboardLink';
-import { storage } from '../resources/firebase';
+import {animationsFolder, auth } from '../resources/firebase';
 
 const Dashboard = (props) => {
     
     const {fileReferences} = props
+    const user = auth.currentUser;
+    const [uploadStatusMessage, setUploadStatusMessage] = useState("")
 
     const handleUpload = () => {
-        const fileInput = document.getElementById("fileUpload").files
-        // const fileRef = ref(storageRef, fileInput[0])
-        const animations = ref(storage, "animations")
-        const storageRef = ref(animations, fileInput[0].name)
-        uploadBytes(storageRef, fileInput[0]).then((snapshot) => {
-            console.log("uploaded file");
+        setUploadStatusMessage("")
+        const fileList = document.getElementById("fileUpload").files
+        if(fileList.length === 0){
+           setUploadStatusMessage("Vennligst velg en fil")
+           return
+        }
+        
+        const metaData = {
+            customMetadata:       
+                {"uploadedBy" : user.email}
+        }
+        
+        
+        const newFileReference = ref(animationsFolder, fileList[0].name)
+
+        uploadBytes(newFileReference, fileList[0], metaData).then((snapshot) => {
+            setUploadStatusMessage("Filen ble lastet opp")
+        }).catch((error) => {
+            setUploadStatusMessage(error)
         })
+
+        document.getElementById("fileUpload").value = null
     }
   return (
     <>
@@ -31,11 +48,13 @@ const Dashboard = (props) => {
         </div>
         <div className="upload-container">
             <label htmlFor="fileUpload">Last opp ny visualisering</label>
-            <input type="file" name="fileUpload" id="fileUpload" onChange={(e) =>{
-            }
-                
-                }/>
+            <input type="file" name="fileUpload" id="fileUpload" onChange={ () => {
+                setUploadStatusMessage("")
+            }}
+                />
+               
             <button onClick={handleUpload}>Last opp fil</button>
+            {uploadStatusMessage && <p>{uploadStatusMessage}</p>}
         </div>
 
     </div>
