@@ -9,8 +9,10 @@ const DashboardLink = ({link}) => {
                     key={link.fullPath}
                   >
                     {link.name}
-                  </Link><button>Kopier URL</button>
-             
+                  </Link>
+                  <button disabled>Kopier URL</button>
+                  <button disabled>Slett visualisering</button>
+             <p>Beskrivelse. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit fuga odit aperiam, rem molestias nesciunt commodi iusto error ratione, vero neque tempora provident non esse. Ipsam aut impedit delectus! At expedita placeat consectetur ut asperiores sint laboriosam provident vel necessitatibus.</p>
      </div>
   )
 }

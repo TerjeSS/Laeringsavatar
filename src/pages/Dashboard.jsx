@@ -22,7 +22,6 @@ const Dashboard = (props) => {
                 {"uploadedBy" : user.email}
         }
         
-        
         const newFileReference = ref(animationsFolder, fileList[0].name)
 
         uploadBytes(newFileReference, fileList[0], metaData).then((snapshot) => {
@@ -33,10 +32,16 @@ const Dashboard = (props) => {
 
         document.getElementById("fileUpload").value = null
     }
+
+    
   return (
     <>
     <div className='dashboard-container'>
         <div className='links-container'>
+            <h2>Liste over visualiseringer</h2>
+            {fileReferences.length === 0 && (
+                <p>Ingen visualiseringer lastet opp</p>
+            )}
           {fileReferences.map((element) => {
             return (
 
@@ -47,6 +52,7 @@ const Dashboard = (props) => {
 
         </div>
         <div className="upload-container">
+            <h2>Last opp ny visualisering</h2>
             <label htmlFor="fileUpload">Last opp ny visualisering</label>
             <input type="file" name="fileUpload" id="fileUpload" onChange={ () => {
                 setUploadStatusMessage("")
