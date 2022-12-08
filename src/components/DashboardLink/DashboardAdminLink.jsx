@@ -1,23 +1,35 @@
-import React from 'react'
-import { Link } from 'react-router-dom'
+import { deleteObject } from "firebase/storage";
+import React from "react";
+import { Link } from "react-router-dom";
 
-const DashboardAdminLink = ({link}) => {
+const DashboardAdminLink = ({ link, setFileReferences }) => {
+  console.log(link);
+  const handleFileDelete = async () => {
+    const res = await deleteObject(link);
 
-    const handleFileDelete = async () => {
-
-    }
+    setFileReferences((prevState) => {
+      return [
+        ...prevState.filter((ref) => {
+          return ref.fullPath !== link.fullPath;
+        }),
+      ];
+    });
+  };
   return (
-     <div>
-         <Link
-                    to={"/visualisering/" + link.name}
-                    key={link.fullPath}
-                  >
-                    {link.name}
-                  </Link>
-                  <button onClick={handleFileDelete} disabled>Slett visualisering</button>
-             <p>Beskrivelse. Lorem ipsum dolor sit, amet consectetur adipisicing elit. Suscipit fuga odit aperiam, rem molestias nesciunt commodi iusto error ratione, vero neque tempora provident non esse. Ipsam aut impedit delectus! At expedita placeat consectetur ut asperiores sint laboriosam provident vel necessitatibus.</p>
-     </div>
-  )
-}
+    <div>
+      <Link to={"/visualisering/" + link.name} key={link.fullPath}>
+        {link.name}
+      </Link>
+      <button onClick={handleFileDelete}>Slett visualisering</button>
+      <p>
+        Beskrivelse. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
+        Suscipit fuga odit aperiam, rem molestias nesciunt commodi iusto error
+        ratione, vero neque tempora provident non esse. Ipsam aut impedit
+        delectus! At expedita placeat consectetur ut asperiores sint laboriosam
+        provident vel necessitatibus.
+      </p>
+    </div>
+  );
+};
 
-export default DashboardAdminLink
+export default DashboardAdminLink;
