@@ -7,7 +7,6 @@ const SideNavBar = () => {
   auth.onAuthStateChanged((user) => {
     if (user) {
     } else {
-      console.log("not logged in");
     }
   });
 

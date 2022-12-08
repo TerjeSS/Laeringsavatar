@@ -1,12 +1,16 @@
-import { ref, uploadBytes } from 'firebase/storage';
-import React,{useState} from 'react'
+import { listAll, ref, uploadBytes, getMetadata } from 'firebase/storage';
+import React,{useState, useEffect} from 'react'
 import DashboardAdminLink from '../components/DashboardLink/DashboardAdminLink';
 import DashboardLink from '../components/DashboardLink/DashboardLink';
-import {animationsFolder, auth } from '../resources/firebase';
+import {animationsFolder, auth, storage } from '../resources/firebase';
+
 
 const Dashboard = (props) => {
     
-    const {fileReferences, userInfo} = props
+    const { userInfo} = props
+    const [fileReferences, setFileReferences] = useState([]);
+    const storageRef = ref(storage);
+    const animationRef = ref(storageRef, "animations");
     const user = auth.currentUser;
     console.log("current user");
     const [uploadStatusMessage, setUploadStatusMessage] = useState("")
@@ -36,7 +40,45 @@ const Dashboard = (props) => {
         
     }
 
+
+    // if (userInfo) {
+    //       fetchVisualisations();
+    //     }
+
+        async function fetchVisualisations() {
+          console.log("Fetching visualisations");
+          if (userInfo.role === "admin" && fileReferences.length === 0) {
+            listAll(animationRef)
+              .then((res) => {
+                setFileReferences([...res.items]);
+              })
+              .catch((error) => {
+                console.error(error);
+              });
+          } else if (userInfo.role === "student" && fileReferences.length === 0) {
+            console.log("student");
+            let temp = [];
+            let result = await listAll(animationRef);
+      
+            if (result) {
+              temp = [...result.items];
+              console.log(temp);
+              temp.forEach(async (file) => {
+                let metadata = await getMetadata(file);
+                if (metadata.customMetadata.uploadedBy === userInfo.email) {
+                  setFileReferences((prevState) => {
+                    return [...prevState, file];
+                  });
+                }
+              });
+            }
+          }
+          console.log(fileReferences);
+        }
     
+    useEffect( () => {
+fetchVisualisations()
+    }, [])
   return (
     <>
     <div className='dashboard-container'>
