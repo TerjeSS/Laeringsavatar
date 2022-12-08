@@ -1,12 +1,14 @@
 import { ref, uploadBytes } from 'firebase/storage';
 import React,{useState} from 'react'
+import DashboardAdminLink from '../components/DashboardLink/DashboardAdminLink';
 import DashboardLink from '../components/DashboardLink/DashboardLink';
 import {animationsFolder, auth } from '../resources/firebase';
 
 const Dashboard = (props) => {
     
-    const {fileReferences} = props
+    const {fileReferences, userInfo} = props
     const user = auth.currentUser;
+    console.log("current user");
     const [uploadStatusMessage, setUploadStatusMessage] = useState("")
 
     const handleUpload = () => {
@@ -26,11 +28,12 @@ const Dashboard = (props) => {
 
         uploadBytes(newFileReference, fileList[0], metaData).then((snapshot) => {
             setUploadStatusMessage("Filen ble lastet opp")
+            document.getElementById("fileUpload").value = null
         }).catch((error) => {
             setUploadStatusMessage(error)
         })
 
-        document.getElementById("fileUpload").value = null
+        
     }
 
     
@@ -43,11 +46,15 @@ const Dashboard = (props) => {
                 <p>Ingen visualiseringer lastet opp</p>
             )}
           {fileReferences.map((element) => {
-            return (
-
-                <DashboardLink key={element.fullPath} link={element}/>
-             
-            );
+              if(userInfo.role === "admin"){
+                  return (
+                    <DashboardAdminLink key={element.fullPath} link={element} />
+                  )
+              }
+              return (
+                    <DashboardLink key={element.fullPath} link={element}/>
+              )
+            ;
           })}
 
         </div>

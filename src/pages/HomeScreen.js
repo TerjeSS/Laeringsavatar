@@ -12,9 +12,11 @@ const HomeScreen = () => {
   const [isLoggedIn, setIsLoggedIn] = useState(false);
   const [fileReferences, setFileReferences] = useState([]);
   const [userInfo, setUserInfo] = useState();
+  const [isLoading, setIsLoading] = useState(false);
   let files = [];
 
   const fetchUserInfo = async (user) => {
+    setIsLoading(true);
     try {
       let info = {};
       const userQuery = query(
@@ -26,8 +28,10 @@ const HomeScreen = () => {
         info = res.data();
       });
       setUserInfo(info);
+      setIsLoading(false);
     } catch (error) {
       console.error(error);
+      setIsLoading(false);
     }
   };
 
@@ -75,15 +79,13 @@ const HomeScreen = () => {
     }
     console.log(fileReferences);
   }
-  // fileReferences.forEach((file) => {
-  //   getMetadata(file).then((metadata) => {
-  //     console.log(metadata.customMetadata.uploadedBy);
-  //   });
-  // });
 
   return (
     <>
-      {userInfo && <Dashboard fileReferences={fileReferences} />}
+      {isLoading && <h1>Loading....</h1>}
+      {userInfo && (
+        <Dashboard fileReferences={fileReferences} userInfo={userInfo} />
+      )}
       {!userInfo && (
         <>
           <div>Nothing to see here, you need to log in</div>
