@@ -17,7 +17,7 @@ const LogInForm = (props) => {
     <>
       <h2>Logg inn</h2>
       <div className="input-container">
-        <label>Brukernavn</label>
+        <label>Epost</label>
         <input
           placeholder="ola@normann.no"
           value={username}

@@ -39,6 +39,10 @@ const AnimationScene = () => {
     fetchRefereces();
   }, []);
 
+  setTimeout(() => {
+    createScene();
+  }, 1);
+
   //THREE.JS SECTION ***************
   function createScene() {
     let mixer;
@@ -217,10 +221,6 @@ const AnimationScene = () => {
 
     return mixer;
   }
-
-  setTimeout(() => {
-    createScene();
-  }, 1);
 
   return (
     <>

@@ -9,7 +9,8 @@ import {
 } from "firebase/auth";
 import LogInForm from "../../components/Login/LogInForm";
 import Register from "../../components/Register/RegisterForm";
-import { auth } from "../../resources/firebase.js";
+import { auth, firestore } from "../../resources/firebase.js";
+import { addDoc, collection } from "firebase/firestore";
 
 // connectAuthEmulator(auth, "http://localhost:9099");
 
@@ -45,11 +46,24 @@ const Login = () => {
     }
   };
 
+  const checkInput = () => {
+    if (!firstName || !lastName || !email || !password) {
+      setError("Fyll inn alle feltene");
+      return false;
+    }
+    return true;
+  };
   const createUserWithEmail = async () => {
+    setError("");
+    if (!checkInput()) {
+      return;
+    }
+
     try {
       const user = await createUserWithEmailAndPassword(auth, email, password);
-      console.log(user);
+      console.log(user.user.uid);
       setError("");
+      createFirebaseUserDocument(user.user.uid);
       navigate("/home");
     } catch (error) {
       if (error.code === "auth/weak-password") {
@@ -82,6 +96,19 @@ const Login = () => {
         setError("Vennligst fyll inn epostadresse");
       }
       console.log({ error });
+    }
+  };
+
+  const createFirebaseUserDocument = async (userUID) => {
+    const newUser = await addDoc(collection(firestore, "users"), {
+      first_name: firstName,
+      last_name: lastName,
+      email: email,
+      role: "student",
+      uid: userUID,
+    });
+    if (!newUser) {
+      alert("Something went wrong when creating user");
     }
   };
 

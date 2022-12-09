@@ -20,23 +20,17 @@ const firebaseConfig = {
 };
 
 // Initialize Firebase
-
 const firebaseApp = initializeApp(firebaseConfig);
 
 //Auth
 export const auth = getAuth();
+
+//Firestore
 export const firestore = getFirestore(firebaseApp);
 
 //Storage
 export const storage = getStorage(firebaseApp);
 export const animationsFolder = ref(storage, "animations");
 export const usersRef = collection(firestore, "users");
-
-// listAll().then(function (result) {
-//   console.log("burde komme etter dette");
-//   result.items.forEach(function (animationRef) {
-//     console.log(animationRef);
-//   });
-// });
 
 // connectAuthEmulator(auth, "http://localhost:9099");

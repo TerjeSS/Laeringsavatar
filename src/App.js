@@ -9,25 +9,6 @@ import HomeScreen from "./pages/HomeScreen";
 import { auth } from "./resources/firebase";
 import AnimationScene from "./pages/AnimationScene";
 
-const MainContent = (props) => {
-  const { showCanvas } = props;
-  if (!showCanvas) {
-    return <div className="right-container">{props.mainContent}</div>;
-  }
-  return <div className="right-container">{props.mainContent}</div>;
-};
-
-function LayoutComponent({ showCanvas, mainContent }) {
-  return (
-    <>
-      <div className="home-container">
-        <SideNavBar />
-        <MainContent mainContent={mainContent} showCanvas={showCanvas} />
-      </div>
-    </>
-  );
-}
-
 function App() {
   const showCanvas = true;
   return (
@@ -54,65 +35,25 @@ function App() {
           path="/"
           element={<LayoutComponent mainContent={<HomeScreen />} />}
         />
-        <Route
-          path="/animation1"
-          element={
-            <LayoutComponent
-              mainContent={<CopyPaste animationFilename="P1_Roll_Down.glb" />}
-              showCanvas={showCanvas}
-            />
-          }
-        />
-        <Route
-          path="/animation2"
-          element={
-            <LayoutComponent
-              mainContent={<CopyPaste animationFilename="Jord.glb" />}
-              showCanvas={showCanvas}
-            />
-          }
-        />
-        <Route
-          path="/animation3"
-          element={
-            <LayoutComponent
-              mainContent={<CopyPaste animationFilename="testFile.glb" />}
-              showCanvas={showCanvas}
-            />
-          }
-        />
-        <Route
-          path="/animation4"
-          element={
-            <LayoutComponent
-              mainContent={
-                <CopyPaste animationFilename="P3_Floor_Pattern.glb" />
-              }
-              showCanvas={showCanvas}
-            />
-          }
-        />
-        <Route
-          path="/animation5"
-          element={
-            <LayoutComponent
-              mainContent={<CopyPaste animationFilename="P4_Roll_FandB.glb" />}
-              showCanvas={showCanvas}
-            />
-          }
-        />
-        <Route
-          path="/animationRef"
-          element={
-            <LayoutComponent
-              mainContent={
-                <CopyPaste animationFilename="https://firebasestorage.googleapis.com/v0/b/laringsavatar.appspot.com/o/animations%2FP1_Roll_Down.glb?alt=media&token=05a8c16f-1662-4d24-bc41-ba72924a0eda" />
-              }
-              showCanvas={showCanvas}
-            />
-          }
-        />
       </Routes>
+    </>
+  );
+}
+const MainContent = (props) => {
+  const { showCanvas } = props;
+  // if (!showCanvas) {
+  //   return <div className="right-container">{props.mainContent}</div>;
+  // }
+  return <div className="right-container">{props.mainContent}</div>;
+};
+
+function LayoutComponent({ showCanvas, mainContent }) {
+  return (
+    <>
+      <div className="home-container">
+        <SideNavBar />
+        <MainContent mainContent={mainContent} showCanvas={showCanvas} />
+      </div>
     </>
   );
 }
