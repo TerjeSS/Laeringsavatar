@@ -46,6 +46,7 @@ const Dashboard = (props) => {
   return (
     <>
       <div className="dashboard-container">
+        <UploadFile userInfo={userInfo} />
         <div className="links-container">
           <h2>Liste over visualiseringer</h2>
           {fileReferences.length === 0 && (
@@ -64,7 +65,6 @@ const Dashboard = (props) => {
             return <DashboardLink key={element.fullPath} link={element} />;
           })}
         </div>
-        <UploadFile userInfo={userInfo} />
       </div>
     </>
   );

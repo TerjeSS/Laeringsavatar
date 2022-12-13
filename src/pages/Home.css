@@ -1,7 +1,6 @@
 body{
     margin: 0;
     padding: 0;
-    background-color: rgb(235, 236, 237);
   }
 .home-container{
     display: flex;
@@ -9,7 +8,6 @@ body{
 .left-menu-container{
     max-width: 15vw;
     min-width: 15vw;
-    background-color: aliceblue;
     height: 100vh;
     min-height: 100%;
 }
@@ -71,13 +69,33 @@ margin-left: 1rem;
   .control-panel-container label{
     display: none;
   }
+  .login-container{
+    
+  }
+  .login-left-container{
+    display: none
+  }
+  .login-right-container{
+    width: 100vw;
+  }
+
 }
 .dashboard-container{
     height: 100%;
     width: 100%;
 }
-
-
+.upload-status-message{
+    font-size: x-large;
+    color: red;
+}
+.links-container{
+    height: 80vh;
+    overflow: scroll;
+    overflow-y:scroll;
+}
+.upload-container{
+    margin-bottom: 1rem;
+}
 
 
 /* 
