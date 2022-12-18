@@ -62,7 +62,13 @@ const Dashboard = (props) => {
                 />
               );
             }
-            return <DashboardLink key={element.fullPath} link={element} />;
+            return (
+              <DashboardAdminLink
+                key={element.fullPath}
+                link={element}
+                setFileReferences={setFileReferences}
+              />
+            );
           })}
         </div>
       </div>

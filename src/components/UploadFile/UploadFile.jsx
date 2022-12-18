@@ -12,15 +12,17 @@ const UploadFile = ({ userInfo }) => {
       return;
     }
     const extension = getFileExtension(fileList[0]);
+    console.log();
 
-    if (extension !== "glb" || extension !== "gltf") {
-      setUploadStatusMessage("Feil filformat. Må være .glb eller .glft");
-      return;
-    }
+    // if (extension !== "glb" || extension !== "gltf") {
+    //   setUploadStatusMessage("Feil filformat. Må være .glb eller .glft");
+    //   return;
+    // }
+
     const metaData = {
       customMetadata: { uploadedBy: userInfo.email },
     };
-    console.log(extension);
+
     const newFileReference = ref(animationsFolder, fileList[0].name);
 
     uploadBytes(newFileReference, fileList[0], metaData)
@@ -38,13 +40,15 @@ const UploadFile = ({ userInfo }) => {
     const lastDot = name.lastIndexOf(".");
 
     const ext = name.substring(lastDot + 1);
-
+    console.log(ext);
     return ext;
   };
 
   return (
     <div className="upload-container">
-      <h1>Hei {`${userInfo.first_name} ${userInfo.last_name}`}</h1>
+      <h1>
+        Hei {`${userInfo.first_name} ${userInfo.last_name}(${userInfo.email})`}
+      </h1>
       <h4>Last opp ny visualisering</h4>
       <label htmlFor="fileUpload">Velg .glb eller .gltf-fil: </label>
       <input
