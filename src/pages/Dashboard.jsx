@@ -13,7 +13,8 @@ const Dashboard = (props) => {
 
   async function fetchVisualisations() {
     console.log("Fetching visualisations");
-    if (userInfo.role === "admin" && fileReferences.length === 0) {
+    setFileReferences([]);
+    if (userInfo.role === "admin") {
       listAll(animationRef)
         .then((res) => {
           setFileReferences([...res.items]);
@@ -21,7 +22,7 @@ const Dashboard = (props) => {
         .catch((error) => {
           console.error(error);
         });
-    } else if (userInfo.role === "student" && fileReferences.length === 0) {
+    } else if (userInfo.role === "student") {
       console.log("student");
       let temp = [];
       let result = await listAll(animationRef);
@@ -46,7 +47,11 @@ const Dashboard = (props) => {
   return (
     <>
       <div className="dashboard-container">
-        <UploadFile userInfo={userInfo} />
+        <UploadFile
+          userInfo={userInfo}
+          fetchVisualisations={fetchVisualisations}
+          setFileReferences={setFileReferences}
+        />
         <div className="links-container">
           <h2>Liste over visualiseringer</h2>
           {fileReferences.length === 0 && (

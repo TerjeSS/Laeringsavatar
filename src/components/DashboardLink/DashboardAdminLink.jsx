@@ -8,6 +8,7 @@ const DashboardAdminLink = ({ link, setFileReferences }) => {
   const [errorMessage, setErrorMessage] = useState("");
   const [uploadedBy, setUploadedBy] = useState();
   const [uploaded, setUploaded] = useState();
+  const [description, setDescription] = useState("");
   const handleFileDelete = async () => {
     try {
       const res = await deleteObject(link);
@@ -29,6 +30,7 @@ const DashboardAdminLink = ({ link, setFileReferences }) => {
     if (metaData) {
       setUploaded(new Date(metaData.timeCreated).toLocaleString());
       setUploadedBy(metaData.customMetadata.uploadedBy);
+      setDescription(metaData.customMetadata.description);
     } else {
       setUploadedBy("Ukjent");
     }
@@ -45,13 +47,7 @@ const DashboardAdminLink = ({ link, setFileReferences }) => {
       <p>
         <b>Lastet opp av:</b> {uploadedBy} - {uploaded}
       </p>
-      <p>
-        Beskrivelse. Lorem ipsum dolor sit, amet consectetur adipisicing elit.
-        Suscipit fuga odit aperiam, rem molestias nesciunt commodi iusto error
-        ratione, vero neque tempora provident non esse. Ipsam aut impedit
-        delectus! At expedita placeat consectetur ut asperiores sint laboriosam
-        provident vel necessitatibus.
-      </p>
+      <p>{description}</p>
       <button onClick={handleFileDelete}>Slett visualisering</button>
       {errorMessage && <p>{errorMessage}</p>}
     </div>
