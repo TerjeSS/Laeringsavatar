@@ -1,0 +1,26 @@
+.control-panel-container{
+    position: absolute;
+    display: flex;
+    justify-content: space-around;
+    width: 600px;
+    top: 0;
+    height: 5vh;
+    border-radius: 0.5rem;
+}
+.control-panel-container label{
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.control-panel-container select{
+    height: 50%;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+.control-panel-container button{
+    margin-top: auto;
+    margin-bottom: auto;
+border-radius: 0.5rem;
+height: 80%;
+cursor: pointer;
+width: 5rem;
+}
