@@ -1,4 +1,4 @@
-import { Routes, Route } from "react-router-dom";
+import { Routes, Route, Navigate } from "react-router-dom";
 import Login from "./pages/Login/login";
 import "./pages/Home.css";
 import { React } from "react";
@@ -25,10 +25,8 @@ function App() {
           path="/home"
           element={<LayoutComponent mainContent={<HomeScreen />} />}
         />
-        <Route
-          path="/"
-          element={<LayoutComponent mainContent={<HomeScreen />} />}
-        />
+        <Route path="/" element={<Login />} />
+        <Route path="/*" element={<Navigate to="/" />}></Route>
       </Routes>
     </>
   );
