@@ -6,6 +6,7 @@
     top: 0;
     height: 5vh;
     border-radius: 0.5rem;
+    
 }
 .control-panel-container label{
     margin-top: auto;
@@ -19,8 +20,8 @@
 .control-panel-container button{
     margin-top: auto;
     margin-bottom: auto;
-border-radius: 0.5rem;
-height: 80%;
-cursor: pointer;
-width: 5rem;
+    border-radius: 0.5rem;
+    height: 80%;
+    cursor: pointer;
+    width: 6rem;
 }

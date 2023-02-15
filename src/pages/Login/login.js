@@ -119,19 +119,24 @@ const Login = () => {
           <h2>
             Velkommen til VisBev3D - En prototype for en visualiseringsapp
           </h2>
-          <h4>
+          <p>
             Prototypen utvikles i forbindelse med prosjektet "Læringsavatar",
             (2022-24)
-          </h4>
+          </p>
           <div>
-            <p>Prosjekteier er Kunsthøgskolen i Oslo, avdeling PPU</p>
+            <p>Prosjekteier er Kunsthøgskolen i Oslo, avdeling PPU.</p>
             <p>
               Samarbeidspartnere er Norges idrettshøgskole, Kristiania og HLM
-              Produksjoner
+              Produksjoner.
+            </p>
+            <p>
+              Prototypen utvikles av HLM Produksjoner i samarbeid med studenter
+              på Høyskolen Kristiania, IT og 3D-design, under veiledning av
+              Henrik Lieng.
             </p>
             <p>
               Prosjektet er støttet av Direktoratet for høyere utdanning og
-              kompetanse
+              kompetanse.
             </p>
           </div>
         </div>

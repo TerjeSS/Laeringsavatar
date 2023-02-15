@@ -53,7 +53,7 @@ const Dashboard = (props) => {
           setFileReferences={setFileReferences}
         />
         <div className="links-container">
-          <h2>Liste over visualiseringer</h2>
+          <h2>Liste over visualiseringer:</h2>
           {fileReferences.length === 0 && (
             <p>Ingen visualiseringer lastet opp</p>
           )}

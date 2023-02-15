@@ -2,31 +2,36 @@
     height: 100vh;
     display: flex;
     font-size:large;
-    background-color: whitesmoke;
+    color: #e6e6e6;
 }
 .login-left-container{
     width: 55vw;
+    height: 100%;
     display: flex;
+    align-items: center;
     flex-direction: column;
 }
 .left-image-container{
-    height: 70%;
+    height: 50%;
     width: 100%;
     display: flex;
     justify-content: center;
     align-items: center;
+    border-radius: 2rem;
 }
 .left-image-container img{
-    height: 80%;
-    width: 80%;
-    border-radius: 1.5rem;
+    height: 100%;
+    object-fit: contain;
+    border-radius: 2rem;
+    margin-bottom: 2rem;
+    
+    
 }
 .left-text-container{
     height: 50%;
-    width: 100%;
+    width: 80%;
     display: flex;
     flex-direction: column;
-    align-items: center;
     justify-content: space-evenly;
 }
 .left-text-container h2{
@@ -43,11 +48,17 @@ font-size: 1.5rem;
 }
 .login-right-container{
     width: 45vw;
+    min-height: 6vh;
     display: flex;
     align-items: center;
+    justify-content: space-around;
     flex-direction: column;
     margin-top: auto;
     margin-bottom: auto;
+    background-color: #181818;
+    border-radius: 20px;
+    margin-right: 5rem;
+    font-size: x-large;
 
 }
 .input-container{
@@ -74,7 +85,7 @@ font-size: 1.5rem;
 .login-button{
     background-color: purple;
     color: white;
-    font-size: large;
+    font-size: x-large;
     width: 100%;
     border-radius: 10px;
     height: 3rem;
@@ -82,11 +93,7 @@ font-size: 1.5rem;
     cursor: pointer;
 
 }
-.google-button-container{
-    width: 50%;
-    margin-top: 2rem;
 
-}
 
 .register-link{
     text-decoration: underline;
@@ -103,4 +110,5 @@ font-size: 1.5rem;
     margin-top: 1rem;
     text-decoration: underline;
     cursor: pointer;
+    margin-bottom: 2rem;
 }

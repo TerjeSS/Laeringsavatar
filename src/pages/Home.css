@@ -1,42 +1,76 @@
 body{
     margin: 0;
     padding: 0;
+    background-color: #121212;
+    color: #fefefe;
   }
 .home-container{
     display: flex;
 }
 .left-menu-container{
-    max-width: 15vw;
-    min-width: 15vw;
+    background-color: #181818;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    width: 10vw;
+    min-width: 10vw;
     height: 100vh;
     min-height: 100%;
+    color: #fefefe;
+}
+.left-menu-container a{
+    color: #fefefe;
+    font-size: x-large;
+    margin: 1rem;
+}
+.left-menu-container button{
+    margin: 1rem;
+    background-color: purple;
+    color: white;
+    font-size: x-large;
+    border-radius: 10px;
+    height: 3rem;
+    border: 0;
+    cursor: pointer;
+    width: 80%;
+
 }
 .right-container{
-    min-width: 85vw;
+    min-width: 90vw;
     display: flex;
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    margin-left: 2rem;
 
 }
-ul{
-    list-style: none;
-    font-size: 1.5rem;
-    padding: 0.5rem;
-    margin: 0.5rem;
-    margin-top: 1rem;
+.dashboard-container {
+    display: flex;
+
 }
-ul li{
-    margin-bottom: 1rem;
+.right-container button{
+    background-color: purple;
+    color: white;
+    font-size: x-large;
+    border-radius: 10px;
+    height: 3rem;
+    border: 0;
+    cursor: pointer;
+}
+.right-container h1{
+    margin-bottom: 4rem;
 }
 .control-panel{
     color: #133b5f
 }
+select option {
+    background-color: yellow;
+}
 
-.studio-links li{
+/* .studio-links li{
 list-style-type: disc;
 margin-left: 1rem;
-}
+} */
 
 .canvas{
     width: 90% !important;
@@ -46,6 +80,27 @@ margin-left: 1rem;
 }
 .list-container{
     margin-top: 0;
+}
+hr{
+    width: 50%;
+    left: 0;
+}
+.link-container{
+    border-left: 0px;
+    border-top: 0px;
+    border-bottom: 1px;
+    border-right: 0px;
+    border-color: #133b5f;
+    border-style: solid;
+}
+.links-container button{
+    height: 30px;
+    margin-left: 1rem;
+    font-size: 1rem;
+}
+.links-container a{
+    color: #fefefe;
+    font-size: x-large;
 }
 
 @media only screen and (max-width: 900px) {
@@ -64,13 +119,11 @@ margin-left: 1rem;
     }
     .control-panel-container button{
         width: 1rem;
+        font-size: small;
 
   }
   .control-panel-container label{
     display: none;
-  }
-  .login-container{
-    
   }
   .login-left-container{
     display: none
@@ -89,14 +142,36 @@ margin-left: 1rem;
     color: red;
 }
 .links-container{
-    height: 80vh;
+    height: 100vh;
     overflow: scroll;
     overflow-y:scroll;
+    padding-left: 5rem;
+    width: 60%;
 }
 .upload-container{
     margin-bottom: 1rem;
+    max-width: 40%;
+
+}
+.upload-container input::file-selector-button{
+    background-color: purple;
+    color: white;
+    font-size: large;
+    border-radius: 10px;
+    height: 3rem;
+    border: 0;
+    cursor: pointer;
+}
+.upload-container input{
+    margin: 1rem 0;
+    width: 80%;
 }
 
+.upload-container textarea{
+    background-color: #181818;
+    color: #fefefe;
+    margin-top: 0.5rem;
+}
 
 /* 
 @tailwind base;

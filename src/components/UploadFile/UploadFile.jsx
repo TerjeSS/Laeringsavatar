@@ -30,6 +30,7 @@ const UploadFile = ({ userInfo, fetchVisualisations, setFileReferences }) => {
       .then(() => {
         setUploadStatusMessage("Filen ble lastet opp");
         document.getElementById("fileUpload").value = null;
+        setDescription("");
       })
       .then(() => {
         fetchVisualisations();
@@ -53,8 +54,10 @@ const UploadFile = ({ userInfo, fetchVisualisations, setFileReferences }) => {
       <h1>
         Hei {`${userInfo.first_name} ${userInfo.last_name}(${userInfo.email})`}
       </h1>
-      <h4>Last opp ny visualisering</h4>
-      <label htmlFor="fileUpload">Velg .glb eller .gltf-fil: </label>
+      <h2>Last opp ny visualisering</h2>
+      <label htmlFor="fileUpload">
+        Velg en .glb eller .gltf-fil som skal lastes opp:{" "}
+      </label>
       <br></br>
       <input
         type="file"
@@ -62,6 +65,7 @@ const UploadFile = ({ userInfo, fetchVisualisations, setFileReferences }) => {
         id="fileUpload"
         onChange={() => {
           setUploadStatusMessage("");
+          setDescription("");
         }}
       />
       <br></br>
@@ -70,8 +74,8 @@ const UploadFile = ({ userInfo, fetchVisualisations, setFileReferences }) => {
       <br />
       <textarea
         value={description}
-        rows="5"
-        cols="80"
+        rows="7"
+        cols="50"
         className="description-textarea"
         onChange={(e) => {
           setDescription(e.target.value);
