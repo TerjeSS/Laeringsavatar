@@ -66,7 +66,7 @@ const Register = ({
       {error && <div className={"error-div"}>{error.toString()}</div>}
       <div className="login-button-container">
         <button onClick={createUserWithEmail} className="login-button">
-          Opprett
+          Opprett bruker
         </button>
       </div>
       <div

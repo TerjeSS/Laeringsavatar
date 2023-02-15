@@ -22,11 +22,6 @@ const SideNavBar = () => {
           <Link to={"/home"}>Home</Link>
         </li>
       </ul>
-      <ul>
-        <li>
-          <Link to={"/embedded"}>Embedded test</Link>
-        </li>
-      </ul>
 
       <ul>
         <li onClick={() => handleLogout()}>Log out</li>
