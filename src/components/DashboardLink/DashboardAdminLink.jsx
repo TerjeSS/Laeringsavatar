@@ -44,11 +44,12 @@ const DashboardAdminLink = ({ link, setFileReferences }) => {
       <Link to={"/visualisering/" + link.name} key={link.fullPath}>
         {link.name}
       </Link>
+      <button onClick={handleFileDelete}>Slett visualisering</button>
       <p>
         <b>Lastet opp av:</b> {uploadedBy} - {uploaded}
       </p>
       <p>{description}</p>
-      <button onClick={handleFileDelete}>Slett visualisering</button>
+
       {errorMessage && <p>{errorMessage}</p>}
     </div>
   );

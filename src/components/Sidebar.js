@@ -17,15 +17,9 @@ const SideNavBar = () => {
 
   return (
     <div className="left-menu-container">
-      <ul className="list-container">
-        <li>
-          <Link to={"/home"}>Home</Link>
-        </li>
-      </ul>
+      <Link to={"/home"}>Hjem</Link>
 
-      <ul>
-        <li onClick={() => handleLogout()}>Log out</li>
-      </ul>
+      <button onClick={() => handleLogout()}>Logg ut</button>
     </div>
   );
 };
