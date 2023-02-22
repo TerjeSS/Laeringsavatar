@@ -7,9 +7,10 @@ import "./Home.css";
 
 const HomeScreen = () => {
   const [userInfo, setUserInfo] = useState();
-  const [isLoading, setIsLoading] = useState(true);
+  const [isLoading, setIsLoading] = useState(false);
 
   const fetchUserInfo = async (user) => {
+    setIsLoading(true);
     try {
       let info = {};
       const userQuery = query(
@@ -34,7 +35,6 @@ const HomeScreen = () => {
         fetchUserInfo(user);
       } else {
         console.log("not logged in");
-        setIsLoading(false);
       }
     });
   }, []);
