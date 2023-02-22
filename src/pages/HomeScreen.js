@@ -3,13 +3,13 @@ import { auth, storageRef, usersRef, firestore } from "../resources/firebase";
 import { Link } from "react-router-dom";
 import Dashboard from "./Dashboard";
 import { collection, getDocs, query, where } from "firebase/firestore";
+import "./Home.css";
 
 const HomeScreen = () => {
   const [userInfo, setUserInfo] = useState();
-  const [isLoading, setIsLoading] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   const fetchUserInfo = async (user) => {
-    setIsLoading(true);
     try {
       let info = {};
       const userQuery = query(
@@ -34,20 +34,31 @@ const HomeScreen = () => {
         fetchUserInfo(user);
       } else {
         console.log("not logged in");
+        setIsLoading(false);
       }
     });
   }, []);
 
   return (
     <>
-      {isLoading && <h1>Loading....</h1>}
+      {isLoading && (
+        <div>
+          <h1>Laster...</h1>
+          <img
+            height="300px"
+            width="300px"
+            src="/img/mesh_models.png"
+            alt="dancingImage"
+          />
+        </div>
+      )}
       {userInfo && <Dashboard userInfo={userInfo} />}
-      {!userInfo && (
+      {!userInfo && !isLoading && (
         <>
-          <div>Nothing to see here, you need to log in</div>
+          <div>Velkommen til VisBev3D. Vær vennlig å logge inn.</div>
           <div>
             <button>
-              <Link to={"/login"}>Log in</Link>
+              <Link to={"/login"}>Logg in</Link>
             </button>
           </div>
         </>

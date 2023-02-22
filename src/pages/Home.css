@@ -7,6 +7,9 @@ body{
 .home-container{
     display: flex;
 }
+button{
+    color: #fefefe;
+}
 .left-menu-container{
     background-color: #181818;
     display: flex;
