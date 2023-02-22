@@ -4,9 +4,9 @@ const ControlPanel = () => {
   return (
     <div className="control-panel-container">
       <button className="pause-button">Pause</button>
-      <button className="resume-button">Resume</button>
-      <button className="reset-button">Reset</button>
-      <label htmlFor="speed">Playback speed</label>
+      <button className="resume-button">Play</button>
+      <button className="reset-button">Restart</button>
+      <label htmlFor="speed">Hastighet</label>
       <select name="speed" className="speed-selector" id="speed">
         <option value="1">1x</option>
         <option value="0.5">0.5x</option>
