@@ -32,7 +32,6 @@
     width: 80%;
     display: flex;
     flex-direction: column;
-    justify-content: space-evenly;
 }
 .left-text-container h2{
     margin-bottom: 0;
@@ -42,9 +41,12 @@
 font-size: 1.5rem;
 
 }
+.left-text-container h2{
+    padding-bottom: 2rem;
+}
 .left-text-container p{
 margin: 0.5rem;
-font-size: 1.5rem;
+font-size: 1.4rem;
 }
 .login-right-container{
     width: 45vw;
@@ -94,6 +96,9 @@ font-size: 1.5rem;
 
 }
 
+.login-text-paragraph{
+    font-size: 1rem;
+}
 
 .register-link{
     text-decoration: underline;
