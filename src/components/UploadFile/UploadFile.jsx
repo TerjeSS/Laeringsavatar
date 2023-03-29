@@ -52,7 +52,9 @@ const UploadFile = ({ userInfo, fetchVisualisations, setFileReferences }) => {
   return (
     <div className="upload-container">
       <h1>
-        Hei {`${userInfo.first_name} ${userInfo.last_name}(${userInfo.email})`}
+        Hei {`${userInfo.first_name} ${userInfo.last_name}`}
+        <br></br>
+        {`(${userInfo.email})`}
       </h1>
       <h2>Last opp ny visualisering</h2>
       <label htmlFor="fileUpload">
