@@ -149,7 +149,8 @@ hr{
     overflow: scroll;
     overflow-y:scroll;
     padding-left: 5rem;
-    width: 60%;
+    min-width: 60%;
+    width: 100%;
 }
 .upload-container{
     margin-bottom: 1rem;
