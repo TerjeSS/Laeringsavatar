@@ -5,6 +5,7 @@ import { React } from "react";
 import SideNavBar from "./components/Sidebar";
 import HomeScreen from "./pages/HomeScreen";
 import AnimationScene from "./pages/AnimationScene";
+import FAQ from "./pages/Login/faq";
 
 function App() {
   const showCanvas = true;
@@ -24,6 +25,10 @@ function App() {
         <Route
           path="/home"
           element={<LayoutComponent mainContent={<HomeScreen />} />}
+        />
+        <Route
+          path="/faq"
+          element={<LayoutComponent mainContent={<FAQ />} />}
         />
         <Route path="/" element={<Login />} />
         <Route path="/*" element={<Navigate to="/" />}></Route>

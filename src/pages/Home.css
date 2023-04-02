@@ -176,7 +176,21 @@ hr{
     color: #fefefe;
     margin-top: 0.5rem;
 }
+.sidebar-links-container{
+    display: flex;
+    flex-direction: column;
+}
+.faq-container{
+    height: 90%;
+    width: 90%;
+    background-color: #181818;
+    font-size: 1.2rem;
+    border-radius: 20px;
 
+}
+.faq-container li{
+    
+}
 /* 
 @tailwind base;
 @tailwind components;
