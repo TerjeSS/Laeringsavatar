@@ -46,15 +46,15 @@ const AnimationScene = () => {
   //THREE.JS SECTION ***************
   function loadScene(scene) {
     const loader = new GLTFLoader();
-    loader.load('/Stage.glb', (gltf) => {
-      gltf.scene.traverse( function( node ) {
-        if ( node.isMesh ) { 
-          node.receiveShadow = true; 
+    loader.load("/Stage.glb", (gltf) => {
+      gltf.scene.traverse(function (node) {
+        if (node.isMesh) {
+          node.receiveShadow = true;
         }
-      } );
+      });
 
       scene.add(gltf.scene);
-    });	
+    });
   }
 
   function createScene() {
@@ -76,7 +76,7 @@ const AnimationScene = () => {
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
 
     const scene = new THREE.Scene();
-    scene.background = new THREE.Color( 0x000000 );
+    scene.background = new THREE.Color(0x000000);
 
     //Camera
     const camera = new THREE.PerspectiveCamera(
@@ -86,23 +86,23 @@ const AnimationScene = () => {
       60
     );
     camera.position.set(0, 2, -8);
-    camera.lookAt(0,3,5);
+    camera.lookAt(0, 3, 5);
 
     loadScene(scene);
 
     // light
-    const dirLight = new THREE.DirectionalLight( 0xeeeeee );
-	  dirLight.position.set( 0, 1, -0.4 );
-	  dirLight.castShadow = false;
-	  scene.add( dirLight );
+    const dirLight = new THREE.DirectionalLight(0xeeeeee);
+    dirLight.position.set(0, 1, -0.4);
+    dirLight.castShadow = false;
+    scene.add(dirLight);
 
-	  const lightFromBack = new THREE.DirectionalLight( 0x444444 );
-	  lightFromBack.position.set( 0, 1, 0.8 );
-	  lightFromBack.castShadow = true;
-	  scene.add( lightFromBack );
+    const lightFromBack = new THREE.DirectionalLight(0x444444);
+    lightFromBack.position.set(0, 1, 0.8);
+    lightFromBack.castShadow = true;
+    scene.add(lightFromBack);
 
-	  const ambLight = new THREE.AmbientLight(0xeeeeee);
-	  scene.add(ambLight);
+    const ambLight = new THREE.AmbientLight(0xeeeeee);
+    scene.add(ambLight);
 
     //Controls
     const controls = new OrbitControls(camera, renderer.domElement);
