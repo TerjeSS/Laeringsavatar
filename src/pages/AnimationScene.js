@@ -18,6 +18,7 @@ const AnimationScene = () => {
   const storageRef = ref(storage);
   const animationRef = ref(storageRef, "animations");
   const { filename } = useParams();
+  let camera, sceneBB;
 
   const fetchRefereces = async () => {
     listAll(animationRef)
@@ -53,6 +54,7 @@ const AnimationScene = () => {
         }
       });
 
+      sceneBB = new THREE.Box3().setFromObject(gltf.scene);
       scene.add(gltf.scene);
     });
   }
@@ -79,7 +81,7 @@ const AnimationScene = () => {
     scene.background = new THREE.Color(0x000000);
 
     //Camera
-    const camera = new THREE.PerspectiveCamera(
+    camera = new THREE.PerspectiveCamera(
       50,
       window.innerWidth / window.innerHeight,
       0.01,
@@ -179,6 +181,22 @@ const AnimationScene = () => {
 
       controls.update();
 
+      if(sceneBB)
+      {
+        if(camera.position.x > sceneBB.max.x)
+          camera.position.x = sceneBB.max.x;
+        if(camera.position.x < sceneBB.min.x)
+          camera.position.x = sceneBB.min.x;
+        if(camera.position.y > sceneBB.max.y)
+          camera.position.y = sceneBB.max.y;
+        if(camera.position.y < sceneBB.min.y)
+          camera.position.y = sceneBB.min.y;
+        if(camera.position.z > sceneBB.max.z)
+          camera.position.z = sceneBB.max.z;
+        if(camera.position.z < sceneBB.min.z)
+          camera.position.z = sceneBB.min.z;
+      }
+      
       renderer.render(scene, camera);
     }
 
