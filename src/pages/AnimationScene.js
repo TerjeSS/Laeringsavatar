@@ -18,7 +18,7 @@ const AnimationScene = () => {
   const storageRef = ref(storage);
   const animationRef = ref(storageRef, "animations");
   const { filename } = useParams();
-  let camera, sceneBB;
+  let camera, sceneBB, sceneRef;
 
   const fetchRefereces = async () => {
     listAll(animationRef)
@@ -54,7 +54,9 @@ const AnimationScene = () => {
         }
       });
 
+      gltf.scene.translateZ(-2);
       sceneBB = new THREE.Box3().setFromObject(gltf.scene);
+      sceneRef = gltf.scene; 
       scene.add(gltf.scene);
     });
   }
@@ -84,11 +86,11 @@ const AnimationScene = () => {
     camera = new THREE.PerspectiveCamera(
       50,
       window.innerWidth / window.innerHeight,
-      0.01,
-      60
+      0.001,
+      20
     );
-    camera.position.set(0, 2, -8);
-    camera.lookAt(0, 3, 5);
+    camera.position.set(0, 2, 3);
+    camera.lookAt(0, 2, -5);
 
     loadScene(scene);
 
@@ -108,7 +110,7 @@ const AnimationScene = () => {
 
     //Controls
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(0, 1, 0);
+    controls.target.set(0, 1, -3);
     controls.update();
     controls.enablePan = true;
     controls.enableDamping = true;
@@ -124,6 +126,10 @@ const AnimationScene = () => {
       function (gltf) {
         const model = gltf.scene;
         scene.add(model);
+//        let modelBB = new THREE.Box3().setFromObject(model);
+//        let center = new THREE.Vector3();
+//        modelBB.getCenter(center);
+//        sceneRef.translateX(center.x);
         model.traverse(function (object) {
           if (object.isMesh) object.castShadow = true;
         });
@@ -131,7 +137,7 @@ const AnimationScene = () => {
         mixer = new THREE.AnimationMixer(model);
 
         //Starts the animation
-        mixer.clipAction(gltf.animations[1]).play();
+        mixer.clipAction(gltf.animations[0]).play();
         const animationDuration = mixer.clipAction(gltf.animations[0])._clip
           .duration;
         animate();
@@ -140,21 +146,21 @@ const AnimationScene = () => {
         document
           .querySelector(".pause-button")
           .addEventListener("click", () => {
-            mixer.clipAction(gltf.animations[1]).paused = true;
+            mixer.clipAction(gltf.animations[0]).paused = true;
           });
         document
           .querySelector(".resume-button")
           .addEventListener("click", () => {
-            mixer.clipAction(gltf.animations[1]).paused = false;
+            mixer.clipAction(gltf.animations[0]).paused = false;
           });
         document
           .querySelector(".reset-button")
           .addEventListener("click", () => {
-            mixer.clipAction(gltf.animations[1]).reset();
+            mixer.clipAction(gltf.animations[0]).reset();
           });
         document.getElementById("speed").addEventListener("change", (e) => {
           mixer
-            .clipAction(gltf.animations[1])
+            .clipAction(gltf.animations[0])
             .setDuration(animationDuration / e.target.value);
         });
       },
