@@ -19,7 +19,7 @@ const SideNavBar = () => {
     <div className="left-menu-container">
       <div className="sidebar-links-container">
         <Link to={"/home"}>Hjem</Link>
-        <Link to={"/faq"}>FAQ</Link>
+        <Link to={"/faq"}>Hjelp</Link>
       </div>
 
       <button onClick={() => handleLogout()}>Logg ut</button>

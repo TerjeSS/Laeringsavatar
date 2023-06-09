@@ -6,19 +6,12 @@ const UploadFile = ({ userInfo, fetchVisualisations, setFileReferences }) => {
   const [uploadStatusMessage, setUploadStatusMessage] = useState("");
   const [description, setDescription] = useState("");
   const handleUpload = () => {
-    setUploadStatusMessage("");
+    setUploadStatusMessage("Laster opp fil... Vennligst vent");
     const fileList = document.getElementById("fileUpload").files;
     if (fileList.length === 0) {
       setUploadStatusMessage("Vennligst velg en fil");
       return;
     }
-    const extension = getFileExtension(fileList[0]);
-    console.log();
-
-    // if (extension !== "glb" || extension !== "gltf") {
-    //   setUploadStatusMessage("Feil filformat. Må være .glb eller .glft");
-    //   return;
-    // }
 
     const metaData = {
       customMetadata: { uploadedBy: userInfo.email, description: description },
