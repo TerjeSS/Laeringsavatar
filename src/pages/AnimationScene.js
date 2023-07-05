@@ -54,7 +54,6 @@ const AnimationScene = () => {
         }
       });
 
-      gltf.scene.translateZ(-2);
       sceneBB = new THREE.Box3().setFromObject(gltf.scene);
       sceneRef = gltf.scene; 
       scene.add(gltf.scene);
@@ -86,7 +85,7 @@ const AnimationScene = () => {
     camera = new THREE.PerspectiveCamera(
       50,
       window.innerWidth / window.innerHeight,
-      0.001,
+      0.1,
       20
     );
     camera.position.set(0, 2, 3);
@@ -110,7 +109,7 @@ const AnimationScene = () => {
 
     //Controls
     const controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(0, 1, -3);
+    controls.target.set(0, 1, 0);
     controls.update();
     controls.enablePan = true;
     controls.enableDamping = true;
@@ -137,8 +136,8 @@ const AnimationScene = () => {
         mixer = new THREE.AnimationMixer(model);
 
         //Starts the animation
-        mixer.clipAction(gltf.animations[0]).play();
-        const animationDuration = mixer.clipAction(gltf.animations[0])._clip
+        mixer.clipAction(gltf.animations[1]).play();
+        const animationDuration = mixer.clipAction(gltf.animations[1])._clip
           .duration;
         animate();
 
@@ -146,21 +145,21 @@ const AnimationScene = () => {
         document
           .querySelector(".pause-button")
           .addEventListener("click", () => {
-            mixer.clipAction(gltf.animations[0]).paused = true;
+            mixer.clipAction(gltf.animations[1]).paused = true;
           });
         document
           .querySelector(".resume-button")
           .addEventListener("click", () => {
-            mixer.clipAction(gltf.animations[0]).paused = false;
+            mixer.clipAction(gltf.animations[1]).paused = false;
           });
         document
           .querySelector(".reset-button")
           .addEventListener("click", () => {
-            mixer.clipAction(gltf.animations[0]).reset();
+            mixer.clipAction(gltf.animations[1]).reset();
           });
         document.getElementById("speed").addEventListener("change", (e) => {
           mixer
-            .clipAction(gltf.animations[0])
+            .clipAction(gltf.animations[1])
             .setDuration(animationDuration / e.target.value);
         });
       },
