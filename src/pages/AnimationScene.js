@@ -74,6 +74,7 @@ const AnimationScene = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.shadowMap.enabled = true;
+    renderer.physicallyCorrectLights = true;
 
     // container.appendChild(renderer.domElement);
     const pmremGenerator = new THREE.PMREMGenerator(renderer);
@@ -93,18 +94,18 @@ const AnimationScene = () => {
 
     loadScene(scene);
 
-    // light
-    const dirLight = new THREE.DirectionalLight(0xeeeeee);
+    // lights
+    const dirLight = new THREE.DirectionalLight('white', 4);
     dirLight.position.set(0, 1, -0.4);
     dirLight.castShadow = false;
     scene.add(dirLight);
 
-    const lightFromBack = new THREE.DirectionalLight(0x444444);
+    const lightFromBack = new THREE.DirectionalLight('white', 4);
     lightFromBack.position.set(0, 1, 0.8);
     lightFromBack.castShadow = true;
     scene.add(lightFromBack);
 
-    const ambLight = new THREE.AmbientLight(0xeeeeee);
+    const ambLight = new THREE.AmbientLight(0xeeeeee,2);
     scene.add(ambLight);
 
     //Controls
@@ -125,10 +126,7 @@ const AnimationScene = () => {
       function (gltf) {
         const model = gltf.scene;
         scene.add(model);
-//        let modelBB = new THREE.Box3().setFromObject(model);
-//        let center = new THREE.Vector3();
-//        modelBB.getCenter(center);
-//        sceneRef.translateX(center.x);
+
         model.traverse(function (object) {
           if (object.isMesh) object.castShadow = true;
         });
