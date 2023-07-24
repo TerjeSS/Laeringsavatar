@@ -17,7 +17,7 @@ const AnimationScene = () => {
   const storageRef = ref(storage);
   const animationRef = ref(storageRef, "animations");
   const { filename } = useParams();
-  let camera, sceneBB, controls, bones, bonePos, targetGeometry, model;
+  let camera, sceneBB, controls, bones, centreBone, bonePos, targetGeometry, model;
   let selectingCenter = false;
 
   const fetchRefereces = async () => {
@@ -114,6 +114,7 @@ const AnimationScene = () => {
     const sphere = new THREE.SphereGeometry(0.1);
     const targetMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
     targetGeometry = new THREE.Mesh(sphere, targetMaterial);
+    targetGeometry.visible = false;
     scene.add(targetGeometry);
 
     //Loaders
@@ -132,6 +133,7 @@ const AnimationScene = () => {
           if (object.isMesh) 
           {
             object.castShadow = true;
+            // increase bounding box to make raycasting work
             object.geometry.boundingBox = sceneBB.clone();
             object.geometry.boundingBox.expandByScalar(2);
             const center = new THREE.Vector3();
@@ -142,9 +144,7 @@ const AnimationScene = () => {
           }
         });
         bones = model.children[1].children;
-        bonePos.set(0,0,0);
-        bonePos.applyMatrix4(bones[0].matrix);
-        controls.target.copy(bonePos);
+        centreBone = bones[0];
         
         mixer = new THREE.AnimationMixer(model);
 
@@ -185,30 +185,78 @@ const AnimationScene = () => {
       }
     );
 
-    // Window resize function
     container.onresize = function () {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
 
       renderer.setSize(window.innerWidth / window.innerHeight);
     };
-    container.onclick = function ( event ) {
-      if(selectingCenter)
+
+    var timeoutId;
+    var pickDelay = 250;
+    var selectDelay = 500;
+    var isClick = true;
+    container.onmousedown = function(event) {
+      timeoutId = setTimeout(function() {
+        isClick = false;
+      }, pickDelay);
+    };
+    container.onmouseup = function(event) {
+      clearTimeout(timeoutId);
+      if(selectingCenter && isClick)
       {
-        const pointer = new THREE.Vector2();
-        pointer.x = ( event.clientX / window.innerWidth ) * 2 - 1;
-        pointer.y = - ( event.clientY / window.innerHeight ) * 2 + 1;
-
-        const raycaster = new THREE.Raycaster();
-        raycaster.setFromCamera( pointer, camera );
-        const intersects = raycaster.intersectObjects(model.children);
-
-        if(intersects.length > 0){
-            controls.target.copy(intersects[0].point);
-            targetGeometry.position.copy(intersects[0].point);
-        }
-
+        const rect = renderer.domElement.getBoundingClientRect();
+        const x = event.clientX - rect.left;
+        const y = event.clientY - rect.top;
+    
+        var mouse = new THREE.Vector2();
+        var canvas = document.querySelector(".canvas");
+        mouse.x = ( x / canvas.clientWidth ) *  2 - 1;
+        mouse.y = ( y / canvas.clientHeight) * - 2 + 1
+        selectPickedBone(mouse);
       }
+      isClick = true;
+    }
+
+    function selectPickedBone(mousePos)
+    {
+      camera.updateMatrixWorld();
+      var raycaster = new THREE.Raycaster();
+      raycaster.setFromCamera( mousePos, camera );    
+
+      var intersects = raycaster.intersectObjects(model.children, true);
+
+      if(intersects.length > 0){
+        // Find nearest bone
+        const pickedPoint = intersects[0].point;
+        var minDist = Number.POSITIVE_INFINITY;
+        findNearestBone(bones[0], pickedPoint, minDist);
+
+        // visualize selection sphere
+        targetGeometry.visible = true;
+        centreBone.getWorldPosition(bonePos);
+        targetGeometry.position.copy(bonePos);
+        setTimeout(function() {targetGeometry.visible = false;}, selectDelay);
+      }
+    }
+
+    function findNearestBone(bone, point, minDist)
+    {
+      var bonePosition = new THREE.Vector3();
+      bone.getWorldPosition(bonePosition);
+      var distance = point.distanceTo(bonePosition);
+      if(distance < minDist)
+      {
+        minDist = distance;
+        centreBone = bone;
+      }
+
+      for(var childBone of bone.children)
+      {
+        minDist = findNearestBone(childBone, point, minDist);
+      }
+
+      return minDist;
     }
 
     //Recursive animate-function
@@ -233,6 +281,9 @@ const AnimationScene = () => {
         if(camera.position.z < sceneBB.min.z)
           camera.position.z = sceneBB.min.z;
       }
+
+      centreBone.getWorldPosition(bonePos);
+      controls.target.copy(bonePos);
       
       renderer.render(scene, camera);
     }
