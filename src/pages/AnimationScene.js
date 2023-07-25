@@ -10,7 +10,6 @@ import ControlPanel from "../components/ControlPanel/ControlPanel";
 import { storage } from "../resources/firebase";
 import { useParams } from "react-router-dom";
 
-
 const AnimationScene = () => {
   const [firebaseURL, setFirebaseURL] = useState("");
   let fileReferences = [];
@@ -117,12 +116,11 @@ const AnimationScene = () => {
     targetGeometry.visible = false;
     scene.add(targetGeometry);
 
-    //Loaders
+    //Loaders   
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath("js/libs/draco/gltf/");
     const loader = new GLTFLoader();
     loader.setDRACOLoader(dracoLoader);
-    console.log("LOADER" + firebaseURL);
     loader.load(
       firebaseURL,
       function (gltf) {
@@ -178,6 +176,8 @@ const AnimationScene = () => {
             .clipAction(gltf.animations[1])
             .setDuration(animationDuration / e.target.value);
         });
+        const overlayDiv = document.querySelector('.loadingDiv');
+        overlayDiv.style.display = 'none';
       },
       undefined,
       function (e) {
@@ -282,8 +282,11 @@ const AnimationScene = () => {
           camera.position.z = sceneBB.min.z;
       }
 
-      centreBone.getWorldPosition(bonePos);
-      controls.target.copy(bonePos);
+      if(centreBone)
+      {
+        centreBone.getWorldPosition(bonePos);
+        controls.target.copy(bonePos);
+      }
       
       renderer.render(scene, camera);
     }
@@ -294,7 +297,19 @@ const AnimationScene = () => {
   return (
     <>
       <ControlPanel />
+
+      <div className="canvasParent">
       <canvas className="canvas"></canvas>
+      <div className="loadingDiv">
+          <h1>Laster...</h1>
+          <img
+            height="300px"
+            width="300px"
+            src="/img/mesh_models.png"
+            alt="dancingImage"
+          />
+      </div>
+      </div>
     </>
   );
 };

@@ -75,12 +75,27 @@ list-style-type: disc;
 margin-left: 1rem;
 } */
 
-.canvas{
-    width: 90% !important;
-    height: 90% !important;
+.canvasParent{
+    position: relative;
     border: 1px solid black;
-    z-index: 1;
+    width: 90%;
+    height: 90%;
 }
+.canvas{
+    position: absolute;
+    z-index: 1;
+    width: 100% !important;
+    height: 100% !important;
+}
+.loadingDiv{
+    position: absolute; 
+    margin: 0 auto;
+    z-index: 2;
+    top: 50%; 
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
 .list-container{
     margin-top: 0;
 }
@@ -188,9 +203,7 @@ hr{
     border-radius: 20px;
 
 }
-.faq-container li{
-    
-}
+
 /* 
 @tailwind base;
 @tailwind components;
