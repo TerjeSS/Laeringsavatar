@@ -9,6 +9,7 @@ import { getDownloadURL, listAll, ref } from "firebase/storage";
 import ControlPanel from "../components/ControlPanel/ControlPanel";
 import { storage } from "../resources/firebase";
 import { useParams } from "react-router-dom";
+import {SkinOptions} from "./AnimationOptions.js"
 
 const AnimationScene = () => {
   const [firebaseURL, setFirebaseURL] = useState("");
@@ -16,7 +17,8 @@ const AnimationScene = () => {
   const storageRef = ref(storage);
   const animationRef = ref(storageRef, "animations");
   const { filename } = useParams();
-  let camera, sceneBB, controls, bones, centreBone, bonePos, targetGeometry, model;
+  let camera, sceneBB, controls, bones, centreBone, bonePos, targetGeometry;
+  let model, glasses, pants, mannequin, gui;
   let selectingCenter = false;
 
   const fetchRefereces = async () => {
@@ -125,6 +127,9 @@ const AnimationScene = () => {
       firebaseURL,
       function (gltf) {
         model = gltf.scene;
+        glasses = model.children[1].children[1];
+        pants = model.children[1].children[2];
+        mannequin = model.children[1].children[3];
         scene.add(model);
 
         model.traverse(function (object) {
@@ -176,8 +181,11 @@ const AnimationScene = () => {
             .clipAction(gltf.animations[1])
             .setDuration(animationDuration / e.target.value);
         });
+
+        // remove loading screen and enable options
         const overlayDiv = document.querySelector('.loadingDiv');
         overlayDiv.style.display = 'none';
+        gui = new SkinOptions(THREE, mannequin, pants, glasses);
       },
       undefined,
       function (e) {
@@ -203,7 +211,7 @@ const AnimationScene = () => {
     };
     container.onmouseup = function(event) {
       clearTimeout(timeoutId);
-      if(selectingCenter && isClick)
+      if(/*selectingCenter &&*/ isClick)
       {
         const rect = renderer.domElement.getBoundingClientRect();
         const x = event.clientX - rect.left;
