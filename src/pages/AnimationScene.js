@@ -18,7 +18,7 @@ const AnimationScene = () => {
   const animationRef = ref(storageRef, "animations");
   const { filename } = useParams();
   let camera, sceneBB, controls, bones, centreBone, bonePos, targetGeometry;
-  let model, glasses, pants, mannequin, gui;
+  let model, glasses, pants, mannequin;
   let selectingCenter = false;
 
   const fetchRefereces = async () => {
@@ -127,9 +127,12 @@ const AnimationScene = () => {
       firebaseURL,
       function (gltf) {
         model = gltf.scene;
-        glasses = model.children[1].children[1];
-        pants = model.children[1].children[2];
-        mannequin = model.children[1].children[3];
+        const skeleton = findChild(model, "mannequin_skeleton");
+        glasses = findChild(skeleton, "Glasses_Square");
+        pants = findChild(skeleton, "Track_pants");
+        mannequin = findChild(skeleton, "mannequin");
+        bones = findChild(skeleton, "Hips_1");
+        centreBone = bones;
         scene.add(model);
 
         model.traverse(function (object) {
@@ -146,8 +149,6 @@ const AnimationScene = () => {
             object.geometry.boundingSphere.expandByPoint(new THREE.Vector3(7,7,7));
           }
         });
-        bones = model.children[1].children;
-        centreBone = bones[0];
         
         mixer = new THREE.AnimationMixer(model);
 
@@ -185,13 +186,22 @@ const AnimationScene = () => {
         // remove loading screen and enable options
         const overlayDiv = document.querySelector('.loadingDiv');
         overlayDiv.style.display = 'none';
-        gui = new SkinOptions(THREE, mannequin, pants, glasses);
+        new SkinOptions(THREE, mannequin, pants, glasses);
       },
       undefined,
       function (e) {
         console.error(e);
       }
     );
+
+    function findChild(parent, childName)
+    {
+      for(var child of parent.children)
+      {
+        if(child.name == childName)
+          return child;
+      }
+    }
 
     container.onresize = function () {
       camera.aspect = window.innerWidth / window.innerHeight;
@@ -238,7 +248,7 @@ const AnimationScene = () => {
         // Find nearest bone
         const pickedPoint = intersects[0].point;
         var minDist = Number.POSITIVE_INFINITY;
-        findNearestBone(bones[0], pickedPoint, minDist);
+        findNearestBone(bones, pickedPoint, minDist);
 
         // visualize selection sphere
         targetGeometry.visible = true;

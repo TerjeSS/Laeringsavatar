@@ -49,15 +49,14 @@ export class SkinOptions {
       this.bukser.addColor(pants.material, 'color').name( 'Farge' );
 
       this.glass.add({'Briller': true}, 'Briller').onChange( () => this.GlassVisibility() );
-      this.glass.addColor( glasses.material, 'color' ).name( 'Farge' ).onChange( function() {
-        this.glassMap = glasses.material.map;
-        glasses.material.map = null;
+      this.glass.addColor( this.glasses.material, 'color' ).name( 'Farge' ).onChange( () => {
+        this.skinHandler.removeGlassMaps(this.glasses.material);
       });
-      this.glass.add( { reset: function() {
-        if (!glasses.material.map) {
-            glasses.material.map = this.glassMap;
+      this.glass.add( { reset: () => {
+        if (!this.glasses.material.map) {
+            this.skinHandler.loadGlasses(this.glasses.material);
         }
-    }}, 'reset' ).name( 'Svarte briller' );
+       }}, 'reset' ).name( 'Svarte briller' );
       
       this.panel.close();
     }

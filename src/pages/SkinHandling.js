@@ -117,6 +117,8 @@ export class SkinHandling {
         material.aoMap = null;
         material.emissiveMap = null;
         material.emissiveIntensity = 1;
+        material.metalnessMap = null;
+        material.metalness = 0;
         material.needsUpdate = true;
     }
 
@@ -130,6 +132,8 @@ export class SkinHandling {
         material.aoMap = null;
         material.emissiveMap = null;
         material.emissiveIntensity = 0;
+        material.metalnessMap = null;
+        material.metalness = 0;
         material.needsUpdate = true;
     }
 
@@ -148,6 +152,39 @@ export class SkinHandling {
         material.emissiveIntensity = 1;
         material.metalnessMap = new THREE.TextureLoader().load('/img/textures/track_pants/Substance_Material_Metallic.png');
         material.metalness = 1;
+        material.needsUpdate = true;
+    }
+
+    loadGlasses(material)
+    {
+        var baseTex = new THREE.TextureLoader().load('/img/textures/glasses/Substance_DefaultMaterial_BaseColor.png');
+        material.map = baseTex;
+        material.map.flipY = false;
+        material.map.encoding = 3001; 
+        material.normalMap = new THREE.TextureLoader().load('/img/textures/glasses/Substance_DefaultMaterial_Normal.png');
+        material.normalMap.flipY = false;
+        material.roughnessMap = new THREE.TextureLoader().load('/img/textures/glasses/Substance_DefaultMaterial_Roughness.png');
+        material.roughnessMap.flipY = false;
+        material.aoMap = null;
+        material.emissiveMap = new THREE.TextureLoader().load('/img/textures/glasses/Substance_DefaultMaterial_Emissive.png');
+        material.emissiveIntensity = 1;
+        material.metalnessMap = new THREE.TextureLoader().load('/img/textures/glasses/Substance_DefaultMaterial_Metallic.png');
+        material.metalness = 1;
+        material.color.r=0;
+        material.color.g=0;
+        material.color.b=0;
+        material.needsUpdate = true;
+    }
+
+    removeGlassMaps(material)
+    {
+        material.map = null;
+        material.normalMap = null;
+        material.roughnessMap = null;
+        material.aoMap = null;
+        material.emissiveMap = null;
+        material.metalnessMap = null;
+        material.metalness = 0;
         material.needsUpdate = true;
     }
 
