@@ -1,22 +1,17 @@
 .control-panel-container{
     position: absolute;
     display: flex;
-    justify-content: space-around;
+    justify-content: center;
     width: 600px;
     top: 0;
     height: 5vh;
     border-radius: 0.5rem;
-    
 }
-.control-panel-container label{
-    margin-top: auto;
-    margin-bottom: auto;
+
+.control-panel-container > * {
+    margin-right: 10px;
 }
-.control-panel-container select{
-    height: 50%;
-    margin-top: auto;
-    margin-bottom: auto;
-}
+
 .control-panel-container button{
     margin-top: auto;
     margin-bottom: auto;
@@ -24,4 +19,117 @@
     height: 80%;
     cursor: pointer;
     width: 6rem;
+}
+
+.control-panel-container input{
+    margin-right: 0px;
+}
+
+.speed-container {
+    display: flex;
+    flex-direction: column;
+}
+.speed-container > * {
+    margin-top: auto;
+    margin-bottom: auto;
+    font-size: 14px;
+}
+.toggle-button {
+    appearance: none;
+  }
+
+  .toggle-button + label {
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: purple;
+    position: relative;
+    cursor: pointer;
+  }
+
+  .toggle-button + label::before {
+    content: "";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    width: 12px;
+    height: 12px;
+    transform: translate(-50%, -50%);
+    box-sizing: border-box;
+    border-right: 4px solid white;
+    border-left: 4px solid white;
+    border-top: 0;
+    border-bottom: 0;
+  }
+
+  .toggle-button:checked + label::before {
+    border-top: 9px solid transparent;
+    border-bottom: 9px solid transparent;
+    border-left: 14px solid white;
+    border-right: 0;
+  }
+
+  .reset-button {
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: purple;
+    position: relative;
+    cursor: pointer;
+}
+
+.reset-button::before {
+    content: "↻";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 20px;
+    color: white;
+    transform: translate(-50%, -50%) rotate(45deg);
+  }
+
+  .prev-button {
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: purple;
+    position: relative;
+    cursor: pointer;
+}
+
+.prev-button::before {
+    content: "⏵";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 20px;
+    color: white;
+    transform: translate(-50%, -50%) scaleX(-1);
+}
+
+.next-button {
+    margin-top: auto;
+    margin-bottom: auto;
+    width: 35px;
+    height: 35px;
+    border-radius: 50%;
+    background-color: purple;
+    position: relative;
+    cursor: pointer;
+}
+
+.next-button::before {
+    content: "⏵";
+    position: absolute;
+    left: 50%;
+    top: 50%;
+    font-size: 20px;
+    color: white;
+    transform: translate(-50%, -50%)
 }

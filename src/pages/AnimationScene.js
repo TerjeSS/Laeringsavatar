@@ -159,29 +159,22 @@ const AnimationScene = () => {
         animate();
 
         //Adding event listeners for the buttons
-        document
-          .querySelector(".pause-button")
-          .addEventListener("click", () => {
-            mixer.clipAction(gltf.animations[1]).paused = true;
-            selectingCenter = true;
-          });
-        document
-          .querySelector(".resume-button")
-          .addEventListener("click", () => {
-            mixer.clipAction(gltf.animations[1]).paused = false;
-            selectingCenter = false;
-          });
+        var toggleButton = document.querySelector("#toggle-button");
+        toggleButton.addEventListener("change", function () {
+          mixer.clipAction(gltf.animations[1]).paused = !mixer.clipAction(gltf.animations[1]).paused;
+          selectingCenter = !selectingCenter;
+        });
         document
           .querySelector(".reset-button")
           .addEventListener("click", () => {
             mixer.clipAction(gltf.animations[1]).reset();
             selectingCenter = false;
           });
-        document.getElementById("speed").addEventListener("change", (e) => {
+    /*    document.getElementById("speed").addEventListener("change", (e) => {
           mixer
             .clipAction(gltf.animations[1])
             .setDuration(animationDuration / e.target.value);
-        });
+        });*/
 
         // remove loading screen and enable options
         const overlayDiv = document.querySelector('.loadingDiv');
