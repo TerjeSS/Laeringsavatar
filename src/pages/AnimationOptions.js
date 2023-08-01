@@ -4,15 +4,17 @@ import {SkinHandling} from "./SkinHandling.js"
 let THREE;
 
 export class SkinOptions {
-    constructor(three, skin, pants, glasses) {
+    constructor(three, skin, pants, glasses, mixer) {
       THREE = three;
       this.skin = skin;
       this.pants = pants;
       this.glasses = glasses;
+      this.mixer = mixer;
       this.skinHandler = new SkinHandling(THREE);
 
       // Create a new GUI instance
-      this.panel = new GUI( {title: "Endre avatar" } );
+      this.panel = new GUI( {title: "⚙️", width: 150 } );
+      this.speed = this.panel.addFolder("Avspilling");
       this.hud = this.panel.addFolder('Hud');
       this.bukser = this.panel.addFolder('Bukser');
       this.glass = this.panel.addFolder('Briller');
@@ -57,6 +59,10 @@ export class SkinOptions {
             this.skinHandler.loadGlasses(this.glasses.material);
         }
        }}, 'reset' ).name( 'Svarte briller' );
+
+      this.speed.add({'Hastighet':1.0}, 'Hastighet', 0.0,2.0,0.01).onChange((speed) => {
+        this.mixer.timeScale = speed;
+      });
       
       this.panel.close();
     }

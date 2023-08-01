@@ -132,16 +132,12 @@ hr{
     }
     .control-panel-container{
         max-width: 370px;
-        min-height: 10vh;
         z-index: 5;
     }
     .control-panel-container button{
         width: 1rem;
         font-size: small;
 
-  }
-  .control-panel-container label{
-    display: none;
   }
   .login-left-container{
     display: none

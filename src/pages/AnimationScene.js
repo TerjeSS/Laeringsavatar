@@ -20,6 +20,8 @@ const AnimationScene = () => {
   let camera, sceneBB, controls, bones, centreBone, bonePos, targetGeometry;
   let model, glasses, pants, mannequin;
   let selectingCenter = false;
+  let singleStepMode = false;
+  let stepSize = 0;
 
   const fetchRefereces = async () => {
     listAll(animationRef)
@@ -161,25 +163,43 @@ const AnimationScene = () => {
         //Adding event listeners for the buttons
         var toggleButton = document.querySelector("#toggle-button");
         toggleButton.addEventListener("change", function () {
-          mixer.clipAction(gltf.animations[1]).paused = !mixer.clipAction(gltf.animations[1]).paused;
+          if(singleStepMode)
+          {
+            mixer.clipAction(gltf.animations[1]).paused = false;
+            singleStepMode = false;
+          } 
+          else 
+            mixer.clipAction(gltf.animations[1]).paused = !mixer.clipAction(gltf.animations[1]).paused;
           selectingCenter = !selectingCenter;
+
         });
         document
           .querySelector(".reset-button")
           .addEventListener("click", () => {
             mixer.clipAction(gltf.animations[1]).reset();
             selectingCenter = false;
+            singleStepMode = false;
+            toggleButton.checked = false;
           });
-    /*    document.getElementById("speed").addEventListener("change", (e) => {
-          mixer
-            .clipAction(gltf.animations[1])
-            .setDuration(animationDuration / e.target.value);
-        });*/
+        document.querySelector(".next-button")
+          .addEventListener("click", () => {
+            mixer.clipAction(gltf.animations[1]).paused = false;
+            toggleButton.checked = true;
+            singleStepMode = true;
+            stepSize = 0.05;
+          });
+          document.querySelector(".prev-button")
+          .addEventListener("click", () => {
+            mixer.clipAction(gltf.animations[1]).paused = false;
+            toggleButton.checked = true;
+            singleStepMode = true;
+            stepSize = -0.05;
+          });
 
         // remove loading screen and enable options
         const overlayDiv = document.querySelector('.loadingDiv');
         overlayDiv.style.display = 'none';
-        new SkinOptions(THREE, mannequin, pants, glasses);
+        new SkinOptions(THREE, mannequin, pants, glasses, mixer);
       },
       undefined,
       function (e) {
@@ -274,7 +294,12 @@ const AnimationScene = () => {
     function animate() {
       requestAnimationFrame(animate);
 
-      const delta = clock.getDelta();
+      let delta = clock.getDelta();
+      if(singleStepMode)
+      {
+        delta = stepSize;
+        stepSize = 0;
+      }
       mixer.update(delta);
 
       if(sceneBB)
