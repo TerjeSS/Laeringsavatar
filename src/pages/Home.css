@@ -51,15 +51,7 @@ button{
     display: flex;
 
 }
-.right-container button{
-    background-color: purple;
-    color: white;
-    font-size: x-large;
-    border-radius: 10px;
-    height: 3rem;
-    border: 0;
-    cursor: pointer;
-}
+
 .right-container h1{
     margin-bottom: 4rem;
 }
@@ -81,6 +73,12 @@ margin-left: 1rem;
     width: 90%;
     height: 90%;
 }
+
+.optionDiv{
+    position: relative;
+    z-index: 2;
+}
+
 .canvas{
     position: absolute;
     z-index: 1;

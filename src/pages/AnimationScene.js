@@ -68,6 +68,7 @@ const AnimationScene = () => {
 
     const clock = new THREE.Clock();
     const container = document.querySelector(".canvas");
+    window.addEventListener('resize', resize, false);
 
     const renderer = new THREE.WebGLRenderer({
       canvas: container,
@@ -199,7 +200,8 @@ const AnimationScene = () => {
         // remove loading screen and enable options
         const overlayDiv = document.querySelector('.loadingDiv');
         overlayDiv.style.display = 'none';
-        new SkinOptions(THREE, mannequin, pants, glasses, mixer);
+        const canvasDiv = document.querySelector(".optionDiv")
+        new SkinOptions(THREE, mannequin, pants, glasses, mixer, canvasDiv);
       },
       undefined,
       function (e) {
@@ -216,11 +218,10 @@ const AnimationScene = () => {
       }
     }
 
-    container.onresize = function () {
+    function resize () {
       camera.aspect = window.innerWidth / window.innerHeight;
       camera.updateProjectionMatrix();
-
-      renderer.setSize(window.innerWidth / window.innerHeight);
+      renderer.setSize(window.innerWidth, window.innerHeight);
     };
 
     var timeoutId;
@@ -336,6 +337,7 @@ const AnimationScene = () => {
 
       <div className="canvasParent">
       <canvas className="canvas"></canvas>
+      <div className="optionDiv"></div>
       <div className="loadingDiv">
           <h1>Laster...</h1>
           <img

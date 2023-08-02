@@ -4,7 +4,7 @@ import {SkinHandling} from "./SkinHandling.js"
 let THREE;
 
 export class SkinOptions {
-    constructor(three, skin, pants, glasses, mixer) {
+    constructor(three, skin, pants, glasses, mixer, div) {
       THREE = three;
       this.skin = skin;
       this.pants = pants;
@@ -13,7 +13,7 @@ export class SkinOptions {
       this.skinHandler = new SkinHandling(THREE);
 
       // Create a new GUI instance
-      this.panel = new GUI( {title: "⚙️", width: 150 } );
+      this.panel = new GUI( {title: "⚙️", container: div} );
       this.speed = this.panel.addFolder("Avspilling");
       this.hud = this.panel.addFolder('Hud');
       this.bukser = this.panel.addFolder('Bukser');
