@@ -116,7 +116,7 @@
     content: "⏵";
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: 50%;
     font-size: 25px;
     color: white;
     transform: translate(-50%, -50%) scaleX(-1);
@@ -137,7 +137,7 @@
     content: "⏵";
     position: absolute;
     left: 50%;
-    top: 40%;
+    top: 50%;
     font-size: 25px;
     color: white;
     transform: translate(-50%, -50%)
