@@ -44,7 +44,7 @@ const DashboardAdminLink = ({ link, setFileReferences }) => {
       <Link to={"/visualisering/" + link.name} key={link.fullPath}>
         {link.name}
       </Link>
-      <button onClick={handleFileDelete}>Slett visualisering</button>
+      <button class="dashboardBtn" onClick={handleFileDelete}>Slett visualisering</button>
       <p>
         <b>Lastet opp av:</b> {uploadedBy} - {uploaded}
       </p>

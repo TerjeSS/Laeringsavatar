@@ -42,7 +42,6 @@ const Login = () => {
       ) {
         setError("Brukernavn eller passord er feil");
       }
-      console.log({ error });
     }
   };
 
@@ -95,7 +94,6 @@ const Login = () => {
       if (error.code === "auth/missing-email") {
         setError("Vennligst fyll inn epostadresse");
       }
-      console.log({ error });
     }
   };
 

@@ -57,7 +57,7 @@ const HomeScreen = () => {
         <>
           <div>Velkommen til VisBev3D. Vær vennlig å logge inn.</div>
           <div>
-            <button>
+            <button class="dashboardBtn">
               <Link to={"/login"}>Logg in</Link>
             </button>
           </div>

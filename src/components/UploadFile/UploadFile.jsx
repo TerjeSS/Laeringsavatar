@@ -38,7 +38,6 @@ const UploadFile = ({ userInfo, fetchVisualisations, setFileReferences }) => {
     const lastDot = name.lastIndexOf(".");
 
     const ext = name.substring(lastDot + 1);
-    console.log(ext);
     return ext;
   };
 
@@ -74,12 +73,11 @@ const UploadFile = ({ userInfo, fetchVisualisations, setFileReferences }) => {
         className="description-textarea"
         onChange={(e) => {
           setDescription(e.target.value);
-          console.log(e.target.value);
         }}
       />
       <br></br>
       <br />
-      <button onClick={handleUpload}>Last opp fil</button>
+      <button class="dashboardBtn" onClick={handleUpload}>Last opp fil</button>
       {uploadStatusMessage && (
         <p className="upload-status-message">{uploadStatusMessage}</p>
       )}

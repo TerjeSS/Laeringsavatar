@@ -5,15 +5,15 @@ const FAQ = () => {
   let questions = [
     {
       question:
-        "Hvordan kan jeg flytte punktet jeg ser på figuren fra når jeg er på en Mac/PCmed touch-pad?",
+        "Hvordan kan jeg flytte punktet jeg ser på figuren fra?",
       answer:
-        "Trykk ned med to fingre og dra enten oppover, nedover eller sidelengs. Da skal du flytte deg horisontalt eller vertikalt i forhold til figuren.",
+        "Trykk på figuren. Hvis en rød markering visualiseres, vil dette være punktet kamera beveger seg rundt."
     },
     {
       question:
         "Hvordan kan jeg se figuren bedre ovenfra, nedenfra eller fra siden?",
       answer:
-        'På mobil eller nettbrett: Bruk én finger på skjermen og skyv den lett opp/ned eller sideveis. Da vil du dreie på "scenen/rommet" som figuren er i ("tilte" rommet.") \nPå touch-pad må du bruke to fingre: Den ene fingertuppen skyves lett ned mens du lar den andre gli lett sideveis mot høyre eller venstre, eller opp- og nedover for å dreie på rommet.',
+        'På mobil eller nettbrett: Bruk én finger på skjermen og skyv den lett opp/ned eller sideveis. Da vil du dreie på "scenen/rommet" som figuren er i.',
     },
     {
       question: "Hvordan kan jeg zoome inn og ut?",
@@ -23,13 +23,7 @@ const FAQ = () => {
     {
       question: "Hvordan kan jeg se bevegelsene i langsommere fart?",
       answer:
-        "Når du er inne i en animasjon. Gå til menylinjen over ruten med visualiseringen: Playback speed. Til høyre for den er det en rute med piler opp over og nedover. Her kan du velge hastighet på avspillingen av animasjonen.",
-    },
-    {
-      question:
-        "Hvordan kan jeg fikse at figuren ser så bred og strekt ut når jeg ser på den i liggende stilling på mobilen?",
-      answer:
-        "Det er lurt å laste inn siden på nytt når du snur til liggende format på mobilen, dette for at kamera skal resette seg til oppløsningen. Det samme gjelder når du bytter tilbake til å holde mobile 'stående', for å hindre at figuren blir strekt ut oppover.",
+        "Juster hastighet under avspilling i instillinger (tannhjulknappen).",
     },
     {
       question:

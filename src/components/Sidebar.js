@@ -5,8 +5,11 @@ import { auth } from "../resources/firebase";
 const SideNavBar = () => {
   const navigate = useNavigate();
   auth.onAuthStateChanged((user) => {
+    var btn = document.querySelector(".logoutBtn");
     if (user) {
+      btn.style.display = "block";
     } else {
+      btn.style.display = "none";
     }
   });
 
@@ -22,7 +25,7 @@ const SideNavBar = () => {
         <Link to={"/faq"}>Hjelp</Link>
       </div>
 
-      <button onClick={() => handleLogout()}>Logg ut</button>
+      <button class="logoutBtn" onClick={() => handleLogout()}>Logg ut</button>
     </div>
   );
 };

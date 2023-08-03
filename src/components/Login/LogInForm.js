@@ -40,7 +40,7 @@ const LogInForm = (props) => {
       </div>
       {error && <div className="error-div">{error.toString()}</div>}
       <div className="login-button-container">
-        <button onClick={loginWithEmail} className="login-button">
+        <button class="dashboardBtn" onClick={loginWithEmail} className="login-button">
           Logg inn
         </button>
       </div>

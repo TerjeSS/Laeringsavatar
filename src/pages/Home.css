@@ -32,7 +32,6 @@ button{
     color: white;
     font-size: x-large;
     border-radius: 10px;
-    height: 3rem;
     border: 0;
     cursor: pointer;
     width: 80%;
@@ -45,7 +44,6 @@ button{
     justify-content: center;
     align-items: center;
     margin-left: 2rem;
-
 }
 .dashboard-container {
     display: flex;
@@ -101,6 +99,17 @@ hr{
     width: 50%;
     left: 0;
 }
+
+.dashboardBtn{
+    background-color: purple;
+    color: white;
+    font-size: x-large;
+    border-radius: 10px;
+    height: 3rem;
+    border: 0;
+    cursor: pointer;
+}
+
 .link-container{
     border-left: 0px;
     border-top: 0px;

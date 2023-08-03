@@ -157,8 +157,6 @@ const AnimationScene = () => {
 
         //Starts the animation
         mixer.clipAction(gltf.animations[1]).play();
-        const animationDuration = mixer.clipAction(gltf.animations[1])._clip
-          .duration;
         animate();
 
         //Adding event listeners for the buttons
