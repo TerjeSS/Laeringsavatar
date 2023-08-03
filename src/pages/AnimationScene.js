@@ -199,7 +199,8 @@ const AnimationScene = () => {
         const overlayDiv = document.querySelector('.loadingDiv');
         overlayDiv.style.display = 'none';
         const canvasDiv = document.querySelector(".optionDiv")
-        new SkinOptions(THREE, mannequin, pants, glasses, mixer, canvasDiv);
+        const audioDiv = document.querySelector("audio");
+        new SkinOptions(THREE, mannequin, pants, glasses, mixer, canvasDiv,audioDiv);
       },
       undefined,
       function (e) {
@@ -346,6 +347,9 @@ const AnimationScene = () => {
           />
       </div>
       </div>
+      <audio autoplay loop controls>
+        <source src="/mp3/Art-Of-Silence.mp3" type="audio/mpeg" />
+      </audio>
     </>
   );
 };

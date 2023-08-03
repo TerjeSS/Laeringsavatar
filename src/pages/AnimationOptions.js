@@ -4,17 +4,25 @@ import {SkinHandling} from "./SkinHandling.js"
 let THREE;
 
 export class SkinOptions {
-    constructor(three, skin, pants, glasses, mixer, div) {
+    constructor(three, skin, pants, glasses, mixer, div,audioDiv) {
       THREE = three;
       this.skin = skin;
       this.pants = pants;
       this.glasses = glasses;
       this.mixer = mixer;
       this.skinHandler = new SkinHandling(THREE);
+      this.audioDiv = audioDiv;
+      this.musicSettings = {
+        "Art Of Silence": ()=>this.SetSong("Art-Of-Silence"),
+        "Memories of Spring": ()=>this.SetSong("Memories-of-Spring"),
+        "Weekend": ()=>this.SetSong("Weekend"),
+        "ingen musikk": ()=>this.SetSong("")
+    };
 
       // Create a new GUI instance
       this.panel = new GUI( {title: "⚙️", container: div} );
       this.speed = this.panel.addFolder("Avspilling");
+      this.music = this.panel.addFolder("Musikk");
       this.hud = this.panel.addFolder('Hud');
       this.bukser = this.panel.addFolder('Bukser');
       this.glass = this.panel.addFolder('Briller');
@@ -63,6 +71,12 @@ export class SkinOptions {
       this.speed.add({'Hastighet':1.0}, 'Hastighet', 0.0,2.0,0.01).onChange((speed) => {
         this.mixer.timeScale = speed;
       });
+
+      this.music.add(this.musicSettings, 'Art Of Silence');
+      this.music.add(this.musicSettings, 'Memories of Spring');
+      this.music.add(this.musicSettings, 'Weekend');
+      this.music.add(this.musicSettings, 'ingen musikk');
+      this.music.close();
       
       this.panel.close();
     }
@@ -168,6 +182,23 @@ export class SkinOptions {
     GlassVisibility()
     {
         this.glasses.visible = !this.glasses.visible;
+    }
+
+    SetSong(song)
+    {
+        const source = this.audioDiv.querySelector("source");
+        if(song == "")
+        {
+            this.audioDiv.pause();
+            source.removeAttribute("src");
+        }
+        else
+        {
+            const songPath = "/mp3/"+song+".mp3";
+            source.setAttribute("src", songPath);
+            this.audioDiv.load();
+            this.audioDiv.oncanplaythrough = () => {this.audioDiv.play();};
+        }
     }
   
   }
