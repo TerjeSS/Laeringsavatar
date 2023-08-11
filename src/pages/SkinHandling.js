@@ -94,8 +94,8 @@ export class SkinHandling {
 
     loadPolypropylene(material)
     {
-        var baseTex = loadTiffTexture(this.loader, '/img/textures/polypropylene/TexturesCom_Plastic_PolypropyleneRough_1K_albedo.tif');
-        material.map = baseTex;
+//        var baseTex = loadTiffTexture(this.loader, '/img/textures/polypropylene/TexturesCom_Plastic_PolypropyleneRough_1K_albedo.tif');
+        material.map = null;
         var normalTex = loadTiffTexture(this.loader, '/img/textures/polypropylene/TexturesCom_Plastic_PolypropyleneRough_1K_normal.tif');
         material.normalMap = normalTex;
         var roughMap = loadTiffTexture(this.loader, '/img/textures/polypropylene/TexturesCom_Plastic_PolypropyleneRough_1K_roughness.tif');

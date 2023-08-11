@@ -46,14 +46,14 @@ export class SkinOptions {
       this.blank = this.hud.add(settings, 'Blank');
       this.snakeSkin = this.hud.add(settings, 'Slange');
       this.goldSkin = this.hud.add(settings, 'Gull');
-      this.plasticSkin = this.hud.add(settings, 'Plast');
+ //     this.plasticSkin = this.hud.add(settings, 'Plast');
       this.hud.addColor(skin.material, 'color').name( 'Farge' );
 
       this.trackPants = this.bukser.add(settings, 'Treningsbukse');
       this.trackPants.disable();
       this.cottonPants = this.bukser.add(settings, 'Joggebukse');
       this.jeans = this.bukser.add(settings, 'Jeans'); 
-      this.leatherPants = this.bukser.add(settings, 'Lærbukse');     
+//      this.leatherPants = this.bukser.add(settings, 'Lærbukse');     
       this.snakePants = this.bukser.add(settings, 'Slangebukse');
       this.goldPants = this.bukser.add(settings, 'Gullbukse');
       this.bukser.addColor(pants.material, 'color').name( 'Farge' );

@@ -31,6 +31,12 @@ const FAQ = () => {
       answer:
         "Ja, det stemmer - i prototypen er det ikke mulig å se navigasjonen og menyen på mobil. Du kan kun se på en animasjon sendt til deg på en lenke (der du har klikket på lenken) eller hvis du skriver inn lenke-teksten. Hvis du trenger meny/navigasjon for å laste opp fil til appen må du gjøre det fra en PC eller et nettbrett.",
     },
+    {
+      question:
+        "Hvor kommer musikken fra?",
+      answer:
+        "Art of silence by uniq\nhttps://soundcloud.com/uniqofficial/\nMemories of Spring by Tokyo Music Walker | https://soundcloud.com/user-356546060\nWeekend by LesFM | https://lesfm.net/acoustic-background-music/\nAttribution 4.0 International (CC BY 4.0)\nhttps://creativecommons.org/licenses/by/4.0/\nMusic promoted by https://www.chosic.com/free-music/all/",
+    },
   ];
 
   return (

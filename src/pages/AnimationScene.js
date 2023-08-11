@@ -58,6 +58,7 @@ const AnimationScene = () => {
       });
 
       sceneBB = new THREE.Box3().setFromObject(gltf.scene);
+      sceneBB.expandByScalar(3.0);
       scene.add(gltf.scene);
     });
   }
@@ -308,10 +309,10 @@ const AnimationScene = () => {
           camera.position.x = sceneBB.max.x;
         if(camera.position.x < sceneBB.min.x)
           camera.position.x = sceneBB.min.x;
-        if(camera.position.y > sceneBB.max.y)
-          camera.position.y = sceneBB.max.y;
-        if(camera.position.y < sceneBB.min.y)
-          camera.position.y = sceneBB.min.y;
+        if(camera.position.y > sceneBB.max.y+5)
+          camera.position.y = sceneBB.max.y+5;
+        if(camera.position.y < sceneBB.min.y+3)
+          camera.position.y = sceneBB.min.y+3;
         if(camera.position.z > sceneBB.max.z)
           camera.position.z = sceneBB.max.z;
         if(camera.position.z < sceneBB.min.z)
@@ -347,7 +348,7 @@ const AnimationScene = () => {
           />
       </div>
       </div>
-      <audio autoplay loop controls>
+      <audio loop>
         <source src="/mp3/Art-Of-Silence.mp3" type="audio/mpeg" />
       </audio>
     </>
