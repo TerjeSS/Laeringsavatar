@@ -133,7 +133,7 @@ export class SkinHandling {
         material.emissiveMap = null;
         material.emissiveIntensity = 0;
         material.metalnessMap = null;
-        material.metalness = 0;
+        material.metalness = 0.5;
         material.needsUpdate = true;
     }
 
