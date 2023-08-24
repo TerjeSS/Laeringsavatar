@@ -9,7 +9,7 @@ import { getDownloadURL, listAll, ref } from "firebase/storage";
 import ControlPanel from "../components/ControlPanel/ControlPanel";
 import { storage } from "../resources/firebase";
 import { useParams } from "react-router-dom";
-import {SkinOptions} from "./AnimationOptions.js"
+import { SkinOptions } from "./AnimationOptions.js"
 
 const AnimationScene = () => {
   const [firebaseURL, setFirebaseURL] = useState("");
@@ -18,7 +18,7 @@ const AnimationScene = () => {
   const animationRef = ref(storageRef, "animations");
   const { filename } = useParams();
   let camera, sceneBB, controls, bones, centreBone, bonePos, targetGeometry;
-  let model, glasses, pants, mannequin;
+  let renderer, scene, model, glasses, pants, mannequin, loader, mixer, clock;
   let selectingCenter = false;
   let singleStepMode = false;
   let stepSize = 0;
@@ -48,81 +48,13 @@ const AnimationScene = () => {
   }, 1);
 
   //THREE.JS SECTION ***************
-  function loadScene(scene) {
-    const loader = new GLTFLoader();
-    loader.load("/Stage.glb", (gltf) => {
-      gltf.scene.traverse(function (node) {
-        if (node.isMesh) {
-          node.receiveShadow = true;
-        }
-      });
-
-      sceneBB = new THREE.Box3().setFromObject(gltf.scene);
-      sceneBB.expandByScalar(3.0);
-      scene.add(gltf.scene);
-    });
+  function findChild(parent, childName) {
+    for (var child of parent.children) {
+      if (child.name == childName)
+        return child;
+    }
   }
-
-  function createScene() {
-    let mixer;
-    bonePos = new THREE.Vector3();
-
-    const clock = new THREE.Clock();
-    const container = document.querySelector(".canvas");
-    window.addEventListener('resize', resize, false);
-
-    const renderer = new THREE.WebGLRenderer({
-      canvas: container,
-      antialias: true,
-    });
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    renderer.outputColorSpace = THREE.SRGBColorSpace;
-    renderer.shadowMap.enabled = true;
-    renderer.physicallyCorrectLights = true;
-
-    const scene = new THREE.Scene();
-    scene.background = new THREE.Color(0x000000);
-
-    //Camera
-    camera = new THREE.PerspectiveCamera(
-      50,
-      window.innerWidth / window.innerHeight,
-      0.1,
-      20
-    );
-    camera.position.set(0, 2, 3);
-    camera.lookAt(0, 2, -5);
-
-    //Controls
-    controls = new OrbitControls(camera, renderer.domElement);
-    controls.target.set(0, 1, 0);
-    controls.update();
-
-    loadScene(scene);
-
-    // lights
-    const dirLight = new THREE.DirectionalLight('white');
-    dirLight.position.set(0, 1, -0.4);
-    dirLight.castShadow = false;
-    scene.add(dirLight);
-
-    const lightFromBack = new THREE.DirectionalLight('white');
-    lightFromBack.position.set(0, 1, 0.8);
-    lightFromBack.castShadow = true;
-    scene.add(lightFromBack);
-
-    const ambLight = new THREE.AmbientLight('white',5);
-    scene.add(ambLight);
-
-    // Geometry
-    const sphere = new THREE.SphereGeometry(0.1);
-    const targetMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
-    targetGeometry = new THREE.Mesh(sphere, targetMaterial);
-    targetGeometry.visible = false;
-    scene.add(targetGeometry);
-
-    //Loaders   
+  function loadModel() {
     const dracoLoader = new DRACOLoader();
     dracoLoader.setDecoderPath("js/libs/draco/gltf/");
     const loader = new GLTFLoader();
@@ -140,8 +72,7 @@ const AnimationScene = () => {
         scene.add(model);
 
         model.traverse(function (object) {
-          if (object.isMesh) 
-          {
+          if (object.isMesh) {
             object.castShadow = true;
             // increase bounding box to make raycasting work
             object.geometry.boundingBox = sceneBB.clone();
@@ -150,25 +81,23 @@ const AnimationScene = () => {
             sceneBB.getCenter(center);
             const radius = sceneBB.getSize(new THREE.Vector3()).length() / 2;
             object.geometry.boundingSphere = new THREE.Sphere(center, radius);
-            object.geometry.boundingSphere.expandByPoint(new THREE.Vector3(7,7,7));
+            object.geometry.boundingSphere.expandByPoint(new THREE.Vector3(7, 7, 7));
           }
         });
-        
+
         mixer = new THREE.AnimationMixer(model);
 
         //Starts the animation
         mixer.clipAction(gltf.animations[1]).play();
-        animate();
 
         //Adding event listeners for the buttons
         var toggleButton = document.querySelector("#toggle-button");
         toggleButton.addEventListener("change", function () {
-          if(singleStepMode)
-          {
+          if (singleStepMode) {
             mixer.clipAction(gltf.animations[1]).paused = false;
             singleStepMode = false;
-          } 
-          else 
+          }
+          else
             mixer.clipAction(gltf.animations[1]).paused = !mixer.clipAction(gltf.animations[1]).paused;
           selectingCenter = !selectingCenter;
 
@@ -188,7 +117,7 @@ const AnimationScene = () => {
             singleStepMode = true;
             stepSize = 0.05;
           });
-          document.querySelector(".prev-button")
+        document.querySelector(".prev-button")
           .addEventListener("click", () => {
             mixer.clipAction(gltf.animations[1]).paused = false;
             toggleButton.checked = true;
@@ -201,7 +130,8 @@ const AnimationScene = () => {
         overlayDiv.style.display = 'none';
         const canvasDiv = document.querySelector(".optionDiv")
         const audioDiv = document.querySelector("audio");
-        new SkinOptions(THREE, mannequin, pants, glasses, mixer, canvasDiv,audioDiv);
+        new SkinOptions(THREE, mannequin, pants, glasses, mixer, canvasDiv, audioDiv);
+        animate();
       },
       undefined,
       function (e) {
@@ -209,126 +139,185 @@ const AnimationScene = () => {
       }
     );
 
-    function findChild(parent, childName)
-    {
-      for(var child of parent.children)
-      {
-        if(child.name == childName)
-          return child;
-      }
-    }
+  }
 
-    function resize () {
-      camera.aspect = window.innerWidth / window.innerHeight;
-      camera.updateProjectionMatrix();
-      renderer.setSize(window.innerWidth, window.innerHeight);
-    };
+  function loadScene(scene) {
+    loader = new GLTFLoader();
+    loader.load("/Stage.glb", (gltf) => {
+      gltf.scene.traverse(function (node) {
+        if (node.isMesh) {
+          node.receiveShadow = true;
+        }
+      });
+
+      sceneBB = new THREE.Box3().setFromObject(gltf.scene);
+      sceneBB.expandByScalar(3.0);
+      scene.add(gltf.scene);
+
+      loadModel();
+    });
+  }
+
+  function createScene() {
+    bonePos = new THREE.Vector3();
+
+    clock = new THREE.Clock();
+    const container = document.querySelector(".canvas");
+    window.addEventListener('resize', resize, false);
+
+    renderer = new THREE.WebGLRenderer({
+      canvas: container,
+      antialias: true,
+    });
+    renderer.setPixelRatio(window.devicePixelRatio);
+    renderer.setSize(window.innerWidth, window.innerHeight);
+    renderer.outputColorSpace = THREE.SRGBColorSpace;
+    renderer.shadowMap.enabled = true;
+    renderer.physicallyCorrectLights = true;
+
+    scene = new THREE.Scene();
+    scene.background = new THREE.Color(0x000000);
+
+    //Camera
+    camera = new THREE.PerspectiveCamera(
+      50,
+      window.innerWidth / window.innerHeight,
+      0.1,
+      20
+    );
+    camera.position.set(0, 2, 3);
+    camera.lookAt(0, 2, -5);
+
+    //Controls
+    controls = new OrbitControls(camera, renderer.domElement);
+    controls.target.set(0, 1, 0);
+    controls.update();
+
+    // lights
+    const dirLight = new THREE.DirectionalLight('white');
+    dirLight.position.set(0, 1, -0.4);
+    dirLight.castShadow = false;
+    scene.add(dirLight);
+
+    const lightFromBack = new THREE.DirectionalLight('white');
+    lightFromBack.position.set(0, 1, 0.8);
+    lightFromBack.castShadow = true;
+    scene.add(lightFromBack);
+
+    const ambLight = new THREE.AmbientLight('white', 5);
+    scene.add(ambLight);
+
+    // Geometry
+    const sphere = new THREE.SphereGeometry(0.1);
+    const targetMaterial = new THREE.MeshBasicMaterial({ color: 0xff0000 });
+    targetGeometry = new THREE.Mesh(sphere, targetMaterial);
+    targetGeometry.visible = false;
+    scene.add(targetGeometry);
 
     var timeoutId;
     var pickDelay = 250;
-    var selectDelay = 500;
     var isClick = true;
-    container.onmousedown = function(event) {
-      timeoutId = setTimeout(function() {
+    container.onmousedown = function (event) {
+      timeoutId = setTimeout(function () {
         isClick = false;
       }, pickDelay);
     };
-    container.onmouseup = function(event) {
+    container.onmouseup = function (event) {
       clearTimeout(timeoutId);
-      if(/*selectingCenter &&*/ isClick)
-      {
+      if (/*selectingCenter &&*/ isClick) {
         const rect = renderer.domElement.getBoundingClientRect();
         const x = event.clientX - rect.left;
         const y = event.clientY - rect.top;
-    
+
         var mouse = new THREE.Vector2();
         var canvas = document.querySelector(".canvas");
-        mouse.x = ( x / canvas.clientWidth ) *  2 - 1;
-        mouse.y = ( y / canvas.clientHeight) * - 2 + 1
+        mouse.x = (x / canvas.clientWidth) * 2 - 1;
+        mouse.y = (y / canvas.clientHeight) * - 2 + 1
         selectPickedBone(mouse);
       }
       isClick = true;
     }
+    
+    loadScene(scene);
+  }
 
-    function selectPickedBone(mousePos)
-    {
-      camera.updateMatrixWorld();
-      var raycaster = new THREE.Raycaster();
-      raycaster.setFromCamera( mousePos, camera );    
+  function resize() {
+    camera.aspect = window.innerWidth / window.innerHeight;
+    camera.updateProjectionMatrix();
+    renderer.setSize(window.innerWidth, window.innerHeight);
+  }
 
-      var intersects = raycaster.intersectObjects(model.children, true);
+  function selectPickedBone(mousePos) {
+    camera.updateMatrixWorld();
+    var raycaster = new THREE.Raycaster();
+    raycaster.setFromCamera(mousePos, camera);
 
-      if(intersects.length > 0){
-        // Find nearest bone
-        const pickedPoint = intersects[0].point;
-        var minDist = Number.POSITIVE_INFINITY;
-        findNearestBone(bones, pickedPoint, minDist);
+    var intersects = raycaster.intersectObjects(model.children, true);
 
-        // visualize selection sphere
-        targetGeometry.visible = true;
-        centreBone.getWorldPosition(bonePos);
-        targetGeometry.position.copy(bonePos);
-        setTimeout(function() {targetGeometry.visible = false;}, selectDelay);
-      }
+    if (intersects.length > 0) {
+      // Find nearest bone
+      const pickedPoint = intersects[0].point;
+      var minDist = Number.POSITIVE_INFINITY;
+      findNearestBone(bones, pickedPoint, minDist);
+
+      // visualize selection sphere
+      targetGeometry.visible = true;
+      centreBone.getWorldPosition(bonePos);
+      targetGeometry.position.copy(bonePos);
+      var selectDelay = 500;
+      setTimeout(function () { targetGeometry.visible = false; }, selectDelay);
+    }
+  }
+
+  function findNearestBone(bone, point, minDist) {
+    var bonePosition = new THREE.Vector3();
+    bone.getWorldPosition(bonePosition);
+    var distance = point.distanceTo(bonePosition);
+    if (distance < minDist) {
+      minDist = distance;
+      centreBone = bone;
     }
 
-    function findNearestBone(bone, point, minDist)
-    {
-      var bonePosition = new THREE.Vector3();
-      bone.getWorldPosition(bonePosition);
-      var distance = point.distanceTo(bonePosition);
-      if(distance < minDist)
-      {
-        minDist = distance;
-        centreBone = bone;
-      }
-
-      for(var childBone of bone.children)
-      {
-        minDist = findNearestBone(childBone, point, minDist);
-      }
-
-      return minDist;
+    for (var childBone of bone.children) {
+      minDist = findNearestBone(childBone, point, minDist);
     }
 
-    //Recursive animate-function
-    function animate() {
-      requestAnimationFrame(animate);
+    return minDist;
+  }
 
-      let delta = clock.getDelta();
-      if(singleStepMode)
-      {
-        delta = stepSize;
-        stepSize = 0;
-      }
+  //Recursive animate-function
+  function animate() {
+    requestAnimationFrame(animate);
+
+    let delta = clock.getDelta();
+    if (singleStepMode) {
+      delta = stepSize;
+      stepSize = 0;
+    }
+    if(mixer)
       mixer.update(delta);
 
-      if(sceneBB)
-      {
-        if(camera.position.x > sceneBB.max.x)
-          camera.position.x = sceneBB.max.x;
-        if(camera.position.x < sceneBB.min.x)
-          camera.position.x = sceneBB.min.x;
-        if(camera.position.y > sceneBB.max.y+5)
-          camera.position.y = sceneBB.max.y+5;
-        if(camera.position.y < sceneBB.min.y+3)
-          camera.position.y = sceneBB.min.y+3;
-        if(camera.position.z > sceneBB.max.z)
-          camera.position.z = sceneBB.max.z;
-        if(camera.position.z < sceneBB.min.z)
-          camera.position.z = sceneBB.min.z;
-      }
-
-      if(centreBone)
-      {
-        centreBone.getWorldPosition(bonePos);
-        controls.target.copy(bonePos);
-      }
-      
-      renderer.render(scene, camera);
+    if (sceneBB) {
+      if (camera.position.x > sceneBB.max.x)
+        camera.position.x = sceneBB.max.x;
+      if (camera.position.x < sceneBB.min.x)
+        camera.position.x = sceneBB.min.x;
+      if (camera.position.y > sceneBB.max.y + 5)
+        camera.position.y = sceneBB.max.y + 5;
+      if (camera.position.y < sceneBB.min.y + 3)
+        camera.position.y = sceneBB.min.y + 3;
+      if (camera.position.z > sceneBB.max.z)
+        camera.position.z = sceneBB.max.z;
+      if (camera.position.z < sceneBB.min.z)
+        camera.position.z = sceneBB.min.z;
     }
 
-    return mixer;
+    if (centreBone) {
+      centreBone.getWorldPosition(bonePos);
+      controls.target.copy(bonePos);
+    }
+
+    renderer.render(scene, camera);
   }
 
   return (
@@ -336,9 +325,9 @@ const AnimationScene = () => {
       <ControlPanel />
 
       <div className="canvasParent">
-      <canvas className="canvas"></canvas>
-      <div className="optionDiv"></div>
-      <div className="loadingDiv">
+        <canvas className="canvas"></canvas>
+        <div className="optionDiv"></div>
+        <div className="loadingDiv">
           <h1>Laster...</h1>
           <img
             height="300px"
@@ -346,7 +335,7 @@ const AnimationScene = () => {
             src="/img/mesh_models.png"
             alt="dancingImage"
           />
-      </div>
+        </div>
       </div>
       <audio loop>
         <source src="/mp3/Art-Of-Silence.mp3" type="audio/mpeg" />
