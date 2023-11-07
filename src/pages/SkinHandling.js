@@ -106,9 +106,18 @@ export class SkinHandling {
         material.needsUpdate = true;
     }
 
-    loadDefaultManequin(material)
+    loadDefaultManequin(material, model)
     {
-        var baseTex = new THREE.TextureLoader().load('/img/textures/tex_mannequin_graywireframe.png');
+        var baseTex = new THREE.TextureLoader().load('/img/textures/tex_mannequin_graywireframe.png',
+            function(tex) {
+                if(model)
+                    model.parent.parent.visible = true;
+            },
+            undefined,
+            function ( err ) {
+                console.error( 'An error happened.' );
+            }
+        );
         material.map = baseTex;
         material.map.flipY = false;
         material.map.encoding = 3001; 
@@ -186,6 +195,16 @@ export class SkinHandling {
         material.metalnessMap = null;
         material.metalness = 0;
         material.needsUpdate = true;
+    }
+
+    createDefaultSkin(human, pants, glasses)
+    {
+        human.material = new THREE.MeshStandardMaterial();
+        this.loadDefaultManequin(human.material, human);
+        pants.material = new THREE.MeshStandardMaterial();
+        this.loadDefaultPants(pants.material);
+        glasses.material = new THREE.MeshStandardMaterial();
+        this.loadGlasses(glasses.material);
     }
 
 }

@@ -53,6 +53,7 @@ const AnimationScene = () => {
       if (child.name == childName)
         return child;
     }
+    return null;
   }
   function loadModel() {
     const dracoLoader = new DRACOLoader();
@@ -63,11 +64,22 @@ const AnimationScene = () => {
       firebaseURL,
       function (gltf) {
         model = gltf.scene;
-        const skeleton = findChild(model, "mannequin_skeleton");
-        glasses = findChild(skeleton, "Glasses_Square");
-        pants = findChild(skeleton, "Track_pants");
-        mannequin = findChild(skeleton, "mannequin");
-        bones = findChild(skeleton, "Hips_1");
+        model.visible = false;
+        var skeleton = findChild(model, "GLB_GRP");
+        if(!skeleton)
+          skeleton = findChild(model, "mannequin_skeleton");
+        glasses = findChild(skeleton, "Glasses_Square2");
+        if(!glasses)
+          glasses = findChild(skeleton, "Glasses_Square");
+        pants = findChild(skeleton, "TrackFBXASC032pants2");
+        if(!pants)
+          pants = findChild(skeleton, "Track_pants");
+        mannequin = findChild(skeleton, "mannequin2");
+        if(!mannequin)
+          mannequin = findChild(skeleton, "mannequin");
+        bones = findChild(skeleton, "Hips");
+        if(!bones)
+          bones = findChild(skeleton, "Hips_1");
         centreBone = bones;
         scene.add(model);
 
@@ -88,38 +100,39 @@ const AnimationScene = () => {
         mixer = new THREE.AnimationMixer(model);
 
         //Starts the animation
-        mixer.clipAction(gltf.animations[1]).play();
+        var animationSequence = gltf.animations.slice(-1)[0];
+        mixer.clipAction(animationSequence).play();
 
         //Adding event listeners for the buttons
         var toggleButton = document.querySelector("#toggle-button");
         toggleButton.addEventListener("change", function () {
           if (singleStepMode) {
-            mixer.clipAction(gltf.animations[1]).paused = false;
+            mixer.clipAction(animationSequence).paused = false;
             singleStepMode = false;
           }
           else
-            mixer.clipAction(gltf.animations[1]).paused = !mixer.clipAction(gltf.animations[1]).paused;
+            mixer.clipAction(animationSequence).paused = !mixer.clipAction(animationSequence).paused;
           selectingCenter = !selectingCenter;
 
         });
         document
           .querySelector(".reset-button")
           .addEventListener("click", () => {
-            mixer.clipAction(gltf.animations[1]).reset();
+            mixer.clipAction(animationSequence).reset();
             selectingCenter = false;
             singleStepMode = false;
             toggleButton.checked = false;
           });
         document.querySelector(".next-button")
           .addEventListener("click", () => {
-            mixer.clipAction(gltf.animations[1]).paused = false;
+            mixer.clipAction(animationSequence).paused = false;
             toggleButton.checked = true;
             singleStepMode = true;
             stepSize = 0.05;
           });
         document.querySelector(".prev-button")
           .addEventListener("click", () => {
-            mixer.clipAction(gltf.animations[1]).paused = false;
+            mixer.clipAction(animationSequence).paused = false;
             toggleButton.checked = true;
             singleStepMode = true;
             stepSize = -0.05;

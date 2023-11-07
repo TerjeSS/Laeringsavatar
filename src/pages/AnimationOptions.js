@@ -11,13 +11,14 @@ export class SkinOptions {
       this.glasses = glasses;
       this.mixer = mixer;
       this.skinHandler = new SkinHandling(THREE);
+      this.skinHandler.createDefaultSkin(skin, pants, glasses);
       this.audioDiv = audioDiv;
       this.musicSettings = {
         "Art Of Silence": ()=>this.SetSong("Art-Of-Silence"),
         "Memories of Spring": ()=>this.SetSong("Memories-of-Spring"),
         "Weekend": ()=>this.SetSong("Weekend"),
         "ingen musikk": ()=>this.SetSong("")
-    };
+      };
 
       // Create a new GUI instance
       this.panel = new GUI( {title: "⚙️", container: div} );
@@ -93,7 +94,7 @@ export class SkinOptions {
 
     SetMesh()
     {
-        this.skinHandler.loadDefaultManequin(this.skin.material);
+        this.skinHandler.loadDefaultManequin(this.skin.material, null);
         this.EnableAllSkins();
         this.mesh.disable();
     }
