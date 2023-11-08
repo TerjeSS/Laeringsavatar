@@ -64,7 +64,7 @@ const AnimationScene = () => {
       firebaseURL,
       function (gltf) {
         model = gltf.scene;
-        model.visible = false;
+  //      model.visible = false;
         var skeleton = findChild(model, "GLB_GRP");
         if(!skeleton)
           skeleton = findChild(model, "mannequin_skeleton");

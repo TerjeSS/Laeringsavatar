@@ -11,7 +11,7 @@ export class SkinOptions {
       this.glasses = glasses;
       this.mixer = mixer;
       this.skinHandler = new SkinHandling(THREE);
-  //    this.skinHandler.createDefaultSkin(skin, pants, glasses);
+ //     this.skinHandler.createDefaultSkin(skin, pants, glasses);
       this.audioDiv = audioDiv;
       this.musicSettings = {
         "Art Of Silence": ()=>this.SetSong("Art-Of-Silence"),
