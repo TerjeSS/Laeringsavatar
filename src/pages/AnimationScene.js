@@ -186,7 +186,7 @@ const AnimationScene = () => {
     renderer.setSize(window.innerWidth, window.innerHeight);
     renderer.outputColorSpace = THREE.SRGBColorSpace;
     renderer.shadowMap.enabled = true;
-    renderer.physicallyCorrectLights = true;
+    renderer.useLegacyLights = true;
 
     scene = new THREE.Scene();
     scene.background = new THREE.Color(0x000000);
@@ -217,7 +217,7 @@ const AnimationScene = () => {
     lightFromBack.castShadow = true;
     scene.add(lightFromBack);
 
-    const ambLight = new THREE.AmbientLight('white', 5);
+    const ambLight = new THREE.AmbientLight('white',2);
     scene.add(ambLight);
 
     // Geometry
