@@ -207,12 +207,12 @@ const AnimationScene = () => {
     controls.update();
 
     // lights
-    const dirLight = new THREE.DirectionalLight('white');
+    const dirLight = new THREE.DirectionalLight('white',0.5);
     dirLight.position.set(0, 1, -0.4);
     dirLight.castShadow = false;
     scene.add(dirLight);
 
-    const lightFromBack = new THREE.DirectionalLight('white');
+    const lightFromBack = new THREE.DirectionalLight('white',0.5);
     lightFromBack.position.set(0, 1, 0.8);
     lightFromBack.castShadow = true;
     scene.add(lightFromBack);
