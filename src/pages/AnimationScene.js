@@ -79,7 +79,10 @@ const AnimationScene = () => {
           mannequin = findChild(skeleton, "mannequin");
         bones = findChild(skeleton, "Hips");
         if(!bones)
-          bones = findChild(skeleton, "Hips_1");
+        {
+          var armature = findChild(skeleton, "Armature");
+          bones = findChild(armature, "Hips_1");
+        }
         centreBone = bones;
         scene.add(model);
 
