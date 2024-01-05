@@ -80,6 +80,10 @@ const AnimationScene = () => {
         bones = findChild(skeleton, "Hips");
         if(!bones)
         {
+          bones = findChild(skeleton, "Hips_1");
+        }
+        if(!bones)
+        {
           var armature = findChild(skeleton, "Armature");
           bones = findChild(armature, "Hips_1");
         }
